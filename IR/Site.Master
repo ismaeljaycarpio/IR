@@ -106,16 +106,14 @@
                             <asp:RoleGroup Roles="Admin">
                                 <ContentTemplate>
                                     <ul class="nav navbar-nav">
-                                        <li class="dropdown" runat="server"><a runat="server" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">File Maintenance<span class="caret"></span></a>
+                                        <%--<li class="dropdown" runat="server"><a runat="server" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">File Maintenance<span class="caret"></span></a>
                                             <ul class="dropdown-menu">
                                                 <li><a runat="server" href="~/guest/default.aspx">Guest</a></li>
                                                 <li><a runat="server" href="~/room/default.aspx">Room</a></li>
                                                 <li><a runat="server" href="~/room/dining.aspx">Dining</a></li>
                                             </ul>
-                                        </li>
-                                        <li><a runat="server" href="~/gcapproval/default.aspx">GC Approval</a></li>
-                                        <li><a runat="server" href="~/fo/frontoffice.aspx">Front Office</a></li>
-                                        <li><a runat="server" href="~/admin/userconfig.aspx">User Config</a></li>
+                                        </li>--%>
+                                        <li><a runat="server" href="~/ir/ir.aspx">Incident Report</a></li>
                                     </ul>
                                     <ul class="nav navbar-nav navbar-right">
                                         <li class="dropdown">
