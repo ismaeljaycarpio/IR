@@ -38,91 +38,94 @@
                         <div class="form-group">
                             <label for="txtFrom" class="col-sm-3 control-label">From: </label>
                             <div class="col-sm-6">
-                                <asp:TextBox ID="txtFrom" runat="server" CssClass="form-control" placeholder="Ticket No"></asp:TextBox>
+                                <asp:TextBox ID="txtFrom" runat="server" CssClass="form-control"
+                                    placeholder="From"></asp:TextBox>
                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator1"
                                     runat="server"
                                     Display="Dynamic"
                                     ControlToValidate="txtFrom"
                                     CssClass="label label-danger"
-                                    ErrorMessage="Ticket No is required"></asp:RequiredFieldValidator>
+                                    ErrorMessage="From is required"></asp:RequiredFieldValidator>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label for="txtSubject" class="col-sm-3 control-label">Subject: </label>
                             <div class="col-sm-6">
-                                <asp:TextBox ID="txtSubject" runat="server" CssClass="form-control" placeholder="Ticket No"></asp:TextBox>
+                                <asp:TextBox ID="txtSubject" runat="server" CssClass="form-control" placeholder="Subject"></asp:TextBox>
                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator3"
                                     runat="server"
                                     Display="Dynamic"
                                     ControlToValidate="txtSubject"
                                     CssClass="label label-danger"
-                                    ErrorMessage="Ticket No is required"></asp:RequiredFieldValidator>
+                                    ErrorMessage="Subject is required"></asp:RequiredFieldValidator>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label for="txtRoom" class="col-sm-3 control-label">Room: </label>
                             <div class="col-sm-6">
-                                <asp:TextBox ID="txtRoom" runat="server" CssClass="form-control" placeholder="Ticket No"></asp:TextBox>
+                                <asp:TextBox ID="txtRoom" runat="server" CssClass="form-control" placeholder="Room"></asp:TextBox>
                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator4"
                                     runat="server"
                                     Display="Dynamic"
                                     ControlToValidate="txtRoom"
                                     CssClass="label label-danger"
-                                    ErrorMessage="Ticket No is required"></asp:RequiredFieldValidator>
+                                    ErrorMessage="Room is required"></asp:RequiredFieldValidator>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label for="txtDate" class="col-sm-3 control-label">Date: </label>
                             <div class="col-sm-6">
-                                <asp:TextBox ID="txtDate" runat="server" CssClass="form-control" placeholder="Ticket No"></asp:TextBox>
+                                <asp:TextBox ID="txtDate" runat="server" CssClass="form-control" placeholder="Date"></asp:TextBox>
                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator5"
                                     runat="server"
                                     Display="Dynamic"
                                     ControlToValidate="txtDate"
                                     CssClass="label label-danger"
-                                    ErrorMessage="Ticket No is required"></asp:RequiredFieldValidator>
+                                    ErrorMessage="Date is required"></asp:RequiredFieldValidator>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label for="txtStatus" class="col-sm-3 control-label">Status: </label>
                             <div class="col-sm-6">
-                                <asp:TextBox ID="txtStatus" runat="server" CssClass="form-control" placeholder="Ticket No"></asp:TextBox>
+                                <asp:TextBox ID="txtStatus" runat="server" CssClass="form-control" placeholder="Status"></asp:TextBox>
                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator6"
                                     runat="server"
                                     Display="Dynamic"
                                     ControlToValidate="txtStatus"
                                     CssClass="label label-danger"
-                                    ErrorMessage="Ticket No is required"></asp:RequiredFieldValidator>
+                                    ErrorMessage="Status is required"></asp:RequiredFieldValidator>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label for="txtDepartment" class="col-sm-3 control-label">Department Involved: </label>
                             <div class="col-sm-6">
-                                <asp:TextBox ID="txtDepartment" runat="server" CssClass="form-control" placeholder="Ticket No"></asp:TextBox>
+                                <asp:TextBox ID="txtDepartment" runat="server" CssClass="form-control" placeholder="Department Involved"></asp:TextBox>
                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator7"
                                     runat="server"
                                     Display="Dynamic"
                                     ControlToValidate="txtDepartment"
                                     CssClass="label label-danger"
-                                    ErrorMessage="Ticket No is required"></asp:RequiredFieldValidator>
+                                    ErrorMessage="Department Field is required"></asp:RequiredFieldValidator>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label for="txtWhenIncident" class="col-sm-3 control-label">When did the incident happen? </label>
                             <div class="col-sm-6">
-                                <asp:TextBox ID="txtWhenIncident" runat="server" CssClass="form-control" placeholder="Ticket No"></asp:TextBox>
+                                <asp:TextBox ID="txtWhenIncident"
+                                    runat="server"
+                                    CssClass="form-control"></asp:TextBox>
                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator8"
                                     runat="server"
                                     Display="Dynamic"
                                     ControlToValidate="txtWhenIncident"
                                     CssClass="label label-danger"
-                                    ErrorMessage="Ticket No is required"></asp:RequiredFieldValidator>
+                                    ErrorMessage="This field is required"></asp:RequiredFieldValidator>
                             </div>
                         </div>
 
@@ -138,7 +141,7 @@
                                     Display="Dynamic"
                                     ControlToValidate="rblDidyouKnow"
                                     CssClass="label label-danger"
-                                    ErrorMessage="Ticket No is required"></asp:RequiredFieldValidator>
+                                    ErrorMessage="This field is required"></asp:RequiredFieldValidator>
                             </div>
                         </div>
 
@@ -149,12 +152,6 @@
                                     runat="server"
                                     CssClass="form-control"
                                     placeholder="Parties Involved"></asp:TextBox>
-                                <asp:RequiredFieldValidator ID="RequiredFieldValidator10"
-                                    runat="server"
-                                    Display="Dynamic"
-                                    ControlToValidate="txtWhosInvolved"
-                                    CssClass="label label-danger"
-                                    ErrorMessage="Ticket No is required"></asp:RequiredFieldValidator>
                             </div>
                         </div>
 
@@ -165,6 +162,7 @@
                                     runat="server"
                                     CssClass="form-control"
                                     TextMode="MultiLine"
+                                    Height="100"
                                     placeholder="What Happened"></asp:TextBox>
                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator11"
                                     runat="server"
@@ -182,6 +180,7 @@
                                     runat="server"
                                     CssClass="form-control"
                                     TextMode="MultiLine"
+                                    Height="200"
                                     placeholder="Investigation"></asp:TextBox>
                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator12"
                                     runat="server"
@@ -199,6 +198,7 @@
                                     runat="server"
                                     CssClass="form-control"
                                     TextMode="MultiLine"
+                                    Height="200"
                                     placeholder="Investigation"></asp:TextBox>
                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator13"
                                     runat="server"
@@ -216,6 +216,7 @@
                                     runat="server"
                                     CssClass="form-control"
                                     TextMode="MultiLine"
+                                    Height="200"
                                     placeholder="Investigation"></asp:TextBox>
                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator14"
                                     runat="server"
@@ -231,6 +232,7 @@
                             <div class="col-sm-6">
                                 <asp:TextBox ID="txtPreparedBy"
                                     runat="server"
+                                    Enabled="false"
                                     CssClass="form-control"></asp:TextBox>
                             </div>
                         </div>
@@ -240,6 +242,7 @@
                             <div class="col-sm-6">
                                 <asp:TextBox ID="txtPosition"
                                     runat="server"
+                                    Enabled="false"
                                     CssClass="form-control"></asp:TextBox>
                             </div>
                         </div>
@@ -249,5 +252,19 @@
             </div>
         </div>
     </div>
-
+    <ajaxToolkit:HtmlEditorExtender ID="HtmlEditorExtender1"
+        TargetControlID="txtInvestigation"
+        EnableSanitization="false"
+        runat="server">
+    </ajaxToolkit:HtmlEditorExtender>
+    <ajaxToolkit:HtmlEditorExtender ID="HtmlEditorExtender2"
+        TargetControlID="txtActionTaken"
+        EnableSanitization="false"
+        runat="server">
+    </ajaxToolkit:HtmlEditorExtender>
+    <ajaxToolkit:HtmlEditorExtender ID="HtmlEditorExtender3"
+        TargetControlID="txtRecommendation"
+        EnableSanitization="false"
+        runat="server">
+    </ajaxToolkit:HtmlEditorExtender>
 </asp:Content>

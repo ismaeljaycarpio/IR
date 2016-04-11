@@ -193,15 +193,6 @@ namespace IR.ir {
         protected global::System.Web.UI.WebControls.TextBox txtWhosInvolved;
         
         /// <summary>
-        /// RequiredFieldValidator10 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator10;
-        
-        /// <summary>
         /// txtWhatHappened control.
         /// </summary>
         /// <remarks>
@@ -290,5 +281,32 @@ namespace IR.ir {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtPosition;
+        
+        /// <summary>
+        /// HtmlEditorExtender1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.HtmlEditorExtender HtmlEditorExtender1;
+        
+        /// <summary>
+        /// HtmlEditorExtender2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.HtmlEditorExtender HtmlEditorExtender2;
+        
+        /// <summary>
+        /// HtmlEditorExtender3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.HtmlEditorExtender HtmlEditorExtender3;
     }
 }
