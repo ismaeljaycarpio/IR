@@ -32,20 +32,27 @@
                             <label for="ddlFor" class="col-sm-3 control-label">For: </label>
                             <div class="col-sm-6">
                                 <asp:DropDownList ID="ddlFor" runat="server" CssClass="form-control"></asp:DropDownList>
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator1"
+                                    runat="server"
+                                    Display="Dynamic"
+                                    ControlToValidate="ddlFor"
+                                    CssClass="label label-danger"
+                                    InitialValue="0"
+                                    ErrorMessage="This field is required"></asp:RequiredFieldValidator>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="txtFrom" class="col-sm-3 control-label">From: </label>
+                            <label for="ddlFrom" class="col-sm-3 control-label">From: </label>
                             <div class="col-sm-6">
-                                <asp:TextBox ID="txtFrom" runat="server" CssClass="form-control"
-                                    placeholder="From"></asp:TextBox>
-                                <asp:RequiredFieldValidator ID="RequiredFieldValidator1"
+                                <asp:DropDownList ID="ddlFrom" runat="server" CssClass="form-control"></asp:DropDownList>
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator10"
                                     runat="server"
                                     Display="Dynamic"
-                                    ControlToValidate="txtFrom"
+                                    ControlToValidate="ddlFrom"
                                     CssClass="label label-danger"
-                                    ErrorMessage="From is required"></asp:RequiredFieldValidator>
+                                    InitialValue="0"
+                                    ErrorMessage="This field is required"></asp:RequiredFieldValidator>
                             </div>
                         </div>
 
@@ -78,7 +85,7 @@
                         <div class="form-group">
                             <label for="txtDate" class="col-sm-3 control-label">Date: </label>
                             <div class="col-sm-6">
-                                <asp:TextBox ID="txtDate" runat="server" CssClass="form-control" placeholder="Date"></asp:TextBox>
+                                <asp:TextBox ID="txtDate" runat="server" CssClass="form-control" placeholder="Date" data-provide="datepicker"></asp:TextBox>
                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator5"
                                     runat="server"
                                     Display="Dynamic"
@@ -89,27 +96,35 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="txtStatus" class="col-sm-3 control-label">Status: </label>
+                            <label for="ddlStatus" class="col-sm-3 control-label">Status: </label>
                             <div class="col-sm-6">
-                                <asp:TextBox ID="txtStatus" runat="server" CssClass="form-control" placeholder="Status"></asp:TextBox>
+                                <asp:DropDownList ID="ddlStatus" 
+                                    runat="server" 
+                                    CssClass="form-control">
+                                    <asp:ListItem Value="0" Enabled="true">Select Status</asp:ListItem>
+                                    <asp:ListItem Value="InProgress">In Progress</asp:ListItem>
+                                    <asp:ListItem Value="Solved">Solved</asp:ListItem>
+                                </asp:DropDownList>
                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator6"
                                     runat="server"
                                     Display="Dynamic"
-                                    ControlToValidate="txtStatus"
+                                    ControlToValidate="ddlStatus"
                                     CssClass="label label-danger"
+                                    InitialValue="0"
                                     ErrorMessage="Status is required"></asp:RequiredFieldValidator>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="txtDepartment" class="col-sm-3 control-label">Department Involved: </label>
+                            <label for="ddlDepartment" class="col-sm-3 control-label">Department Involved: </label>
                             <div class="col-sm-6">
-                                <asp:TextBox ID="txtDepartment" runat="server" CssClass="form-control" placeholder="Department Involved"></asp:TextBox>
+                                <asp:DropDownList ID="ddlDepartment" runat="server" CssClass="form-control"></asp:DropDownList>
                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator7"
                                     runat="server"
                                     Display="Dynamic"
-                                    ControlToValidate="txtDepartment"
+                                    ControlToValidate="ddlDepartment"
                                     CssClass="label label-danger"
+                                    InitialValue="0"
                                     ErrorMessage="Department Field is required"></asp:RequiredFieldValidator>
                             </div>
                         </div>
@@ -119,6 +134,7 @@
                             <div class="col-sm-6">
                                 <asp:TextBox ID="txtWhenIncident"
                                     runat="server"
+                                    data-provide="datepicker"
                                     CssClass="form-control"></asp:TextBox>
                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator8"
                                     runat="server"
@@ -248,6 +264,11 @@
                         </div>
 
                     </div>
+                </div>
+
+                <div class="panel-footer text-center">
+                    <asp:Button ID="btnSave" runat="server" Text="Save" OnClick="btnSave_Click" CssClass="btn btn-primary"/>
+                    <asp:Button ID="btnCancel" runat="server" Text="Cancel" OnClick="btnCancel_Click" CssClass="btn btn-default"/>
                 </div>
             </div>
         </div>

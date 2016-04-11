@@ -212,6 +212,11 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="ir\Web.config" />
+    <Content Include="EHRIS.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>EHRIS.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </Content>
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -244,6 +249,11 @@
     </Compile>
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="EHRIS.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EHRIS.dbml</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -310,6 +320,11 @@
   <ItemGroup>
     <None Include="IRContext.dbml.layout">
       <DependentUpon>IRContext.dbml</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="EHRIS.dbml.layout">
+      <DependentUpon>EHRIS.dbml</DependentUpon>
     </None>
   </ItemGroup>
   <PropertyGroup>
