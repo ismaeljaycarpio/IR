@@ -2,6 +2,9 @@
 <siteMap xmlns="http://schemas.microsoft.com/AspNet/SiteMap-File-1.0" >
     <siteMapNode url="~/Default.aspx" title="Home"  description="">
         <siteMapNode url="~/Login.aspx" title="Login"  description="" />
-        <siteMapNode url="" title=""  description="" />
+
+      <siteMapNode url="~/ir/ir.aspx" title="IR">
+        <siteMapNode url="~/ir/irform.aspx" title="Create Incident Report"  description="" />
+      </siteMapNode>
     </siteMapNode>
 </siteMap>
