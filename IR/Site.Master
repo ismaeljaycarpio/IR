@@ -28,8 +28,8 @@
 </head>
 <body>
     <form runat="server">
-    <asp:ScriptManager runat="server">
-    </asp:ScriptManager>
+        <asp:ScriptManager runat="server">
+        </asp:ScriptManager>
 
         <script>
             $(function () {
@@ -48,7 +48,7 @@
             });
         </script>
 
-         <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar navbar-inverse navbar-fixed-top">
             <div class="container">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -106,16 +106,20 @@
                             <asp:RoleGroup Roles="Admin">
                                 <ContentTemplate>
                                     <ul class="nav navbar-nav">
-                                        <%--<li class="dropdown" runat="server"><a runat="server" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">File Maintenance<span class="caret"></span></a>
+                                        <li class="dropdown" runat="server"><a runat="server" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">File Maintenance<span class="caret"></span></a>
                                             <ul class="dropdown-menu">
-                                                <li><a runat="server" href="~/guest/default.aspx">Guest</a></li>
-                                                <li><a runat="server" href="~/room/default.aspx">Room</a></li>
-                                                <li><a runat="server" href="~/room/dining.aspx">Dining</a></li>
+                                                <li><a runat="server" href="~/file-maintenance/crisis-codes.aspx">Crisis Codes</a></li>
                                             </ul>
-                                        </li>--%>
+                                        </li>
                                         <li><a runat="server" href="~/ir/ir.aspx">Incident Report</a></li>
                                     </ul>
                                     <ul class="nav navbar-nav navbar-right">
+                                        <li>
+                                            <a href="#">
+                                                <span class="badge"><%: System.Web.Security.Roles.GetRolesForUser().FirstOrDefault() %></span>
+                                                <asp:LoginName ID="LoginName2" runat="server" />
+                                            </a>
+                                        </li>
                                         <li class="dropdown">
                                             <a runat="server"
                                                 href="#"
@@ -124,12 +128,9 @@
                                                 role="button"
                                                 aria-haspopup="true"
                                                 aria-expanded="false">
-                                                <span class="badge"><%: System.Web.Security.Roles.GetRolesForUser().FirstOrDefault() %></span>
-                                                <asp:LoginName ID="LoginName1" runat="server" />
                                                 <span class="caret"></span>
                                             </a>
                                             <ul class="dropdown-menu">
-                                                <li><a runat="server" href="~/Account/Manage.aspx">Change Password</a></li>
                                                 <li>
                                                     <asp:LoginStatus ID="LoginStatus1" runat="server" LogoutAction="RedirectToLoginPage" LogoutText="Log Out" />
                                                 </li>
@@ -137,7 +138,8 @@
                                         </li>
                                     </ul>
                                 </ContentTemplate>
-                            </asp:RoleGroup>                            
+                            </asp:RoleGroup>
+
                         </RoleGroups>
                     </asp:LoginView>
                 </div>

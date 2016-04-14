@@ -24,7 +24,23 @@
                                     Display="Dynamic"
                                     ControlToValidate="txtTicketNo"
                                     CssClass="label label-danger"
+                                    ValidationGroup="vgAdd"
                                     ErrorMessage="Ticket No is required"></asp:RequiredFieldValidator>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="ddlCrisis" class="col-sm-3 control-label">Crisis Name: </label>
+                            <div class="col-sm-6">
+                                <asp:DropDownList ID="ddlCrisis" runat="server" CssClass="form-control"></asp:DropDownList>
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator15"
+                                    runat="server"
+                                    Display="Dynamic"
+                                    ControlToValidate="ddlCrisis"
+                                    CssClass="label label-danger"
+                                    InitialValue="0"
+                                    ValidationGroup="vgAdd"
+                                    ErrorMessage="This field is required"></asp:RequiredFieldValidator>
                             </div>
                         </div>
 
@@ -38,6 +54,7 @@
                                     ControlToValidate="ddlFor"
                                     CssClass="label label-danger"
                                     InitialValue="0"
+                                    ValidationGroup="vgAdd"
                                     ErrorMessage="This field is required"></asp:RequiredFieldValidator>
                             </div>
                         </div>
@@ -52,6 +69,7 @@
                                     ControlToValidate="ddlFrom"
                                     CssClass="label label-danger"
                                     InitialValue="0"
+                                    ValidationGroup="vgAdd"
                                     ErrorMessage="This field is required"></asp:RequiredFieldValidator>
                             </div>
                         </div>
@@ -63,6 +81,7 @@
                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator3"
                                     runat="server"
                                     Display="Dynamic"
+                                    ValidationGroup="vgAdd"
                                     ControlToValidate="txtSubject"
                                     CssClass="label label-danger"
                                     ErrorMessage="Subject is required"></asp:RequiredFieldValidator>
@@ -76,6 +95,7 @@
                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator4"
                                     runat="server"
                                     Display="Dynamic"
+                                    ValidationGroup="vgAdd"
                                     ControlToValidate="txtRoom"
                                     CssClass="label label-danger"
                                     ErrorMessage="Room is required"></asp:RequiredFieldValidator>
@@ -90,6 +110,7 @@
                                     runat="server"
                                     Display="Dynamic"
                                     ControlToValidate="txtDate"
+                                    ValidationGroup="vgAdd"
                                     CssClass="label label-danger"
                                     ErrorMessage="Date is required"></asp:RequiredFieldValidator>
                             </div>
@@ -98,8 +119,8 @@
                         <div class="form-group">
                             <label for="ddlStatus" class="col-sm-3 control-label">Status: </label>
                             <div class="col-sm-6">
-                                <asp:DropDownList ID="ddlStatus" 
-                                    runat="server" 
+                                <asp:DropDownList ID="ddlStatus"
+                                    runat="server"
                                     CssClass="form-control">
                                     <asp:ListItem Value="0" Enabled="true">Select Status</asp:ListItem>
                                     <asp:ListItem Value="InProgress">In Progress</asp:ListItem>
@@ -108,6 +129,7 @@
                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator6"
                                     runat="server"
                                     Display="Dynamic"
+                                    ValidationGroup="vgAdd"
                                     ControlToValidate="ddlStatus"
                                     CssClass="label label-danger"
                                     InitialValue="0"
@@ -125,6 +147,7 @@
                                     ControlToValidate="ddlDepartment"
                                     CssClass="label label-danger"
                                     InitialValue="0"
+                                    ValidationGroup="vgAdd"
                                     ErrorMessage="Department Field is required"></asp:RequiredFieldValidator>
                             </div>
                         </div>
@@ -139,6 +162,7 @@
                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator8"
                                     runat="server"
                                     Display="Dynamic"
+                                    ValidationGroup="vgAdd"
                                     ControlToValidate="txtWhenIncident"
                                     CssClass="label label-danger"
                                     ErrorMessage="This field is required"></asp:RequiredFieldValidator>
@@ -157,6 +181,7 @@
                                     Display="Dynamic"
                                     ControlToValidate="rblDidyouKnow"
                                     CssClass="label label-danger"
+                                    ValidationGroup="vgAdd"
                                     ErrorMessage="This field is required"></asp:RequiredFieldValidator>
                             </div>
                         </div>
@@ -167,6 +192,7 @@
                                 <asp:TextBox ID="txtWhosInvolved"
                                     runat="server"
                                     CssClass="form-control"
+                                    ValidationGroup="vgAdd"
                                     placeholder="Parties Involved"></asp:TextBox>
                             </div>
                         </div>
@@ -185,6 +211,7 @@
                                     Display="Dynamic"
                                     ControlToValidate="txtWhatHappened"
                                     CssClass="label label-danger"
+                                    ValidationGroup="vgAdd"
                                     ErrorMessage="Field is required"></asp:RequiredFieldValidator>
                             </div>
                         </div>
@@ -203,6 +230,7 @@
                                     Display="Dynamic"
                                     ControlToValidate="txtInvestigation"
                                     CssClass="label label-danger"
+                                    ValidationGroup="vgAdd"
                                     ErrorMessage="Field is required"></asp:RequiredFieldValidator>
                             </div>
                         </div>
@@ -221,6 +249,7 @@
                                     Display="Dynamic"
                                     ControlToValidate="txtActionTaken"
                                     CssClass="label label-danger"
+                                    ValidationGroup="vgAdd"
                                     ErrorMessage="Field is required"></asp:RequiredFieldValidator>
                             </div>
                         </div>
@@ -239,6 +268,7 @@
                                     Display="Dynamic"
                                     ControlToValidate="txtRecommendation"
                                     CssClass="label label-danger"
+                                    ValidationGroup="vgAdd"
                                     ErrorMessage="Field is required"></asp:RequiredFieldValidator>
                             </div>
                         </div>
@@ -267,8 +297,16 @@
                 </div>
 
                 <div class="panel-footer text-center">
-                    <asp:Button ID="btnSave" runat="server" Text="Save" OnClick="btnSave_Click" CssClass="btn btn-primary"/>
-                    <asp:Button ID="btnCancel" runat="server" Text="Cancel" OnClick="btnCancel_Click" CssClass="btn btn-default"/>
+                    <asp:Button ID="btnSave" runat="server"
+                        Text="Save"
+                        OnClick="btnSave_Click"
+                        ValidationGroup="vgAdd"
+                        CssClass="btn btn-primary" />
+                    <asp:Button ID="btnCancel" runat="server"
+                        Text="Cancel"
+                        CausesValidation="false"
+                        OnClick="btnCancel_Click"
+                        CssClass="btn btn-default" />
                 </div>
             </div>
         </div>

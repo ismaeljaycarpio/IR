@@ -22,7 +22,11 @@ namespace IR.ir
 
         protected void btnSave_Click(object sender, EventArgs e)
         {
-
+            Page.Validate();
+            if(Page.IsValid)
+            {
+                Response.Redirect("~/ir/ir.aspx");
+            }
         }
 
         protected void btnCancel_Click(object sender, EventArgs e)
@@ -88,6 +92,19 @@ namespace IR.ir
             ddlDepartment.DataBind();
             ddlDepartment.Items.Insert(0, new ListItem("Select Department", "0"));
 
+            //crisis
+            var crisis = (from cc in dbIR.CrisisCodes
+                        select new
+                        {
+                            Id = cc.Id,
+                            Name = cc.Name
+                        }).ToList();
+
+            ddlCrisis.DataSource = crisis;
+            ddlCrisis.DataTextField = "Name";
+            ddlCrisis.DataValueField = "Id";
+            ddlCrisis.DataBind();
+            ddlCrisis.Items.Insert(0, new ListItem("Select Crisis Code", "0"));
         }
     }
 }

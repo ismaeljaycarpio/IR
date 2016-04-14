@@ -33,6 +33,9 @@ namespace IR
     partial void InsertIRTransaction(IRTransaction instance);
     partial void UpdateIRTransaction(IRTransaction instance);
     partial void DeleteIRTransaction(IRTransaction instance);
+    partial void InsertCrisisCode(CrisisCode instance);
+    partial void UpdateCrisisCode(CrisisCode instance);
+    partial void DeleteCrisisCode(CrisisCode instance);
     #endregion
 		
 		public IRContextDataContext() : 
@@ -72,6 +75,14 @@ namespace IR
 				return this.GetTable<IRTransaction>();
 			}
 		}
+		
+		public System.Data.Linq.Table<CrisisCode> CrisisCodes
+		{
+			get
+			{
+				return this.GetTable<CrisisCode>();
+			}
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.IRTransaction")]
@@ -84,7 +95,7 @@ namespace IR
 		
 		private string _TicketNo;
 		
-		private string _CrisisId;
+		private System.Nullable<int> _CrisisId;
 		
 		private string _Subject;
 		
@@ -114,6 +125,8 @@ namespace IR
 		
 		private string _PreparedBy;
 		
+		private EntityRef<CrisisCode> _CrisisCode;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -122,7 +135,7 @@ namespace IR
     partial void OnIdChanged();
     partial void OnTicketNoChanging(string value);
     partial void OnTicketNoChanged();
-    partial void OnCrisisIdChanging(string value);
+    partial void OnCrisisIdChanging(System.Nullable<int> value);
     partial void OnCrisisIdChanged();
     partial void OnSubjectChanging(string value);
     partial void OnSubjectChanged();
@@ -156,6 +169,7 @@ namespace IR
 		
 		public IRTransaction()
 		{
+			this._CrisisCode = default(EntityRef<CrisisCode>);
 			OnCreated();
 		}
 		
@@ -199,8 +213,8 @@ namespace IR
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CrisisId", DbType="VarChar(50)")]
-		public string CrisisId
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CrisisId", DbType="Int")]
+		public System.Nullable<int> CrisisId
 		{
 			get
 			{
@@ -210,6 +224,10 @@ namespace IR
 			{
 				if ((this._CrisisId != value))
 				{
+					if (this._CrisisCode.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
 					this.OnCrisisIdChanging(value);
 					this.SendPropertyChanging();
 					this._CrisisId = value;
@@ -499,6 +517,40 @@ namespace IR
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="CrisisCode_IRTransaction", Storage="_CrisisCode", ThisKey="CrisisId", OtherKey="Id", IsForeignKey=true, DeleteRule="CASCADE")]
+		public CrisisCode CrisisCode
+		{
+			get
+			{
+				return this._CrisisCode.Entity;
+			}
+			set
+			{
+				CrisisCode previousValue = this._CrisisCode.Entity;
+				if (((previousValue != value) 
+							|| (this._CrisisCode.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._CrisisCode.Entity = null;
+						previousValue.IRTransactions.Remove(this);
+					}
+					this._CrisisCode.Entity = value;
+					if ((value != null))
+					{
+						value.IRTransactions.Add(this);
+						this._CrisisId = value.Id;
+					}
+					else
+					{
+						this._CrisisId = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("CrisisCode");
+				}
+			}
+		}
+		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -517,6 +569,144 @@ namespace IR
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.CrisisCode")]
+	public partial class CrisisCode : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _Id;
+		
+		private string _Code;
+		
+		private string _Name;
+		
+		private EntitySet<IRTransaction> _IRTransactions;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(int value);
+    partial void OnIdChanged();
+    partial void OnCodeChanging(string value);
+    partial void OnCodeChanged();
+    partial void OnNameChanging(string value);
+    partial void OnNameChanged();
+    #endregion
+		
+		public CrisisCode()
+		{
+			this._IRTransactions = new EntitySet<IRTransaction>(new Action<IRTransaction>(this.attach_IRTransactions), new Action<IRTransaction>(this.detach_IRTransactions));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Code", DbType="VarChar(50)")]
+		public string Code
+		{
+			get
+			{
+				return this._Code;
+			}
+			set
+			{
+				if ((this._Code != value))
+				{
+					this.OnCodeChanging(value);
+					this.SendPropertyChanging();
+					this._Code = value;
+					this.SendPropertyChanged("Code");
+					this.OnCodeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="VarChar(MAX)")]
+		public string Name
+		{
+			get
+			{
+				return this._Name;
+			}
+			set
+			{
+				if ((this._Name != value))
+				{
+					this.OnNameChanging(value);
+					this.SendPropertyChanging();
+					this._Name = value;
+					this.SendPropertyChanged("Name");
+					this.OnNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="CrisisCode_IRTransaction", Storage="_IRTransactions", ThisKey="Id", OtherKey="CrisisId")]
+		public EntitySet<IRTransaction> IRTransactions
+		{
+			get
+			{
+				return this._IRTransactions;
+			}
+			set
+			{
+				this._IRTransactions.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_IRTransactions(IRTransaction entity)
+		{
+			this.SendPropertyChanging();
+			entity.CrisisCode = this;
+		}
+		
+		private void detach_IRTransactions(IRTransaction entity)
+		{
+			this.SendPropertyChanging();
+			entity.CrisisCode = null;
 		}
 	}
 }

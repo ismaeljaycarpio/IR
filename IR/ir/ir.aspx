@@ -5,7 +5,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <asp:Panel ID="Panel1" runat="server" DefaultButton="btnSearch" CssClass="row">
         <div class="col-md-12">
-            <div class="panel panel-danger">
+            <div class="panel panel-primary">
                 <div class="panel-heading">
                     <h5>Incident Report</h5>
                 </div>
@@ -14,6 +14,10 @@
                         <div class="form-group">
                             <div class="col-md-12">
                                 <div class="input-group">
+                                    <asp:TextBox ID="txtSearch"
+                                        runat="server"
+                                        CssClass="form-control"
+                                        placeholder="Search..."></asp:TextBox>
                                     <span class="input-group-btn">
                                         <asp:Button ID="btnSearch"
                                             runat="server"
@@ -21,12 +25,12 @@
                                             Text="Go"
                                             OnClick="btnSearch_Click" />
                                     </span>
-                                    <asp:TextBox ID="txtSearch"
-                                        runat="server"
-                                        CssClass="form-control" placeholder="Search..."></asp:TextBox>
                                     <div class="pull-right">
-                                        <asp:Button ID="btnExport" runat="server" Text="Export to Excel"
-                                            OnClick="btnExport_Click" CssClass="btn btn-default btn-sm" />
+                                        <asp:Button ID="btnExport"
+                                            runat="server"
+                                            Text="Export to Excel"
+                                            OnClick="btnExport_Click"
+                                            CssClass="btn btn-default btn-sm" />
                                     </div>
                                 </div>
                             </div>
@@ -39,14 +43,14 @@
                                     runat="server"
                                     CssClass="table table-striped table-hover dataTable"
                                     GridLines="None"
-                                    AutoGenerateColumns="false"
-                                    AllowPaging="true"
+                                    AutoGenerateColumns="False"
+                                    AllowPaging="True"
+                                    AllowSorting="True"
                                     EmptyDataText="No Record(s) found"
-                                    ShowHeaderWhenEmpty="true"
+                                    ShowHeaderWhenEmpty="True"
                                     DataKeyNames="Id"
-                                    OnPageIndexChanging="gvIR_PageIndexChanging"
-                                    OnRowCommand="gvIR_RowCommand"
-                                    PageSize="10">
+                                    OnRowCommand="gvIR_RowCommand" 
+                                    DataSourceID="IRDataSource">
                                     <Columns>
                                         <asp:TemplateField HeaderText="Row Id" Visible="false">
                                             <ItemTemplate>
@@ -54,17 +58,17 @@
                                             </ItemTemplate>
                                         </asp:TemplateField>
 
-                                        <asp:TemplateField HeaderText="Ticket No">
+                                        <asp:TemplateField HeaderText="Ticket No" SortExpression="TicketNo">
                                             <ItemTemplate>
                                                 <asp:LinkButton ID="lblTicketNo" runat="server" Text='<%# Eval("TicketNo") %>' CommandName="editRecord" CommandArgument='<%#((GridViewRow)Container).RowIndex %>'></asp:LinkButton>
                                             </ItemTemplate>
                                         </asp:TemplateField>
 
-                                        <asp:BoundField DataField="Code" HeaderText="Code" />
-                                        <asp:BoundField DataField="Subject" HeaderText="Subject" />
-                                        <asp:BoundField DataField="Room" HeaderText="Room" />
-                                        <asp:BoundField DataField="Date" HeaderText="Date" DataFormatString="{0:d}" />
-                                        <asp:BoundField DataField="Status" HeaderText="Status" />
+                                        <asp:BoundField DataField="CrisisName" HeaderText="Crisis" SortExpression="CrisisName" />
+                                        <asp:BoundField DataField="Subject" HeaderText="Subject" SortExpression="Subject" />
+                                        <asp:BoundField DataField="Room" HeaderText="Room" SortExpression="Room" />
+                                        <asp:BoundField DataField="IncidentDate" HeaderText="Incident Date" DataFormatString="{0:d}" SortExpression="IncidentDate"/>
+                                        <asp:BoundField DataField="Status" HeaderText="Status" SortExpression="Status"/>
 
                                         <asp:TemplateField>
                                             <ItemTemplate>
@@ -75,8 +79,9 @@
                                     </Columns>
                                     <PagerStyle CssClass="pagination-ys" />
                                 </asp:GridView>
-                                <asp:LinkButton ID="lblCreate" runat="server"
-                                    CssClass="btn btn-default"
+                                <asp:LinkButton ID="lblCreate"
+                                    runat="server"
+                                    CssClass="navbar-link"
                                     PostBackUrl="~/ir/irform.aspx">Create Incident Report</asp:LinkButton>
                             </ContentTemplate>
                             <Triggers>
@@ -87,4 +92,8 @@
             </div>
         </div>
     </asp:Panel>
+    <asp:GridView ID="GridView1" runat="server"></asp:GridView>
+    <asp:LinqDataSource ID="IRDataSource"
+        OnSelecting="IRDataSource_Selecting"
+        runat="server"></asp:LinqDataSource>
 </asp:Content>
