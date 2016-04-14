@@ -15,6 +15,7 @@ namespace IR
             if (!Page.IsPostBack)
             {
                 Session.RemoveAll();
+                Session.Clear();               
                 FormsAuthentication.SignOut();
             }
         }

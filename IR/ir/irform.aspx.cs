@@ -22,7 +22,7 @@ namespace IR.ir
 
         protected void btnSave_Click(object sender, EventArgs e)
         {
-            Page.Validate();
+            Page.Validate("vgAdd");
             if(Page.IsValid)
             {
                 Response.Redirect("~/ir/ir.aspx");
