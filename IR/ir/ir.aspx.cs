@@ -16,7 +16,7 @@ namespace IR.ir
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if(!Page.IsPostBack)
+            if (!Page.IsPostBack)
             {
                 this.gvIR.DataBind();
                 txtSearch.Focus();
@@ -31,7 +31,7 @@ namespace IR.ir
 
         protected void btnExport_Click(object sender, EventArgs e)
         {
-            if(gvIR.Rows.Count > 0)
+            if (gvIR.Rows.Count > 0)
             {
                 string strSearch = txtSearch.Text;
 
@@ -99,14 +99,14 @@ namespace IR.ir
 
         protected void gvIR_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            if(e.CommandName.Equals("editRecord"))
+            if (e.CommandName.Equals("editRecord"))
             {
                 int index = Convert.ToInt32(e.CommandArgument);
                 int irId = Convert.ToInt32(gvIR.DataKeys[index].Value);
 
                 Response.Redirect("~/ir/view-irform.aspx?Id=" + irId.ToString());
             }
-            else if(e.CommandName.Equals("deleteRecord"))
+            else if (e.CommandName.Equals("deleteRecord"))
             {
                 int index = Convert.ToInt32(e.CommandArgument);
                 int irId = Convert.ToInt32(gvIR.DataKeys[index].Value);
@@ -126,13 +126,13 @@ namespace IR.ir
             string strSearch = txtSearch.Text;
 
             var employee = (from emp in dbEHRIS.EMPLOYEEs
-                       select emp).ToList();
+                            select emp).ToList();
 
             var q = (from empl in employee
                      join ir in db.IRTransactions
                      on empl.UserId equals ir.From
                      join cc in db.CrisisCodes
-                     on ir.CrisisId equals cc.Id                   
+                     on ir.CrisisId equals cc.Id
                      where
                      (
                         ir.TicketNo.Contains(strSearch) ||
