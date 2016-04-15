@@ -126,11 +126,38 @@ namespace IR.ir
             string strSearch = txtSearch.Text;
 
             var employee = (from emp in dbEHRIS.EMPLOYEEs
-                            select emp).ToList();
+                            select emp);
 
-            var q = (from empl in employee
-                     join ir in db.IRTransactions
-                     on empl.UserId equals ir.From
+            //var q = (from empl in employee.ToList()
+            //         join ir in db.IRTransactions
+            //         on empl.UserId equals ir.From
+            //         join cc in db.CrisisCodes
+            //         on ir.CrisisId equals cc.Id
+            //         where
+            //         (
+            //            ir.TicketNo.Contains(strSearch) ||
+            //            cc.Code.Contains(strSearch) ||
+            //            cc.Name.Contains(strSearch) ||
+            //            ir.Subject.Contains(strSearch) ||
+            //            ir.Room.Contains(strSearch) ||
+            //            empl.LastName.Contains(strSearch) ||
+            //            empl.FirstName.Contains(strSearch) ||
+            //            empl.MiddleName.Contains(strSearch) ||
+            //            ir.Status.Contains(strSearch)
+            //         )
+            //         select new
+            //         {
+            //             Id = ir.Id,
+            //             TicketNo = ir.TicketNo,
+            //             CrisisName = cc.Name,
+            //             Subject = ir.Subject,
+            //             Room = ir.Room,
+            //             IncidentDate = ir.WhenIncidentHappen,
+            //             Status = ir.Status,
+            //             From = empl.LastName + " , " + empl.FirstName + " " + empl.MiddleName
+            //         }).ToList();
+
+            var q = (from ir in db.IRTransactions
                      join cc in db.CrisisCodes
                      on ir.CrisisId equals cc.Id
                      where
@@ -140,9 +167,6 @@ namespace IR.ir
                         cc.Name.Contains(strSearch) ||
                         ir.Subject.Contains(strSearch) ||
                         ir.Room.Contains(strSearch) ||
-                        empl.LastName.Contains(strSearch) ||
-                        empl.FirstName.Contains(strSearch) ||
-                        empl.MiddleName.Contains(strSearch) ||
                         ir.Status.Contains(strSearch)
                      )
                      select new
@@ -153,8 +177,7 @@ namespace IR.ir
                          Subject = ir.Subject,
                          Room = ir.Room,
                          IncidentDate = ir.WhenIncidentHappen,
-                         Status = ir.Status,
-                         From = empl.LastName + " , " + empl.FirstName + " " + empl.MiddleName
+                         Status = ir.Status
                      }).ToList();
 
             e.Result = q;

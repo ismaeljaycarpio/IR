@@ -51,7 +51,7 @@ namespace IR.ir
                 ir.Subject = txtSubject.Text;
                 ir.Room = txtRoom.Text;
                 ir.Date = Convert.ToDateTime(txtDate.Text);
-                ir.Status = ddlStatus.SelectedItem.Text;
+                ir.Status = ddlStatus.SelectedValue;
                 ir.DepartmentId = Convert.ToInt32(ddlDepartment.SelectedValue);
                 ir.WhenIncidentHappen = Convert.ToDateTime(txtWhenIncident.Text);
                 ir.WhenAware = rblWhenAware.SelectedValue;

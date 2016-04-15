@@ -68,7 +68,6 @@
                                         <asp:BoundField DataField="Subject" HeaderText="Subject" SortExpression="Subject" />
                                         <asp:BoundField DataField="Room" HeaderText="Room" SortExpression="Room" />
                                         <asp:BoundField DataField="IncidentDate" HeaderText="Incident Date" DataFormatString="{0:d}" SortExpression="IncidentDate"/>
-                                        <asp:BoundField DataField="From" HeaderText="From" SortExpression="From"/>
                                         <asp:BoundField DataField="Status" HeaderText="Status" SortExpression="Status"/>
 
                                         <asp:TemplateField>

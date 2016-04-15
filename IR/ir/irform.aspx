@@ -113,7 +113,7 @@
                             runat="server"
                             CssClass="form-control">
                             <asp:ListItem Value="0" Enabled="true">Select Status</asp:ListItem>
-                            <asp:ListItem Value="InProgress">In Progress</asp:ListItem>
+                            <asp:ListItem Value="In-Progress">In-Progress</asp:ListItem>
                             <asp:ListItem Value="Solved">Solved</asp:ListItem>
                         </asp:DropDownList>
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator6"
