@@ -209,6 +209,7 @@
     <Content Include="Global.asax" />
     <Content Include="ir\ir.aspx" />
     <Content Include="ir\irform.aspx" />
+    <Content Include="ir\view-irform.aspx" />
     <Content Include="Login.aspx" />
     <Content Include="logs.txt" />
     <Content Include="packages.config" />
@@ -279,6 +280,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="IRContext.cs">
+      <DependentUpon>IRContext.dbml</DependentUpon>
+    </Compile>
     <Compile Include="IRContext.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -297,6 +301,13 @@
     </Compile>
     <Compile Include="ir\irform.aspx.designer.cs">
       <DependentUpon>irform.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ir\view-irform.aspx.cs">
+      <DependentUpon>view-irform.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ir\view-irform.aspx.designer.cs">
+      <DependentUpon>view-irform.aspx</DependentUpon>
     </Compile>
     <Compile Include="Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>

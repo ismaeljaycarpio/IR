@@ -10,7 +10,7 @@
 namespace IR.ir {
     
     
-    public partial class irform {
+    public partial class view_irform {
         
         /// <summary>
         /// txtTicketNo control.
@@ -319,22 +319,22 @@ namespace IR.ir {
         protected global::System.Web.UI.WebControls.TextBox txtPosition;
         
         /// <summary>
-        /// btnSave control.
+        /// btnUpdate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnSave;
+        protected global::System.Web.UI.WebControls.Button btnUpdate;
         
         /// <summary>
-        /// btnCancel control.
+        /// lbtnCancel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnCancel;
+        protected global::System.Web.UI.WebControls.LinkButton lbtnCancel;
         
         /// <summary>
         /// HtmlEditorExtender1 control.

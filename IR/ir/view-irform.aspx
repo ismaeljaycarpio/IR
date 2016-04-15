@@ -1,7 +1,4 @@
-﻿<%@ Page Title="Incident Report Form" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="irform.aspx.cs" Inherits="IR.ir.irform" %>
-
-<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
-
+﻿<%@ Page Title="View IR Form" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="view-irform.aspx.cs" Inherits="IR.ir.view_irform" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
 </asp:Content>
@@ -51,10 +48,10 @@
                             ValidationGroup="vgAdd"
                             ErrorMessage="Manager is required"></asp:RequiredFieldValidator>
                     </div>
-                    
+
                 </div>
 
-               
+
                 <div class="panel-body">
                     <div class="col-md-4">
                         <label for="ddlFrom">From: </label>
@@ -158,14 +155,13 @@
 
                     <div class="col-md-4">
                         <label for="rblWhenAware">Did you know about it ? </label>
-                        <asp:RadioButtonList ID="rblWhenAware" 
+                        <asp:RadioButtonList ID="rblWhenAware"
                             runat="server"
                             CssClass="btn-group"
                             RepeatLayout="Flow"
-                            data-toggle="buttons"
                             RepeatDirection="Horizontal">
-                            <asp:ListItem Value="0" class="btn btn-default">No</asp:ListItem>
-                            <asp:ListItem Value="1" class="btn btn-default">Yes</asp:ListItem>
+                            <asp:ListItem Value="0">No</asp:ListItem>
+                            <asp:ListItem Value="1">Yes</asp:ListItem>
                         </asp:RadioButtonList>
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator9"
                             runat="server"
@@ -174,7 +170,7 @@
                             CssClass="label label-danger"
                             ValidationGroup="vgAdd"
                             ErrorMessage="This field is required"></asp:RequiredFieldValidator>
-                    </div>             
+                    </div>
                 </div>
 
                 <div class="panel-body">
@@ -299,18 +295,16 @@
                 </div>
 
                 <div class="panel-footer text-center">
-                    <asp:Button ID="btnSave" 
+                    <asp:Button ID="btnUpdate"
                         runat="server"
-                        Text="Save"
-                        OnClick="btnSave_Click"
+                        Text="Update"
+                        OnClick="btnUpdate_Click"
                         ValidationGroup="vgAdd"
-                        CssClass="btn btn-primary" />
-                    <asp:Button ID="btnCancel" 
+                        CssClass="btn btn-success" />
+                    <asp:LinkButton ID="lbtnCancel"
                         runat="server"
-                        Text="Cancel"
-                        CausesValidation="false"
-                        OnClick="btnCancel_Click"
-                        CssClass="btn btn-default" />
+                        CssClass="btn btn-default"
+                        PostBackUrl="~/ir/ir.aspx">Cancel</asp:LinkButton>
                 </div>
             </div>
         </div>

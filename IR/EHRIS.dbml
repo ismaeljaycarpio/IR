@@ -25,12 +25,12 @@
       <Column Name="AgencyId" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="AccountStatusId" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="DateAccountStatusModified" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Association Name="Membership_EMPLOYEE" Member="Membership" ThisKey="UserId" OtherKey="UserId" Type="Membership" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="Membership_EMPLOYEE" Member="MembershipLINQ" Storage="_Membership" ThisKey="UserId" OtherKey="UserId" Type="MembershipLINQ" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
       <Association Name="POSITION_EMPLOYEE" Member="POSITION" ThisKey="PositionId" OtherKey="Id" Type="POSITION" IsForeignKey="true" />
     </Type>
   </Table>
-  <Table Name="dbo.Memberships" Member="Memberships">
-    <Type Name="Membership">
+  <Table Name="dbo.Memberships" Member="MembershipLINQs">
+    <Type Name="MembershipLINQ">
       <Column Name="UserId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="ApplicationId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
       <Column Name="Password" Type="System.String" DbType="NVarChar(128) NOT NULL" CanBeNull="false" />
@@ -72,7 +72,7 @@
       <Column Name="UserName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
       <Column Name="IsAnonymous" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
       <Column Name="LastActivityDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
-      <Association Name="User_Membership" Member="Membership" ThisKey="UserId" OtherKey="UserId" Type="Membership" Cardinality="One" />
+      <Association Name="User_Membership" Member="Membership" ThisKey="UserId" OtherKey="UserId" Type="MembershipLINQ" Cardinality="One" />
       <Association Name="User_UsersInRole" Member="UsersInRoles" ThisKey="UserId" OtherKey="UserId" Type="UsersInRole" />
     </Type>
   </Table>

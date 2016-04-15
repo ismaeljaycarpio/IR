@@ -5,6 +5,7 @@
 
       <siteMapNode url="~/ir/ir.aspx" title="IR">
         <siteMapNode url="~/ir/irform.aspx" title="Create Incident Report"  description="" />
+        <siteMapNode url="~/ir/view-irform.aspx" title="Update Incident Report"  description="" />
       </siteMapNode>
 
       <siteMapNode title="File Maintenance">

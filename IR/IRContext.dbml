@@ -1,16 +1,25 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="dbIR" Class="IRContextDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
   <Connection Mode="WebSettings" ConnectionString="Data Source=.\sqlexpress;Initial Catalog=dbIR;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="dbIR" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.CrisisCode" Member="CrisisCodes">
+    <Type Name="CrisisCode">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Code" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Association Name="CrisisCode_IRTransaction" Member="IRTransactions" ThisKey="Id" OtherKey="CrisisId" Type="IRTransaction" />
+    </Type>
+  </Table>
   <Table Name="dbo.IRTransaction" Member="IRTransactions">
     <Type Name="IRTransaction">
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="TicketNo" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="CrisisId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="[For]" Member="For" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="[From]" Member="From" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
       <Column Name="Subject" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
       <Column Name="Room" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
-      <Column Name="IncidentDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
-      <Column Name="[From]" Member="From" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="[To]" Member="To" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Date" Type="System.DateTime" DbType="Date" CanBeNull="true" />
       <Column Name="Status" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="DepartmentId" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="WhenIncidentHappen" Type="System.DateTime" DbType="Date" CanBeNull="true" />
       <Column Name="WhenAware" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="WhoInvolved" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
@@ -18,16 +27,8 @@
       <Column Name="Investigation" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
       <Column Name="ActionTaken" Type="System.String" DbType="VarChar(MAX) NOT NULL" CanBeNull="false" />
       <Column Name="Recommendation" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
-      <Column Name="PreparedBy" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="PreparedBy" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
       <Association Name="CrisisCode_IRTransaction" Member="CrisisCode" ThisKey="CrisisId" OtherKey="Id" Type="CrisisCode" IsForeignKey="true" DeleteRule="CASCADE" />
-    </Type>
-  </Table>
-  <Table Name="dbo.CrisisCode" Member="CrisisCodes">
-    <Type Name="CrisisCode">
-      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="Code" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="Name" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
-      <Association Name="CrisisCode_IRTransaction" Member="IRTransactions" ThisKey="Id" OtherKey="CrisisId" Type="IRTransaction" />
     </Type>
   </Table>
 </Database>

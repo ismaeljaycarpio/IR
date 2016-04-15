@@ -12,6 +12,8 @@ namespace IR.ir
     public partial class ir : System.Web.UI.Page
     {
         IRContextDataContext db = new IRContextDataContext();
+        EHRISDataContext dbEHRIS = new EHRISDataContext();
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if(!Page.IsPostBack)
@@ -33,7 +35,12 @@ namespace IR.ir
             {
                 string strSearch = txtSearch.Text;
 
-                var q = (from ir in db.IRTransactions
+                var employee = (from emp in dbEHRIS.EMPLOYEEs
+                                select emp).ToList();
+
+                var q = (from empl in employee
+                         join ir in db.IRTransactions
+                         on empl.UserId equals ir.From
                          join cc in db.CrisisCodes
                          on ir.CrisisId equals cc.Id
                          where
@@ -43,6 +50,9 @@ namespace IR.ir
                             cc.Name.Contains(strSearch) ||
                             ir.Subject.Contains(strSearch) ||
                             ir.Room.Contains(strSearch) ||
+                            empl.LastName.Contains(strSearch) ||
+                            empl.FirstName.Contains(strSearch) ||
+                            empl.MiddleName.Contains(strSearch) ||
                             ir.Status.Contains(strSearch)
                          )
                          select new
@@ -51,8 +61,9 @@ namespace IR.ir
                              CrisisName = cc.Name,
                              Subject = ir.Subject,
                              Room = ir.Room,
-                             IncidentDate = ir.IncidentDate,
-                             Status = ir.Status
+                             IncidentDate = ir.WhenIncidentHappen,
+                             Status = ir.Status,
+                             From = empl.LastName + " , " + empl.FirstName + " " + empl.MiddleName
                          }).ToList();
 
                 GridView1.DataSource = q;
@@ -88,16 +99,40 @@ namespace IR.ir
 
         protected void gvIR_RowCommand(object sender, GridViewCommandEventArgs e)
         {
+            if(e.CommandName.Equals("editRecord"))
+            {
+                int index = Convert.ToInt32(e.CommandArgument);
+                int irId = Convert.ToInt32(gvIR.DataKeys[index].Value);
 
+                Response.Redirect("~/ir/view-irform.aspx?Id=" + irId.ToString());
+            }
+            else if(e.CommandName.Equals("deleteRecord"))
+            {
+                int index = Convert.ToInt32(e.CommandArgument);
+                int irId = Convert.ToInt32(gvIR.DataKeys[index].Value);
+
+                hfDeleteId.Value = irId.ToString();
+
+                System.Text.StringBuilder sb = new System.Text.StringBuilder();
+                sb.Append(@"<script type='text/javascript'>");
+                sb.Append("$('#deleteModal').modal('show');");
+                sb.Append(@"</script>");
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "EditShowModalScript", sb.ToString(), false);
+            }
         }
 
         protected void IRDataSource_Selecting(object sender, LinqDataSourceSelectEventArgs e)
         {
             string strSearch = txtSearch.Text;
 
-            var q = (from ir in db.IRTransactions
+            var employee = (from emp in dbEHRIS.EMPLOYEEs
+                       select emp).ToList();
+
+            var q = (from empl in employee
+                     join ir in db.IRTransactions
+                     on empl.UserId equals ir.From
                      join cc in db.CrisisCodes
-                     on ir.CrisisId equals cc.Id
+                     on ir.CrisisId equals cc.Id                   
                      where
                      (
                         ir.TicketNo.Contains(strSearch) ||
@@ -105,19 +140,42 @@ namespace IR.ir
                         cc.Name.Contains(strSearch) ||
                         ir.Subject.Contains(strSearch) ||
                         ir.Room.Contains(strSearch) ||
+                        empl.LastName.Contains(strSearch) ||
+                        empl.FirstName.Contains(strSearch) ||
+                        empl.MiddleName.Contains(strSearch) ||
                         ir.Status.Contains(strSearch)
                      )
                      select new
                      {
+                         Id = ir.Id,
                          TicketNo = ir.TicketNo,
                          CrisisName = cc.Name,
                          Subject = ir.Subject,
                          Room = ir.Room,
-                         IncidentDate = ir.IncidentDate,
-                         Status = ir.Status
+                         IncidentDate = ir.WhenIncidentHappen,
+                         Status = ir.Status,
+                         From = empl.LastName + " , " + empl.FirstName + " " + empl.MiddleName
                      }).ToList();
 
             e.Result = q;
+        }
+
+        protected void btnDelete_Click(object sender, EventArgs e)
+        {
+            var q = (from ir in db.IRTransactions
+                     where ir.Id == Convert.ToInt32(hfDeleteId.Value)
+                     select ir).FirstOrDefault();
+
+            db.IRTransactions.DeleteOnSubmit(q);
+            db.SubmitChanges();
+
+            this.gvIR.DataBind();
+
+            System.Text.StringBuilder sb = new System.Text.StringBuilder();
+            sb.Append(@"<script type='text/javascript'>");
+            sb.Append("$('#deleteModal').modal('hide');");
+            sb.Append(@"</script>");
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "EditShowModalScript", sb.ToString(), false);
         }
     }
 }

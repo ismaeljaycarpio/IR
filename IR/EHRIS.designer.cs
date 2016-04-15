@@ -33,9 +33,9 @@ namespace IR
     partial void InsertEMPLOYEE(EMPLOYEE instance);
     partial void UpdateEMPLOYEE(EMPLOYEE instance);
     partial void DeleteEMPLOYEE(EMPLOYEE instance);
-    partial void InsertMembership(Membership instance);
-    partial void UpdateMembership(Membership instance);
-    partial void DeleteMembership(Membership instance);
+    partial void InsertMembershipLINQ(MembershipLINQ instance);
+    partial void UpdateMembershipLINQ(MembershipLINQ instance);
+    partial void DeleteMembershipLINQ(MembershipLINQ instance);
     partial void InsertPOSITION(POSITION instance);
     partial void UpdatePOSITION(POSITION instance);
     partial void DeletePOSITION(POSITION instance);
@@ -91,11 +91,11 @@ namespace IR
 			}
 		}
 		
-		public System.Data.Linq.Table<Membership> Memberships
+		public System.Data.Linq.Table<MembershipLINQ> MembershipLINQs
 		{
 			get
 			{
-				return this.GetTable<Membership>();
+				return this.GetTable<MembershipLINQ>();
 			}
 		}
 		
@@ -192,7 +192,7 @@ namespace IR
 		
 		private string _DateAccountStatusModified;
 		
-		private EntityRef<Membership> _Membership;
+		private EntityRef<MembershipLINQ> _Membership;
 		
 		private EntityRef<POSITION> _POSITION;
 		
@@ -250,7 +250,7 @@ namespace IR
 		
 		public EMPLOYEE()
 		{
-			this._Membership = default(EntityRef<Membership>);
+			this._Membership = default(EntityRef<MembershipLINQ>);
 			this._POSITION = default(EntityRef<POSITION>);
 			OnCreated();
 		}
@@ -724,7 +724,7 @@ namespace IR
 		}
 		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Membership_EMPLOYEE", Storage="_Membership", ThisKey="UserId", OtherKey="UserId", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
-		public Membership Membership
+		public MembershipLINQ MembershipLINQ
 		{
 			get
 			{
@@ -732,7 +732,7 @@ namespace IR
 			}
 			set
 			{
-				Membership previousValue = this._Membership.Entity;
+				MembershipLINQ previousValue = this._Membership.Entity;
 				if (((previousValue != value) 
 							|| (this._Membership.HasLoadedOrAssignedValue == false)))
 				{
@@ -752,7 +752,7 @@ namespace IR
 					{
 						this._UserId = default(System.Guid);
 					}
-					this.SendPropertyChanged("Membership");
+					this.SendPropertyChanged("MembershipLINQ");
 				}
 			}
 		}
@@ -813,7 +813,7 @@ namespace IR
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Memberships")]
-	public partial class Membership : INotifyPropertyChanging, INotifyPropertyChanged
+	public partial class MembershipLINQ : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
@@ -904,7 +904,7 @@ namespace IR
     partial void OnCommentChanged();
     #endregion
 		
-		public Membership()
+		public MembershipLINQ()
 		{
 			this._EMPLOYEE = default(EntityRef<EMPLOYEE>);
 			this._User = default(EntityRef<User>);
@@ -1312,12 +1312,12 @@ namespace IR
 					if ((previousValue != null))
 					{
 						this._EMPLOYEE.Entity = null;
-						previousValue.Membership = null;
+						previousValue.MembershipLINQ = null;
 					}
 					this._EMPLOYEE.Entity = value;
 					if ((value != null))
 					{
-						value.Membership = this;
+						value.MembershipLINQ = this;
 					}
 					this.SendPropertyChanged("EMPLOYEE");
 				}
@@ -1639,7 +1639,7 @@ namespace IR
 		
 		private System.DateTime _LastActivityDate;
 		
-		private EntityRef<Membership> _Membership;
+		private EntityRef<MembershipLINQ> _Membership;
 		
 		private EntitySet<UsersInRole> _UsersInRoles;
 		
@@ -1661,7 +1661,7 @@ namespace IR
 		
 		public User()
 		{
-			this._Membership = default(EntityRef<Membership>);
+			this._Membership = default(EntityRef<MembershipLINQ>);
 			this._UsersInRoles = new EntitySet<UsersInRole>(new Action<UsersInRole>(this.attach_UsersInRoles), new Action<UsersInRole>(this.detach_UsersInRoles));
 			OnCreated();
 		}
@@ -1767,7 +1767,7 @@ namespace IR
 		}
 		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_Membership", Storage="_Membership", ThisKey="UserId", OtherKey="UserId", IsUnique=true, IsForeignKey=false)]
-		public Membership Membership
+		public MembershipLINQ Membership
 		{
 			get
 			{
@@ -1775,7 +1775,7 @@ namespace IR
 			}
 			set
 			{
-				Membership previousValue = this._Membership.Entity;
+				MembershipLINQ previousValue = this._Membership.Entity;
 				if (((previousValue != value) 
 							|| (this._Membership.HasLoadedOrAssignedValue == false)))
 				{

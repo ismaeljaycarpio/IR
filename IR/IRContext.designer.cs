@@ -30,12 +30,12 @@ namespace IR
 		
     #region Extensibility Method Definitions
     partial void OnCreated();
-    partial void InsertIRTransaction(IRTransaction instance);
-    partial void UpdateIRTransaction(IRTransaction instance);
-    partial void DeleteIRTransaction(IRTransaction instance);
     partial void InsertCrisisCode(CrisisCode instance);
     partial void UpdateCrisisCode(CrisisCode instance);
     partial void DeleteCrisisCode(CrisisCode instance);
+    partial void InsertIRTransaction(IRTransaction instance);
+    partial void UpdateIRTransaction(IRTransaction instance);
+    partial void DeleteIRTransaction(IRTransaction instance);
     #endregion
 		
 		public IRContextDataContext() : 
@@ -68,6 +68,14 @@ namespace IR
 			OnCreated();
 		}
 		
+		public System.Data.Linq.Table<CrisisCode> CrisisCodes
+		{
+			get
+			{
+				return this.GetTable<CrisisCode>();
+			}
+		}
+		
 		public System.Data.Linq.Table<IRTransaction> IRTransactions
 		{
 			get
@@ -75,13 +83,143 @@ namespace IR
 				return this.GetTable<IRTransaction>();
 			}
 		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.CrisisCode")]
+	public partial class CrisisCode : INotifyPropertyChanging, INotifyPropertyChanged
+	{
 		
-		public System.Data.Linq.Table<CrisisCode> CrisisCodes
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _Id;
+		
+		private string _Code;
+		
+		private string _Name;
+		
+		private EntitySet<IRTransaction> _IRTransactions;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(int value);
+    partial void OnIdChanged();
+    partial void OnCodeChanging(string value);
+    partial void OnCodeChanged();
+    partial void OnNameChanging(string value);
+    partial void OnNameChanged();
+    #endregion
+		
+		public CrisisCode()
+		{
+			this._IRTransactions = new EntitySet<IRTransaction>(new Action<IRTransaction>(this.attach_IRTransactions), new Action<IRTransaction>(this.detach_IRTransactions));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int Id
 		{
 			get
 			{
-				return this.GetTable<CrisisCode>();
+				return this._Id;
 			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Code", DbType="VarChar(50)")]
+		public string Code
+		{
+			get
+			{
+				return this._Code;
+			}
+			set
+			{
+				if ((this._Code != value))
+				{
+					this.OnCodeChanging(value);
+					this.SendPropertyChanging();
+					this._Code = value;
+					this.SendPropertyChanged("Code");
+					this.OnCodeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="VarChar(MAX)")]
+		public string Name
+		{
+			get
+			{
+				return this._Name;
+			}
+			set
+			{
+				if ((this._Name != value))
+				{
+					this.OnNameChanging(value);
+					this.SendPropertyChanging();
+					this._Name = value;
+					this.SendPropertyChanged("Name");
+					this.OnNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="CrisisCode_IRTransaction", Storage="_IRTransactions", ThisKey="Id", OtherKey="CrisisId")]
+		public EntitySet<IRTransaction> IRTransactions
+		{
+			get
+			{
+				return this._IRTransactions;
+			}
+			set
+			{
+				this._IRTransactions.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_IRTransactions(IRTransaction entity)
+		{
+			this.SendPropertyChanging();
+			entity.CrisisCode = this;
+		}
+		
+		private void detach_IRTransactions(IRTransaction entity)
+		{
+			this.SendPropertyChanging();
+			entity.CrisisCode = null;
 		}
 	}
 	
@@ -97,17 +235,19 @@ namespace IR
 		
 		private System.Nullable<int> _CrisisId;
 		
+		private System.Nullable<System.Guid> _For;
+		
+		private System.Nullable<System.Guid> _From;
+		
 		private string _Subject;
 		
 		private string _Room;
 		
-		private System.Nullable<System.DateTime> _IncidentDate;
-		
-		private string _From;
-		
-		private string _To;
+		private System.Nullable<System.DateTime> _Date;
 		
 		private string _Status;
+		
+		private System.Nullable<int> _DepartmentId;
 		
 		private System.Nullable<System.DateTime> _WhenIncidentHappen;
 		
@@ -123,7 +263,7 @@ namespace IR
 		
 		private string _Recommendation;
 		
-		private string _PreparedBy;
+		private System.Nullable<System.Guid> _PreparedBy;
 		
 		private EntityRef<CrisisCode> _CrisisCode;
 		
@@ -137,18 +277,20 @@ namespace IR
     partial void OnTicketNoChanged();
     partial void OnCrisisIdChanging(System.Nullable<int> value);
     partial void OnCrisisIdChanged();
+    partial void OnForChanging(System.Nullable<System.Guid> value);
+    partial void OnForChanged();
+    partial void OnFromChanging(System.Nullable<System.Guid> value);
+    partial void OnFromChanged();
     partial void OnSubjectChanging(string value);
     partial void OnSubjectChanged();
     partial void OnRoomChanging(string value);
     partial void OnRoomChanged();
-    partial void OnIncidentDateChanging(System.Nullable<System.DateTime> value);
-    partial void OnIncidentDateChanged();
-    partial void OnFromChanging(string value);
-    partial void OnFromChanged();
-    partial void OnToChanging(string value);
-    partial void OnToChanged();
+    partial void OnDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnDateChanged();
     partial void OnStatusChanging(string value);
     partial void OnStatusChanged();
+    partial void OnDepartmentIdChanging(System.Nullable<int> value);
+    partial void OnDepartmentIdChanged();
     partial void OnWhenIncidentHappenChanging(System.Nullable<System.DateTime> value);
     partial void OnWhenIncidentHappenChanged();
     partial void OnWhenAwareChanging(string value);
@@ -163,7 +305,7 @@ namespace IR
     partial void OnActionTakenChanged();
     partial void OnRecommendationChanging(string value);
     partial void OnRecommendationChanged();
-    partial void OnPreparedByChanging(string value);
+    partial void OnPreparedByChanging(System.Nullable<System.Guid> value);
     partial void OnPreparedByChanged();
     #endregion
 		
@@ -237,6 +379,46 @@ namespace IR
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[For]", Storage="_For", DbType="UniqueIdentifier")]
+		public System.Nullable<System.Guid> For
+		{
+			get
+			{
+				return this._For;
+			}
+			set
+			{
+				if ((this._For != value))
+				{
+					this.OnForChanging(value);
+					this.SendPropertyChanging();
+					this._For = value;
+					this.SendPropertyChanged("For");
+					this.OnForChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[From]", Storage="_From", DbType="UniqueIdentifier")]
+		public System.Nullable<System.Guid> From
+		{
+			get
+			{
+				return this._From;
+			}
+			set
+			{
+				if ((this._From != value))
+				{
+					this.OnFromChanging(value);
+					this.SendPropertyChanging();
+					this._From = value;
+					this.SendPropertyChanged("From");
+					this.OnFromChanged();
+				}
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Subject", DbType="VarChar(MAX)")]
 		public string Subject
 		{
@@ -277,62 +459,22 @@ namespace IR
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IncidentDate", DbType="Date")]
-		public System.Nullable<System.DateTime> IncidentDate
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Date", DbType="Date")]
+		public System.Nullable<System.DateTime> Date
 		{
 			get
 			{
-				return this._IncidentDate;
+				return this._Date;
 			}
 			set
 			{
-				if ((this._IncidentDate != value))
+				if ((this._Date != value))
 				{
-					this.OnIncidentDateChanging(value);
+					this.OnDateChanging(value);
 					this.SendPropertyChanging();
-					this._IncidentDate = value;
-					this.SendPropertyChanged("IncidentDate");
-					this.OnIncidentDateChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[From]", Storage="_From", DbType="VarChar(50)")]
-		public string From
-		{
-			get
-			{
-				return this._From;
-			}
-			set
-			{
-				if ((this._From != value))
-				{
-					this.OnFromChanging(value);
-					this.SendPropertyChanging();
-					this._From = value;
-					this.SendPropertyChanged("From");
-					this.OnFromChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[To]", Storage="_To", DbType="VarChar(50)")]
-		public string To
-		{
-			get
-			{
-				return this._To;
-			}
-			set
-			{
-				if ((this._To != value))
-				{
-					this.OnToChanging(value);
-					this.SendPropertyChanging();
-					this._To = value;
-					this.SendPropertyChanged("To");
-					this.OnToChanged();
+					this._Date = value;
+					this.SendPropertyChanged("Date");
+					this.OnDateChanged();
 				}
 			}
 		}
@@ -353,6 +495,26 @@ namespace IR
 					this._Status = value;
 					this.SendPropertyChanged("Status");
 					this.OnStatusChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DepartmentId", DbType="Int")]
+		public System.Nullable<int> DepartmentId
+		{
+			get
+			{
+				return this._DepartmentId;
+			}
+			set
+			{
+				if ((this._DepartmentId != value))
+				{
+					this.OnDepartmentIdChanging(value);
+					this.SendPropertyChanging();
+					this._DepartmentId = value;
+					this.SendPropertyChanged("DepartmentId");
+					this.OnDepartmentIdChanged();
 				}
 			}
 		}
@@ -497,8 +659,8 @@ namespace IR
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PreparedBy", DbType="VarChar(MAX)")]
-		public string PreparedBy
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PreparedBy", DbType="UniqueIdentifier")]
+		public System.Nullable<System.Guid> PreparedBy
 		{
 			get
 			{
@@ -569,144 +731,6 @@ namespace IR
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.CrisisCode")]
-	public partial class CrisisCode : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _Id;
-		
-		private string _Code;
-		
-		private string _Name;
-		
-		private EntitySet<IRTransaction> _IRTransactions;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIdChanging(int value);
-    partial void OnIdChanged();
-    partial void OnCodeChanging(string value);
-    partial void OnCodeChanged();
-    partial void OnNameChanging(string value);
-    partial void OnNameChanged();
-    #endregion
-		
-		public CrisisCode()
-		{
-			this._IRTransactions = new EntitySet<IRTransaction>(new Action<IRTransaction>(this.attach_IRTransactions), new Action<IRTransaction>(this.detach_IRTransactions));
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int Id
-		{
-			get
-			{
-				return this._Id;
-			}
-			set
-			{
-				if ((this._Id != value))
-				{
-					this.OnIdChanging(value);
-					this.SendPropertyChanging();
-					this._Id = value;
-					this.SendPropertyChanged("Id");
-					this.OnIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Code", DbType="VarChar(50)")]
-		public string Code
-		{
-			get
-			{
-				return this._Code;
-			}
-			set
-			{
-				if ((this._Code != value))
-				{
-					this.OnCodeChanging(value);
-					this.SendPropertyChanging();
-					this._Code = value;
-					this.SendPropertyChanged("Code");
-					this.OnCodeChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="VarChar(MAX)")]
-		public string Name
-		{
-			get
-			{
-				return this._Name;
-			}
-			set
-			{
-				if ((this._Name != value))
-				{
-					this.OnNameChanging(value);
-					this.SendPropertyChanging();
-					this._Name = value;
-					this.SendPropertyChanged("Name");
-					this.OnNameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="CrisisCode_IRTransaction", Storage="_IRTransactions", ThisKey="Id", OtherKey="CrisisId")]
-		public EntitySet<IRTransaction> IRTransactions
-		{
-			get
-			{
-				return this._IRTransactions;
-			}
-			set
-			{
-				this._IRTransactions.Assign(value);
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_IRTransactions(IRTransaction entity)
-		{
-			this.SendPropertyChanging();
-			entity.CrisisCode = this;
-		}
-		
-		private void detach_IRTransactions(IRTransaction entity)
-		{
-			this.SendPropertyChanging();
-			entity.CrisisCode = null;
 		}
 	}
 }

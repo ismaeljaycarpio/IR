@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Web.Security;
 
 namespace IR.ir
 {
@@ -17,6 +18,23 @@ namespace IR.ir
             if(!Page.IsPostBack)
             {
                 bindDropdown();
+
+                //load employee info
+                Guid myUserId = Guid.Parse(Membership.GetUser().ProviderUserKey.ToString());
+                var user = (from emp in dbEHRIS.EMPLOYEEs
+                            join p in dbEHRIS.POSITIONs
+                            on emp.PositionId equals p.Id
+                            where 
+                            (emp.UserId == myUserId)
+                            select new
+                            {
+                                UserId = emp.UserId,
+                                FullName = emp.LastName + " , " + emp.FirstName + " " + emp.MiddleName,
+                                Position = p.Position1
+                            }).FirstOrDefault(); ;
+
+                txtPreparedBy.Text = user.FullName;
+                txtPosition.Text = user.Position;
             }
         }
 
@@ -25,19 +43,41 @@ namespace IR.ir
             Page.Validate("vgAdd");
             if(Page.IsValid)
             {
+                IRTransaction ir = new IRTransaction();
+                ir.TicketNo = txtTicketNo.Text;
+                ir.CrisisId = Convert.ToInt32(ddlCrisis.SelectedValue);
+                ir.For = Guid.Parse(ddlFor.SelectedValue);
+                ir.From = Guid.Parse(ddlFrom.SelectedValue);
+                ir.Subject = txtSubject.Text;
+                ir.Room = txtRoom.Text;
+                ir.Date = Convert.ToDateTime(txtDate.Text);
+                ir.Status = ddlStatus.SelectedItem.Text;
+                ir.DepartmentId = Convert.ToInt32(ddlDepartment.SelectedValue);
+                ir.WhenIncidentHappen = Convert.ToDateTime(txtWhenIncident.Text);
+                ir.WhenAware = rblWhenAware.SelectedValue;
+                ir.WhoInvolved = txtWhosInvolved.Text;
+                ir.WhatHappened = txtWhatHappened.Text;
+                ir.Investigation = txtInvestigation.Text;
+                ir.ActionTaken = txtActionTaken.Text;
+                ir.Recommendation = txtRecommendation.Text;
+                ir.PreparedBy = Guid.Parse(Membership.GetUser().ProviderUserKey.ToString());
+
+                dbIR.IRTransactions.InsertOnSubmit(ir);
+                dbIR.SubmitChanges();
+
                 Response.Redirect("~/ir/ir.aspx");
             }
         }
 
         protected void btnCancel_Click(object sender, EventArgs e)
         {
-
+            Response.Redirect("~/ir/ir.aspx");
         }
 
         protected void bindDropdown()
         {
             //managers
-            var managers = (from m in dbEHRIS.Memberships
+            var managers = (from m in dbEHRIS.MembershipLINQs
                             join e in dbEHRIS.EMPLOYEEs
                            on m.UserId equals e.UserId
                             join u in dbEHRIS.Users
