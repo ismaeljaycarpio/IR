@@ -12,8 +12,8 @@
                 <div class="panel-body">
 
                     <div class="col-md-4">
-                        <label for="txtTicketNo">Ticket No: </label>
-                        <asp:TextBox ID="txtTicketNo" runat="server" CssClass="form-control" placeholder="Ticket No"></asp:TextBox>
+                        <label for="txtTicketNo">IR No: </label>
+                        <asp:TextBox ID="txtTicketNo" runat="server" CssClass="form-control" placeholder="IR No" Enabled="false"></asp:TextBox>
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator2"
                             runat="server"
                             Display="Dynamic"
@@ -35,20 +35,6 @@
                             ValidationGroup="vgAdd"
                             ErrorMessage="Crisis Code is required"></asp:RequiredFieldValidator>
                     </div>
-
-                    <div class="col-md-4">
-                        <label for="ddlFor">For: </label>
-                        <asp:DropDownList ID="ddlFor" runat="server" CssClass="form-control"></asp:DropDownList>
-                        <asp:RequiredFieldValidator ID="RequiredFieldValidator1"
-                            runat="server"
-                            Display="Dynamic"
-                            ControlToValidate="ddlFor"
-                            CssClass="label label-danger"
-                            InitialValue="0"
-                            ValidationGroup="vgAdd"
-                            ErrorMessage="Manager is required"></asp:RequiredFieldValidator>
-                    </div>
-
                 </div>
 
 
@@ -79,8 +65,8 @@
                     </div>
 
                     <div class="col-md-4">
-                        <label for="txtRoom">Room: </label>
-                        <asp:TextBox ID="txtRoom" runat="server" CssClass="form-control" placeholder="Room"></asp:TextBox>
+                        <label for="txtRoom">Location: </label>
+                        <asp:TextBox ID="txtRoom" runat="server" CssClass="form-control" placeholder="Location"></asp:TextBox>
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator4"
                             runat="server"
                             Display="Dynamic"
@@ -142,7 +128,6 @@
                         <label for="txtWhenIncident">When did the incident happen? </label>
                         <asp:TextBox ID="txtWhenIncident"
                             runat="server"
-                            data-provide="datepicker"
                             CssClass="form-control"></asp:TextBox>
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator8"
                             runat="server"
@@ -324,4 +309,10 @@
         EnableSanitization="false"
         runat="server">
     </ajaxToolkit:HtmlEditorExtender>
+
+    <script type="text/javascript">
+        $(function () {
+            $('#<%= txtWhenIncident.ClientID%>').datetimepicker();
+        });
+    </script>
 </asp:Content>

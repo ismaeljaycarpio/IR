@@ -33,14 +33,13 @@ namespace IR.ir
                     {
                         txtTicketNo.Text = q.TicketNo;
                         ddlCrisis.SelectedValue = q.CrisisId.ToString();
-                        ddlFor.SelectedValue = q.For.ToString();
                         ddlFrom.SelectedValue = q.From.ToString();
                         txtSubject.Text = q.Subject;
                         txtRoom.Text = q.Room;
                         txtDate.Text = String.Format("{0: MM/dd/yyyy}", q.Date); 
                         ddlStatus.SelectedValue = q.Status;
                         ddlDepartment.SelectedValue = q.DepartmentId.ToString();
-                        txtWhenIncident.Text = String.Format("{0: MM/dd/yyyy}", q.WhenIncidentHappen);
+                        txtWhenIncident.Text = q.WhenIncidentHappen.ToString();
                         rblWhenAware.SelectedValue = q.WhenAware;
                         txtWhosInvolved.Text = q.WhoInvolved;
                         txtWhatHappened.Text = q.WhatHappened;
@@ -78,30 +77,6 @@ namespace IR.ir
 
         protected void bindDropdown()
         {
-            //managers
-            var managers = (from m in dbEHRIS.MembershipLINQs
-                            join e in dbEHRIS.EMPLOYEEs
-                           on m.UserId equals e.UserId
-                            join u in dbEHRIS.Users
-                           on m.UserId equals u.UserId
-                            join uir in dbEHRIS.UsersInRoles
-                           on u.UserId equals uir.UserId
-                            join r in dbEHRIS.Roles
-                           on uir.RoleId equals r.RoleId
-                            where
-                            r.RoleName == "Manager"
-                            select new
-                            {
-                                UserId = m.UserId,
-                                FullName = e.LastName + " , " + e.FirstName + " " + e.MiddleName
-                            }).ToList();
-
-            ddlFor.DataSource = managers;
-            ddlFor.DataTextField = "FullName";
-            ddlFor.DataValueField = "UserId";
-            ddlFor.DataBind();
-            ddlFor.Items.Insert(0, new ListItem("Select Manager", "0"));
-
             //dm
             var dm = (from e in dbEHRIS.EMPLOYEEs
                       join p in dbEHRIS.POSITIONs
@@ -160,7 +135,6 @@ namespace IR.ir
 
                 q.TicketNo = txtTicketNo.Text;
                 q.CrisisId = Convert.ToInt32(ddlCrisis.SelectedValue);
-                q.For = Guid.Parse(ddlFor.SelectedValue);
                 q.From = Guid.Parse(ddlFrom.SelectedValue);
                 q.Subject = txtSubject.Text;
                 q.Room = txtRoom.Text;

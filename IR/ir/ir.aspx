@@ -58,7 +58,7 @@
                                             </ItemTemplate>
                                         </asp:TemplateField>
 
-                                        <asp:TemplateField HeaderText="Ticket No" SortExpression="TicketNo">
+                                        <asp:TemplateField HeaderText="IR No" SortExpression="TicketNo">
                                             <ItemTemplate>
                                                 <asp:LinkButton ID="lblTicketNo" runat="server" Text='<%# Eval("TicketNo") %>' CommandName="editRecord" CommandArgument='<%#((GridViewRow)Container).RowIndex %>'></asp:LinkButton>
                                             </ItemTemplate>
@@ -66,8 +66,8 @@
 
                                         <asp:BoundField DataField="CrisisName" HeaderText="Crisis" SortExpression="CrisisName" />
                                         <asp:BoundField DataField="Subject" HeaderText="Subject" SortExpression="Subject" />
-                                        <asp:BoundField DataField="Room" HeaderText="Room" SortExpression="Room" />
-                                        <asp:BoundField DataField="IncidentDate" HeaderText="Incident Date" DataFormatString="{0:d}" SortExpression="IncidentDate"/>
+                                        <asp:BoundField DataField="Room" HeaderText="Location" SortExpression="Room" />
+                                        <asp:BoundField DataField="IncidentDate" HeaderText="Incident Date" SortExpression="IncidentDate"/>
                                         <asp:BoundField DataField="Status" HeaderText="Status" SortExpression="Status"/>
 
                                         <asp:TemplateField>

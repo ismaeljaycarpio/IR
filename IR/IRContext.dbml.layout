@@ -8,17 +8,17 @@
         <elementListCompartment Id="6d723e39-2631-4b9b-8f9a-1c78b42405fc" absoluteBounds="0.51500000000000012, 0.96, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="6ae51a52-1ffa-4567-a58a-cee3041b4cbb" absoluteBounds="0.5, 2.625, 2, 4.2708154296875">
+    <classShape Id="763ed098-99a0-48d3-b468-9b9dcd6b35fd" absoluteBounds="0.875, 3.125, 2, 4.0785139973958326">
       <DataClassMoniker Name="/IRContextDataContext/IRTransaction" />
       <nestedChildShapes>
-        <elementListCompartment Id="517066a3-57b6-47ec-9f3e-ce2bcd42bf37" absoluteBounds="0.51500000000000012, 3.085, 1.9700000000000002, 3.7108154296875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="bccd4ac5-9851-457b-bc79-5f092fd97c64" absoluteBounds="0.89000000000000012, 3.585, 1.9700000000000002, 3.518513997395833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(1.5 : 1.8862939453125); (1.5 : 2.625)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(1.6875 : 1.8862939453125); (1.6875 : 3.125)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/IRContextDataContext/CrisisCode/CrisisCode_IRTransaction" />
       <nodes>
         <classShapeMoniker Id="c60a6ebd-27a1-44bc-aefd-532a90cabd0e" />
-        <classShapeMoniker Id="6ae51a52-1ffa-4567-a58a-cee3041b4cbb" />
+        <classShapeMoniker Id="763ed098-99a0-48d3-b468-9b9dcd6b35fd" />
       </nodes>
     </associationConnector>
   </nestedChildShapes>

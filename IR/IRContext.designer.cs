@@ -235,8 +235,6 @@ namespace IR
 		
 		private System.Nullable<int> _CrisisId;
 		
-		private System.Nullable<System.Guid> _For;
-		
 		private System.Nullable<System.Guid> _From;
 		
 		private string _Subject;
@@ -277,8 +275,6 @@ namespace IR
     partial void OnTicketNoChanged();
     partial void OnCrisisIdChanging(System.Nullable<int> value);
     partial void OnCrisisIdChanged();
-    partial void OnForChanging(System.Nullable<System.Guid> value);
-    partial void OnForChanged();
     partial void OnFromChanging(System.Nullable<System.Guid> value);
     partial void OnFromChanged();
     partial void OnSubjectChanging(string value);
@@ -375,26 +371,6 @@ namespace IR
 					this._CrisisId = value;
 					this.SendPropertyChanged("CrisisId");
 					this.OnCrisisIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[For]", Storage="_For", DbType="UniqueIdentifier")]
-		public System.Nullable<System.Guid> For
-		{
-			get
-			{
-				return this._For;
-			}
-			set
-			{
-				if ((this._For != value))
-				{
-					this.OnForChanging(value);
-					this.SendPropertyChanging();
-					this._For = value;
-					this.SendPropertyChanged("For");
-					this.OnForChanged();
 				}
 			}
 		}
@@ -519,7 +495,7 @@ namespace IR
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_WhenIncidentHappen", DbType="Date")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_WhenIncidentHappen", DbType="DateTime")]
 		public System.Nullable<System.DateTime> WhenIncidentHappen
 		{
 			get

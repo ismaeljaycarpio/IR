@@ -46,7 +46,6 @@ namespace IR.ir
                 IRTransaction ir = new IRTransaction();
                 ir.TicketNo = txtTicketNo.Text;
                 ir.CrisisId = Convert.ToInt32(ddlCrisis.SelectedValue);
-                ir.For = Guid.Parse(ddlFor.SelectedValue);
                 ir.From = Guid.Parse(ddlFrom.SelectedValue);
                 ir.Subject = txtSubject.Text;
                 ir.Room = txtRoom.Text;
@@ -76,30 +75,6 @@ namespace IR.ir
 
         protected void bindDropdown()
         {
-            //managers
-            var managers = (from m in dbEHRIS.MembershipLINQs
-                            join e in dbEHRIS.EMPLOYEEs
-                           on m.UserId equals e.UserId
-                            join u in dbEHRIS.Users
-                           on m.UserId equals u.UserId
-                            join uir in dbEHRIS.UsersInRoles
-                           on u.UserId equals uir.UserId
-                            join r in dbEHRIS.Roles
-                           on uir.RoleId equals r.RoleId
-                           where
-                           r.RoleName == "Manager"
-                           select new
-                           {
-                               UserId = m.UserId,
-                               FullName = e.LastName + " , " + e.FirstName + " " + e.MiddleName
-                           }).ToList();
-
-            ddlFor.DataSource = managers;
-            ddlFor.DataTextField = "FullName";
-            ddlFor.DataValueField = "UserId";
-            ddlFor.DataBind();
-            ddlFor.Items.Insert(0, new ListItem("Select Manager", "0"));
-
             //dm
             var dm = (from e in dbEHRIS.EMPLOYEEs
                       join p in dbEHRIS.POSITIONs
