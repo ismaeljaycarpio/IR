@@ -723,7 +723,7 @@ namespace IR
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Membership_EMPLOYEE", Storage="_Membership", ThisKey="UserId", OtherKey="UserId", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="MembershipLINQ_EMPLOYEE", Storage="_Membership", ThisKey="UserId", OtherKey="UserId", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
 		public MembershipLINQ MembershipLINQ
 		{
 			get
@@ -1295,7 +1295,7 @@ namespace IR
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Membership_EMPLOYEE", Storage="_EMPLOYEE", ThisKey="UserId", OtherKey="UserId", IsUnique=true, IsForeignKey=false)]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="MembershipLINQ_EMPLOYEE", Storage="_EMPLOYEE", ThisKey="UserId", OtherKey="UserId", IsUnique=true, IsForeignKey=false)]
 		public EMPLOYEE EMPLOYEE
 		{
 			get
@@ -1324,7 +1324,7 @@ namespace IR
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_Membership", Storage="_User", ThisKey="UserId", OtherKey="UserId", IsForeignKey=true)]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_MembershipLINQ", Storage="_User", ThisKey="UserId", OtherKey="UserId", IsForeignKey=true)]
 		public User User
 		{
 			get
@@ -1766,7 +1766,7 @@ namespace IR
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_Membership", Storage="_Membership", ThisKey="UserId", OtherKey="UserId", IsUnique=true, IsForeignKey=false)]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_MembershipLINQ", Storage="_Membership", ThisKey="UserId", OtherKey="UserId", IsUnique=true, IsForeignKey=false)]
 		public MembershipLINQ Membership
 		{
 			get

@@ -10,30 +10,24 @@
                     <h5>Incident Report</h5>
                 </div>
                 <div class="panel-body">
-                    <div class="form-horizontal">
+                    <div class="form-inline">
                         <div class="form-group">
-                            <div class="col-md-12">
-                                <div class="input-group">
-                                    <asp:TextBox ID="txtSearch"
-                                        runat="server"
-                                        CssClass="form-control"
-                                        placeholder="Search..."></asp:TextBox>
-                                    <span class="input-group-btn">
-                                        <asp:Button ID="btnSearch"
-                                            runat="server"
-                                            CssClass="btn btn-primary"
-                                            Text="Go"
-                                            OnClick="btnSearch_Click" />
-                                    </span>
-                                    <div class="pull-right">
-                                        <asp:Button ID="btnExport"
-                                            runat="server"
-                                            Text="Export to Excel"
-                                            OnClick="btnExport_Click"
-                                            CssClass="btn btn-default btn-sm" />
-                                    </div>
-                                </div>
-                            </div>
+                            <asp:TextBox ID="txtSearch"
+                                runat="server"
+                                CssClass="form-control"
+                                placeholder="Search..."></asp:TextBox>
+                            <asp:Button ID="btnSearch"
+                                runat="server"
+                                CssClass="btn btn-primary"
+                                Text="Go"
+                                OnClick="btnSearch_Click" />
+                        </div>
+                        <div class="pull-right">
+                            <asp:Button ID="btnExport"
+                                runat="server"
+                                Text="Export to Excel"
+                                OnClick="btnExport_Click"
+                                CssClass="btn btn-default btn-sm" />
                         </div>
                     </div>
                     <div class="table-responsive">
@@ -49,7 +43,7 @@
                                     EmptyDataText="No Record(s) found"
                                     ShowHeaderWhenEmpty="True"
                                     DataKeyNames="Id"
-                                    OnRowCommand="gvIR_RowCommand" 
+                                    OnRowCommand="gvIR_RowCommand"
                                     DataSourceID="IRDataSource">
                                     <Columns>
                                         <asp:TemplateField HeaderText="Row Id" Visible="false">
@@ -67,8 +61,8 @@
                                         <asp:BoundField DataField="CrisisName" HeaderText="Crisis" SortExpression="CrisisName" />
                                         <asp:BoundField DataField="Subject" HeaderText="Subject" SortExpression="Subject" />
                                         <asp:BoundField DataField="Room" HeaderText="Location" SortExpression="Room" />
-                                        <asp:BoundField DataField="IncidentDate" HeaderText="Incident Date" SortExpression="IncidentDate"/>
-                                        <asp:BoundField DataField="Status" HeaderText="Status" SortExpression="Status"/>
+                                        <asp:BoundField DataField="IncidentDate" HeaderText="Incident Date" SortExpression="IncidentDate" />
+                                        <asp:BoundField DataField="Status" HeaderText="Status" SortExpression="Status" />
 
                                         <asp:TemplateField>
                                             <ItemTemplate>
@@ -109,10 +103,10 @@
                             <asp:HiddenField ID="hfDeleteId" runat="server" />
                         </div>
                         <div class="modal-footer">
-                            <asp:Button ID="btnDelete" 
-                                runat="server" 
-                                CssClass="btn btn-danger" 
-                                Text="Delete" 
+                            <asp:Button ID="btnDelete"
+                                runat="server"
+                                CssClass="btn btn-danger"
+                                Text="Delete"
                                 OnClick="btnDelete_Click" />
                             <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                         </div>
@@ -128,5 +122,6 @@
     <asp:GridView ID="GridView1" runat="server"></asp:GridView>
     <asp:LinqDataSource ID="IRDataSource"
         OnSelecting="IRDataSource_Selecting"
-        runat="server"></asp:LinqDataSource>
+        runat="server">
+    </asp:LinqDataSource>
 </asp:Content>

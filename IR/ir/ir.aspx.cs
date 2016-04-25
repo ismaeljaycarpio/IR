@@ -16,17 +16,11 @@ namespace IR.ir
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!Page.IsPostBack)
-            {
-                this.gvIR.DataBind();
-                txtSearch.Focus();
-            }
         }
 
         protected void btnSearch_Click(object sender, EventArgs e)
         {
             this.gvIR.DataBind();
-            txtSearch.Focus();
         }
 
         protected void btnExport_Click(object sender, EventArgs e)
@@ -125,38 +119,6 @@ namespace IR.ir
         {
             string strSearch = txtSearch.Text;
 
-            var employee = (from emp in dbEHRIS.EMPLOYEEs
-                            select emp);
-
-            //var q = (from empl in employee.ToList()
-            //         join ir in db.IRTransactions
-            //         on empl.UserId equals ir.From
-            //         join cc in db.CrisisCodes
-            //         on ir.CrisisId equals cc.Id
-            //         where
-            //         (
-            //            ir.TicketNo.Contains(strSearch) ||
-            //            cc.Code.Contains(strSearch) ||
-            //            cc.Name.Contains(strSearch) ||
-            //            ir.Subject.Contains(strSearch) ||
-            //            ir.Room.Contains(strSearch) ||
-            //            empl.LastName.Contains(strSearch) ||
-            //            empl.FirstName.Contains(strSearch) ||
-            //            empl.MiddleName.Contains(strSearch) ||
-            //            ir.Status.Contains(strSearch)
-            //         )
-            //         select new
-            //         {
-            //             Id = ir.Id,
-            //             TicketNo = ir.TicketNo,
-            //             CrisisName = cc.Name,
-            //             Subject = ir.Subject,
-            //             Room = ir.Room,
-            //             IncidentDate = ir.WhenIncidentHappen,
-            //             Status = ir.Status,
-            //             From = empl.LastName + " , " + empl.FirstName + " " + empl.MiddleName
-            //         }).ToList();
-
             var q = (from ir in db.IRTransactions
                      join cc in db.CrisisCodes
                      on ir.CrisisId equals cc.Id
@@ -181,6 +143,7 @@ namespace IR.ir
                      }).ToList();
 
             e.Result = q;
+            txtSearch.Focus();
         }
 
         protected void btnDelete_Click(object sender, EventArgs e)
