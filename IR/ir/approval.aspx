@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Incident Report List" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="ir.aspx.cs" Inherits="IR.ir.ir" %>
+﻿<%@ Page Title="Approval of Incident Report" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="approval.aspx.cs" Inherits="IR.ir.approval" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
 </asp:Content>
@@ -7,7 +7,7 @@
         <div class="col-md-12">
             <div class="panel panel-primary">
                 <div class="panel-heading">
-                    <h5>Incident Report</h5>
+                    <h5>Approval of Incident Report</h5>
                 </div>
                 <div class="panel-body">
                     <div class="form-inline">
@@ -18,11 +18,6 @@
                                 placeholder="Search..."></asp:TextBox>
                             <asp:TextBox ID="txtFromDate" runat="server" CssClass="form-control" data-provide="datepicker" placeholder="From Date"></asp:TextBox>
                             <asp:TextBox ID="txtToDate" runat="server" CssClass="form-control" data-provide="datepicker" placeholder="To Date"></asp:TextBox>
-                            <asp:DropDownList ID="ddlStatus" runat="server" CssClass="form-control">
-                                <asp:ListItem Value="0">-- Select Status --</asp:ListItem>
-                                <asp:ListItem Value="In-Progress">In-Progress</asp:ListItem>
-                                <asp:ListItem Value="Solved">Solved</asp:ListItem>
-                            </asp:DropDownList>
                             <asp:Button ID="btnSearch"
                                 runat="server"
                                 CssClass="btn btn-primary"
@@ -71,7 +66,7 @@
                                         <asp:BoundField DataField="Subject" HeaderText="Subject" SortExpression="Subject" />
                                         <asp:BoundField DataField="Room" HeaderText="Location" SortExpression="Room" />
                                         <asp:BoundField DataField="IncidentDate" HeaderText="Incident Date" SortExpression="IncidentDate" />
-                                        <asp:BoundField DataField="DateSolved" HeaderText="Solved Date" SortExpression="DateSolved" DataFormatString="{0:d}"/>
+                                        <asp:BoundField DataField="DateSolved" HeaderText="Solved Date" SortExpression="DateSolved" DataFormatString="{0:d}" />
 
                                         <asp:TemplateField HeaderText="Status">
                                             <ItemTemplate>
@@ -81,7 +76,7 @@
 
                                         <asp:TemplateField>
                                             <ItemTemplate>
-                                                <asp:Button ID="btnSolved" runat="server" Text="Solved" CommandName="solveRecord" CssClass="btn btn-default" CommandArgument='<%# ((GridViewRow) Container).RowIndex %>'/>
+                                                <asp:Button ID="btnApproval" runat="server" Text="Approval" CommandName="approvalRecord" CssClass="btn btn-default" CommandArgument='<%# ((GridViewRow) Container).RowIndex %>' />
                                             </ItemTemplate>
                                         </asp:TemplateField>
 
@@ -94,10 +89,6 @@
                                     </Columns>
                                     <PagerStyle CssClass="pagination-ys" />
                                 </asp:GridView>
-                                <asp:LinkButton ID="lblCreate"
-                                    runat="server"
-                                    CssClass="navbar-link"
-                                    PostBackUrl="~/ir/irform.aspx">Create Incident Report</asp:LinkButton>
                             </ContentTemplate>
                             <Triggers>
                             </Triggers>
@@ -107,6 +98,43 @@
             </div>
         </div>
     </asp:Panel>
+
+    <!-- Approval Modal -->
+    <div id="approveModal" class="modal fade" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <asp:UpdatePanel ID="UpdatePanel2" runat="server">
+                    <ContentTemplate>
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Approve IR</h4>
+                        </div>
+                        <div class="modal-body">
+                            Are you sure you want to approve this IR ?
+                            <asp:HiddenField ID="hfIRId" runat="server" />
+                        </div>
+                        <div class="modal-footer">
+                            <asp:Button ID="btnConfirmApprove"
+                                runat="server"
+                                CssClass="btn btn-success"
+                                Text="Approve"
+                                OnClick="btnConfirmApprove_Click" />
+                            <asp:Button ID="btnConfirmDisapprove"
+                                runat="server"
+                                CssClass="btn btn-warning"
+                                Text="Disapprove"
+                                OnClick="btnConfirmDisapprove_Click" />
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        </div>
+                    </ContentTemplate>
+                    <Triggers>
+                        <asp:AsyncPostBackTrigger ControlID="btnConfirmApprove" EventName="Click" />
+                    </Triggers>
+                </asp:UpdatePanel>
+            </div>
+        </div>
+    </div>
 
     <!-- Delete Modal -->
     <div id="deleteModal" class="modal fade" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true" role="dialog">
@@ -134,51 +162,6 @@
                     </ContentTemplate>
                     <Triggers>
                         <asp:AsyncPostBackTrigger ControlID="btnDelete" EventName="Click" />
-                    </Triggers>
-                </asp:UpdatePanel>
-            </div>
-        </div>
-    </div>
-
-    <!-- Solve Modal -->
-    <div id="solveModal" class="modal fade" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true" role="dialog">
-        <div class="modal-dialog">
-            <!-- Modal content-->
-            <div class="modal-content">
-                <asp:UpdatePanel ID="UpdatePanel1" runat="server">
-                    <ContentTemplate>
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">Solve Status</h4>
-                        </div>
-                        <div class="modal-body">
-                            <label for="txtSolvedDate">Date Solved:</label>
-                            <asp:TextBox ID="txtSolvedDate" 
-                                runat="server" 
-                                CssClass="form-control"
-                                placeholder="Date Solved"
-                                data-provide="datepicker"></asp:TextBox>
-                            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" 
-                                runat="server"
-                                ControlToValidate="txtSolvedDate"
-                                CssClass="label label-danger"
-                                Display="Dynamic"
-                                ValidationGroup="vgSolved"
-                                ErrorMessage="Date Solved is required"></asp:RequiredFieldValidator>
-                            <asp:HiddenField ID="hfSolveId" runat="server" />
-                        </div>
-                        <div class="modal-footer">
-                            <asp:Button ID="btnConfirmSolved"
-                                runat="server"
-                                CssClass="btn btn-success"
-                                Text="Update"
-                                ValidationGroup="vgSolved"
-                                OnClick="btnConfirmSolved_Click" />
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                        </div>
-                    </ContentTemplate>
-                    <Triggers>
-                        <asp:AsyncPostBackTrigger ControlID="btnConfirmSolved" EventName="Click" />
                     </Triggers>
                 </asp:UpdatePanel>
             </div>

@@ -33,6 +33,9 @@ namespace IR
     partial void InsertCrisisCode(CrisisCode instance);
     partial void UpdateCrisisCode(CrisisCode instance);
     partial void DeleteCrisisCode(CrisisCode instance);
+    partial void InsertEvidencePhoto(EvidencePhoto instance);
+    partial void UpdateEvidencePhoto(EvidencePhoto instance);
+    partial void DeleteEvidencePhoto(EvidencePhoto instance);
     partial void InsertIRTransaction(IRTransaction instance);
     partial void UpdateIRTransaction(IRTransaction instance);
     partial void DeleteIRTransaction(IRTransaction instance);
@@ -73,6 +76,14 @@ namespace IR
 			get
 			{
 				return this.GetTable<CrisisCode>();
+			}
+		}
+		
+		public System.Data.Linq.Table<EvidencePhoto> EvidencePhotos
+		{
+			get
+			{
+				return this.GetTable<EvidencePhoto>();
 			}
 		}
 		
@@ -223,6 +234,157 @@ namespace IR
 		}
 	}
 	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.EvidencePhoto")]
+	public partial class EvidencePhoto : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _Id;
+		
+		private System.Nullable<int> _IrId;
+		
+		private string _ImagePath;
+		
+		private EntityRef<IRTransaction> _IRTransaction;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(int value);
+    partial void OnIdChanged();
+    partial void OnIrIdChanging(System.Nullable<int> value);
+    partial void OnIrIdChanged();
+    partial void OnImagePathChanging(string value);
+    partial void OnImagePathChanged();
+    #endregion
+		
+		public EvidencePhoto()
+		{
+			this._IRTransaction = default(EntityRef<IRTransaction>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IrId", DbType="Int")]
+		public System.Nullable<int> IrId
+		{
+			get
+			{
+				return this._IrId;
+			}
+			set
+			{
+				if ((this._IrId != value))
+				{
+					if (this._IRTransaction.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnIrIdChanging(value);
+					this.SendPropertyChanging();
+					this._IrId = value;
+					this.SendPropertyChanged("IrId");
+					this.OnIrIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ImagePath", DbType="VarChar(MAX)")]
+		public string ImagePath
+		{
+			get
+			{
+				return this._ImagePath;
+			}
+			set
+			{
+				if ((this._ImagePath != value))
+				{
+					this.OnImagePathChanging(value);
+					this.SendPropertyChanging();
+					this._ImagePath = value;
+					this.SendPropertyChanged("ImagePath");
+					this.OnImagePathChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="IRTransaction_EvidencePhoto", Storage="_IRTransaction", ThisKey="IrId", OtherKey="Id", IsForeignKey=true, DeleteRule="CASCADE")]
+		public IRTransaction IRTransaction
+		{
+			get
+			{
+				return this._IRTransaction.Entity;
+			}
+			set
+			{
+				IRTransaction previousValue = this._IRTransaction.Entity;
+				if (((previousValue != value) 
+							|| (this._IRTransaction.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._IRTransaction.Entity = null;
+						previousValue.EvidencePhotos.Remove(this);
+					}
+					this._IRTransaction.Entity = value;
+					if ((value != null))
+					{
+						value.EvidencePhotos.Add(this);
+						this._IrId = value.Id;
+					}
+					else
+					{
+						this._IrId = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("IRTransaction");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.IRTransaction")]
 	public partial class IRTransaction : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -234,6 +396,8 @@ namespace IR
 		private string _TicketNo;
 		
 		private System.Nullable<int> _CrisisId;
+		
+		private System.Nullable<System.Guid> _For;
 		
 		private System.Nullable<System.Guid> _From;
 		
@@ -263,6 +427,14 @@ namespace IR
 		
 		private System.Nullable<System.Guid> _PreparedBy;
 		
+		private System.Nullable<System.DateTime> _DateSolved;
+		
+		private string _Approval;
+		
+		private string _ApprovedBy;
+		
+		private EntitySet<EvidencePhoto> _EvidencePhotos;
+		
 		private EntityRef<CrisisCode> _CrisisCode;
 		
     #region Extensibility Method Definitions
@@ -275,6 +447,8 @@ namespace IR
     partial void OnTicketNoChanged();
     partial void OnCrisisIdChanging(System.Nullable<int> value);
     partial void OnCrisisIdChanged();
+    partial void OnForChanging(System.Nullable<System.Guid> value);
+    partial void OnForChanged();
     partial void OnFromChanging(System.Nullable<System.Guid> value);
     partial void OnFromChanged();
     partial void OnSubjectChanging(string value);
@@ -303,10 +477,17 @@ namespace IR
     partial void OnRecommendationChanged();
     partial void OnPreparedByChanging(System.Nullable<System.Guid> value);
     partial void OnPreparedByChanged();
+    partial void OnDateSolvedChanging(System.Nullable<System.DateTime> value);
+    partial void OnDateSolvedChanged();
+    partial void OnApprovalChanging(string value);
+    partial void OnApprovalChanged();
+    partial void OnApprovedByChanging(string value);
+    partial void OnApprovedByChanged();
     #endregion
 		
 		public IRTransaction()
 		{
+			this._EvidencePhotos = new EntitySet<EvidencePhoto>(new Action<EvidencePhoto>(this.attach_EvidencePhotos), new Action<EvidencePhoto>(this.detach_EvidencePhotos));
 			this._CrisisCode = default(EntityRef<CrisisCode>);
 			OnCreated();
 		}
@@ -371,6 +552,26 @@ namespace IR
 					this._CrisisId = value;
 					this.SendPropertyChanged("CrisisId");
 					this.OnCrisisIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[For]", Storage="_For", DbType="UniqueIdentifier")]
+		public System.Nullable<System.Guid> For
+		{
+			get
+			{
+				return this._For;
+			}
+			set
+			{
+				if ((this._For != value))
+				{
+					this.OnForChanging(value);
+					this.SendPropertyChanging();
+					this._For = value;
+					this.SendPropertyChanged("For");
+					this.OnForChanged();
 				}
 			}
 		}
@@ -655,6 +856,79 @@ namespace IR
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateSolved", DbType="DateTime")]
+		public System.Nullable<System.DateTime> DateSolved
+		{
+			get
+			{
+				return this._DateSolved;
+			}
+			set
+			{
+				if ((this._DateSolved != value))
+				{
+					this.OnDateSolvedChanging(value);
+					this.SendPropertyChanging();
+					this._DateSolved = value;
+					this.SendPropertyChanged("DateSolved");
+					this.OnDateSolvedChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Approval", DbType="VarChar(50)")]
+		public string Approval
+		{
+			get
+			{
+				return this._Approval;
+			}
+			set
+			{
+				if ((this._Approval != value))
+				{
+					this.OnApprovalChanging(value);
+					this.SendPropertyChanging();
+					this._Approval = value;
+					this.SendPropertyChanged("Approval");
+					this.OnApprovalChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ApprovedBy", DbType="VarChar(MAX)")]
+		public string ApprovedBy
+		{
+			get
+			{
+				return this._ApprovedBy;
+			}
+			set
+			{
+				if ((this._ApprovedBy != value))
+				{
+					this.OnApprovedByChanging(value);
+					this.SendPropertyChanging();
+					this._ApprovedBy = value;
+					this.SendPropertyChanged("ApprovedBy");
+					this.OnApprovedByChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="IRTransaction_EvidencePhoto", Storage="_EvidencePhotos", ThisKey="Id", OtherKey="IrId")]
+		public EntitySet<EvidencePhoto> EvidencePhotos
+		{
+			get
+			{
+				return this._EvidencePhotos;
+			}
+			set
+			{
+				this._EvidencePhotos.Assign(value);
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="CrisisCode_IRTransaction", Storage="_CrisisCode", ThisKey="CrisisId", OtherKey="Id", IsForeignKey=true, DeleteRule="CASCADE")]
 		public CrisisCode CrisisCode
 		{
@@ -707,6 +981,18 @@ namespace IR
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
+		}
+		
+		private void attach_EvidencePhotos(EvidencePhoto entity)
+		{
+			this.SendPropertyChanging();
+			entity.IRTransaction = this;
+		}
+		
+		private void detach_EvidencePhotos(EvidencePhoto entity)
+		{
+			this.SendPropertyChanging();
+			entity.IRTransaction = null;
 		}
 	}
 }

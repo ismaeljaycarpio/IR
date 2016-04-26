@@ -74,7 +74,12 @@
                                         <li><a runat="server" href="~/file-maintenance/crisis-codes.aspx">Crisis Codes</a></li>
                                     </ul>
                                 </li>
-                                <li><a runat="server" href="~/ir/ir.aspx.aspx">Incident Report</a></li>
+                                <% if (Page.User.IsInRole("General Manager") || 
+                                       Page.User.IsInRole("Director"))
+                                   { %>
+                                <li><a runat="server" href="~/ir/approval.aspx">Approval</a></li>
+                                <%} %>
+                                <li><a runat="server" href="~/ir/ir.aspx">Incident Report</a></li>
                             </ul>
                             <ul class="nav navbar-nav navbar-right">
                                 <li class="dropdown">
@@ -107,8 +112,8 @@
                                                 <li><a runat="server" href="~/file-maintenance/crisis-codes.aspx">Crisis Codes</a></li>
                                             </ul>
                                         </li>
+                                        <li><a runat="server" href="~/ir/approval.aspx">Approval</a></li>
                                         <li><a runat="server" href="~/ir/ir.aspx">Incident Report</a></li>
-                                        <%--<li><a runat="server" href="~/admin/user-access.aspx">Admin</a></li>--%>
                                     </ul>
                                     <ul class="nav navbar-nav navbar-right">
                                         <li>
@@ -152,10 +157,9 @@
             </asp:ContentPlaceHolder>
             <hr />
             <footer>
-                <p>&copy; <%: DateTime.Now.Year %> - eGC</p>
+                <p>&copy; <%: DateTime.Now.Year %> - eIR</p>
             </footer>
         </div>
-
     </form>
 </body>
 </html>

@@ -221,6 +221,7 @@
     <Content Include="Images\orderedList9.png" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="ir\approval.aspx" />
     <Content Include="ir\ir.aspx" />
     <Content Include="ir\irform.aspx" />
     <Content Include="ir\view-irform.aspx" />
@@ -404,6 +405,13 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>IRContext.dbml</DependentUpon>
     </Compile>
+    <Compile Include="ir\approval.aspx.cs">
+      <DependentUpon>approval.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ir\approval.aspx.designer.cs">
+      <DependentUpon>approval.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ir\ir.aspx.cs">
       <DependentUpon>ir.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -457,6 +465,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="photo-evidence\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Account\Web.config" />

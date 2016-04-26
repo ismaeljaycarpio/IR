@@ -11,6 +11,7 @@
       <siteMapNode title="File Maintenance">
         <siteMapNode url="~/file-maintenance/crisis-codes.aspx" title="Crisis Codes"  description="" />
       </siteMapNode>
-      
+
+      <siteMapNode title="IR Approval" url="~/ir/approval.aspx"></siteMapNode>
     </siteMapNode>
 </siteMap>

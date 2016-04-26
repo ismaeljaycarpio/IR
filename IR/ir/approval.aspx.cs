@@ -9,13 +9,14 @@ using System.Web.UI.WebControls;
 
 namespace IR.ir
 {
-    public partial class ir : System.Web.UI.Page
+    public partial class approval : System.Web.UI.Page
     {
         IRContextDataContext db = new IRContextDataContext();
         EHRISDataContext dbEHRIS = new EHRISDataContext();
 
         protected void Page_Load(object sender, EventArgs e)
         {
+
         }
 
         protected void btnSearch_Click(object sender, EventArgs e)
@@ -74,11 +75,6 @@ namespace IR.ir
                         x.IncidentDate.Value.Date <= Convert.ToDateTime(txtToDate.Text).Date)).ToList();
                 }
 
-                if (ddlStatus.SelectedValue != "0")
-                {
-                    q = q.Where(x => x.Status == ddlStatus.SelectedValue).ToList();
-                }
-
                 GridView1.DataSource = q;
                 GridView1.DataBind();
                 ExcelPackage excel = new ExcelPackage();
@@ -119,16 +115,16 @@ namespace IR.ir
 
                 Response.Redirect("~/ir/view-irform.aspx?Id=" + irId.ToString());
             }
-            else if (e.CommandName.Equals("solveRecord"))
+            else if (e.CommandName.Equals("approvalRecord"))
             {
                 int index = Convert.ToInt32(e.CommandArgument);
                 int irId = Convert.ToInt32(gvIR.DataKeys[index].Value);
 
-                hfSolveId.Value = irId.ToString();
+                hfIRId.Value = irId.ToString();
 
                 System.Text.StringBuilder sb = new System.Text.StringBuilder();
                 sb.Append(@"<script type='text/javascript'>");
-                sb.Append("$('#solveModal').modal('show');");
+                sb.Append("$('#approveModal').modal('show');");
                 sb.Append(@"</script>");
                 ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "EditShowModalScript", sb.ToString(), false);
             }
@@ -147,20 +143,45 @@ namespace IR.ir
             }
         }
 
-        protected void btnDelete_Click(object sender, EventArgs e)
+        protected void gvIR_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+
+        }
+
+        protected void btnConfirmApprove_Click(object sender, EventArgs e)
         {
             var q = (from ir in db.IRTransactions
-                     where ir.Id == Convert.ToInt32(hfDeleteId.Value)
+                     where ir.Id == Convert.ToInt32(hfIRId.Value)
                      select ir).FirstOrDefault();
 
-            db.IRTransactions.DeleteOnSubmit(q);
+            q.Approval = "Approved";
+            q.ApprovedBy = User.Identity.Name;
             db.SubmitChanges();
 
             this.gvIR.DataBind();
 
             System.Text.StringBuilder sb = new System.Text.StringBuilder();
             sb.Append(@"<script type='text/javascript'>");
-            sb.Append("$('#deleteModal').modal('hide');");
+            sb.Append("$('#approveModal').modal('hide');");
+            sb.Append(@"</script>");
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "EditShowModalScript", sb.ToString(), false);
+        }
+
+        protected void btnConfirmDisapprove_Click(object sender, EventArgs e)
+        {
+            var q = (from ir in db.IRTransactions
+                     where ir.Id == Convert.ToInt32(hfIRId.Value)
+                     select ir).FirstOrDefault();
+
+            q.Approval = "Disapprove";
+            q.ApprovedBy = User.Identity.Name;
+            db.SubmitChanges();
+
+            this.gvIR.DataBind();
+
+            System.Text.StringBuilder sb = new System.Text.StringBuilder();
+            sb.Append(@"<script type='text/javascript'>");
+            sb.Append("$('#approveModal').modal('hide');");
             sb.Append(@"</script>");
             ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "EditShowModalScript", sb.ToString(), false);
         }
@@ -181,7 +202,7 @@ namespace IR.ir
                         ir.Room.Contains(strSearch)
                      )
                      &&
-                     ir.Approval == "Approved"
+                     ir.Approval == "Pending"
                      select new
                      {
                          Id = ir.Id,
@@ -194,63 +215,44 @@ namespace IR.ir
                          DateSolved = ir.DateSolved
                      }).ToList();
 
-            if(txtFromDate.Text != String.Empty && txtToDate.Text == String.Empty)
+            if (txtFromDate.Text != String.Empty && txtToDate.Text == String.Empty)
             {
                 q = q.Where(x => x.IncidentDate.Value.Date >= Convert.ToDateTime(txtFromDate.Text).Date).ToList();
             }
-            
-            if(txtToDate.Text != String.Empty && txtFromDate.Text == String.Empty)
+
+            if (txtToDate.Text != String.Empty && txtFromDate.Text == String.Empty)
             {
                 q = q.Where(x => x.IncidentDate.Value.Date <= Convert.ToDateTime(txtToDate.Text).Date).ToList();
             }
 
-            if(txtFromDate.Text != String.Empty && txtToDate.Text != String.Empty)
+            if (txtFromDate.Text != String.Empty && txtToDate.Text != String.Empty)
             {
-                q = q.Where(x => (x.IncidentDate.Value.Date >= Convert.ToDateTime(txtFromDate.Text).Date && 
+                q = q.Where(x => (x.IncidentDate.Value.Date >= Convert.ToDateTime(txtFromDate.Text).Date &&
                     x.IncidentDate.Value.Date <= Convert.ToDateTime(txtToDate.Text).Date)).ToList();
-            }
-
-            if(ddlStatus.SelectedValue != "0")
-            {
-                q = q.Where(x => x.Status == ddlStatus.SelectedValue).ToList();
             }
 
             e.Result = q;
             txtSearch.Focus();
         }
 
-        protected void btnConfirmSolved_Click(object sender, EventArgs e)
+        protected void btnDelete_Click(object sender, EventArgs e)
         {
-            int irId = Convert.ToInt32(hfSolveId.Value);
             var q = (from ir in db.IRTransactions
-                     where ir.Id == irId
+                     where ir.Id == Convert.ToInt32(hfDeleteId.Value)
                      select ir).FirstOrDefault();
 
-            q.Status = "Solved";
-            q.DateSolved = Convert.ToDateTime(txtSolvedDate.Text);
+            db.IRTransactions.DeleteOnSubmit(q);
             db.SubmitChanges();
 
             this.gvIR.DataBind();
 
             System.Text.StringBuilder sb = new System.Text.StringBuilder();
             sb.Append(@"<script type='text/javascript'>");
-            sb.Append("$('#solveModal').modal('hide');");
+            sb.Append("$('#deleteModal').modal('hide');");
             sb.Append(@"</script>");
             ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "EditShowModalScript", sb.ToString(), false);
         }
 
-        protected void gvIR_RowDataBound(object sender, GridViewRowEventArgs e)
-        {
-            if(e.Row.RowType == DataControlRowType.DataRow)
-            {
-                Label lblStatus = e.Row.FindControl("lblStatus") as Label;
-                Button btnSolve = e.Row.FindControl("btnSolved") as Button;
-
-                if(lblStatus.Text == "Solved")
-                {
-                    btnSolve.Visible = false;
-                }
-            }
-        }
+        
     }
 }

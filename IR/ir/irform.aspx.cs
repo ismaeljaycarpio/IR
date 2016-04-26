@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.Security;
+using System.IO;
 
 namespace IR.ir
 {
@@ -60,9 +61,30 @@ namespace IR.ir
                 ir.ActionTaken = txtActionTaken.Text;
                 ir.Recommendation = txtRecommendation.Text;
                 ir.PreparedBy = Guid.Parse(Membership.GetUser().ProviderUserKey.ToString());
+                ir.Approval = "Pending";
 
                 dbIR.IRTransactions.InsertOnSubmit(ir);
                 dbIR.SubmitChanges();
+
+                int tranId = ir.Id;
+
+                //chk for uploaded photos
+                if(FileUpload1.HasFiles)
+                {
+                    foreach (HttpPostedFile postedFile in FileUpload1.PostedFiles)
+                    {
+                        string fileName = Path.GetFileName(postedFile.FileName);
+                        postedFile.SaveAs(Server.MapPath("~/photo-evidence/") + tranId + "_" + fileName);
+
+                        //record to db
+                        EvidencePhoto ep = new EvidencePhoto();
+                        ep.IrId = tranId;
+                        ep.ImagePath = fileName;
+
+                        dbIR.EvidencePhotos.InsertOnSubmit(ep);
+                        dbIR.SubmitChanges();
+                    }
+                }
 
                 Response.Redirect("~/ir/ir.aspx");
             }

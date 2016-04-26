@@ -200,6 +200,20 @@
                     </div>
                 </div>
 
+                <div class="panel-body">
+                    <div class="col-md-12">
+                        <label for="FileUpload1">Photo Evidence: </label>
+                        <asp:FileUpload ID="FileUpload1" runat="server" AllowMultiple="true" CssClass="form-control" />
+                        <asp:RegularExpressionValidator ID="RegularExpressionValidator1" 
+                            runat="server"
+                            ControlToValidate="FileUpload1"
+                            Display="Dynamic"
+                            ValidationExpression="([a-zA-Z0-9\s_\\.\-:])+(.png|.jpg|.gif)$"
+                            ValidationGroup="vgAdd"
+                            CssClass="label label-danger"
+                            ErrorMessage="Invalid image file"></asp:RegularExpressionValidator>
+                    </div>
+                </div>
 
                 <div class="panel-body">
                     <div class="col-md-12">
