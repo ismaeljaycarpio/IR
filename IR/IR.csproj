@@ -130,6 +130,10 @@
   <ItemGroup>
     <Content Include="admin\user-access.aspx" />
     <Content Include="App_Readme\Elmah.txt" />
+    <Content Include="Content\addons\jquery.tosrus.buttons.css" />
+    <Content Include="Content\addons\jquery.tosrus.caption.css" />
+    <Content Include="Content\addons\jquery.tosrus.drag.css" />
+    <Content Include="Content\addons\jquery.tosrus.pagination.css" />
     <Content Include="Content\bootstrap-datepicker.css" />
     <Content Include="Content\bootstrap-datepicker.min.css" />
     <Content Include="Content\bootstrap-datepicker.standalone.css" />
@@ -145,6 +149,10 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\jquery.tosrus.all.css" />
+    <Content Include="Content\jquery.tosrus.css" />
+    <Content Include="Content\media\jquery.tosrus.html.css" />
+    <Content Include="Content\media\jquery.tosrus.youtube.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Content\Site.min.css">
       <DependentUpon>Site.css</DependentUpon>
@@ -326,6 +334,18 @@
     <Content Include="Content\_bootstrap-datetimepicker.less" />
     <None Include="Properties\PublishProfiles\eIR.pubxml" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
+    <Content Include="Scripts\addons\jquery.tosrus.autoplay.js" />
+    <Content Include="Scripts\addons\jquery.tosrus.autoplay.min.js" />
+    <Content Include="Scripts\addons\jquery.tosrus.buttons.js" />
+    <Content Include="Scripts\addons\jquery.tosrus.buttons.min.js" />
+    <Content Include="Scripts\addons\jquery.tosrus.caption.js" />
+    <Content Include="Scripts\addons\jquery.tosrus.caption.min.js" />
+    <Content Include="Scripts\addons\jquery.tosrus.drag.js" />
+    <Content Include="Scripts\addons\jquery.tosrus.drag.min.js" />
+    <Content Include="Scripts\addons\jquery.tosrus.keys.js" />
+    <Content Include="Scripts\addons\jquery.tosrus.keys.min.js" />
+    <Content Include="Scripts\addons\jquery.tosrus.pagination.js" />
+    <Content Include="Scripts\addons\jquery.tosrus.pagination.min.js" />
     <Content Include="Scripts\ai.0.21.5-build00175.js" />
     <Content Include="Scripts\ai.0.21.5-build00175.min.js" />
     <Content Include="Scripts\bootstrap-datepicker.js" />
@@ -341,7 +361,18 @@
     <Content Include="Scripts\jquery-2.1.4.min.js" />
     <Content Include="Scripts\jquery-ui-1.8.24.js" />
     <Content Include="Scripts\jquery-ui-1.8.24.min.js" />
+    <Content Include="Scripts\jquery.tosrus.js" />
+    <Content Include="Scripts\jquery.tosrus.min.all.js" />
+    <Content Include="Scripts\jquery.tosrus.min.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.zh-TW.min.js" />
+    <Content Include="Scripts\media\jquery.tosrus.html.js" />
+    <Content Include="Scripts\media\jquery.tosrus.html.min.js" />
+    <Content Include="Scripts\media\jquery.tosrus.image.js" />
+    <Content Include="Scripts\media\jquery.tosrus.image.min.js" />
+    <Content Include="Scripts\media\jquery.tosrus.vimeo.js" />
+    <Content Include="Scripts\media\jquery.tosrus.vimeo.min.js" />
+    <Content Include="Scripts\media\jquery.tosrus.youtube.js" />
+    <Content Include="Scripts\media\jquery.tosrus.youtube.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\moment-with-locales.js" />
     <Content Include="Scripts\moment-with-locales.min.js" />

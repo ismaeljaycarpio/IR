@@ -62,6 +62,9 @@ namespace IR.ir
 
                         txtPreparedBy.Text = user.FullName;
                         txtPosition.Text = user.Position;
+
+                        //load images
+                        bindSlider();
                     }
                     else
                     {
@@ -156,5 +159,15 @@ namespace IR.ir
                 Response.Redirect("~/ir/ir.aspx");
             }
         } 
+
+        protected void bindSlider()
+        {
+            var q = (from ep in dbIR.EvidencePhotos
+                     where ep.IrId == Convert.ToInt32(Request.QueryString["Id"])
+                     select ep).ToList();
+
+            Repeater1.DataSource = q;
+            Repeater1.DataBind();
+        }
     }
 }

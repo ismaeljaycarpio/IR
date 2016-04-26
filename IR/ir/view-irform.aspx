@@ -3,6 +3,10 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+
+    <script type="text/javascript" src="../Scripts/jquery.tosrus.min.all.js"></script>
+    <link rel="stylesheet" type="text/css" href="../Content/jquery.tosrus.all.css" />
+
     <div class="row">
         <div class="col-md-12">
             <div class="panel panel-default">
@@ -211,6 +215,22 @@
                     </div>
                 </div>
 
+                <!-- Image Slideshow -->
+                <div class="panel-body">
+                    <div class="col-md-12">
+                        <div id="links">
+                            <asp:Repeater ID="Repeater1" runat="server">
+                                <ItemTemplate>
+                                    <a href="#">
+                                        <img src="<%# "../photo-evidence/" + Eval("IrId") + "_" + Eval("ImagePath") %>" />
+                                    </a>
+                                </ItemTemplate>
+                            </asp:Repeater>
+                        </div>
+                    </div>
+                </div>
+
+
                 <div class="panel-body">
                     <div class="col-md-12">
                         <label for="txtInvestigation">Investigation</label>
@@ -329,4 +349,5 @@
             $('#<%= txtWhenIncident.ClientID%>').datetimepicker();
         });
     </script>
+
 </asp:Content>
