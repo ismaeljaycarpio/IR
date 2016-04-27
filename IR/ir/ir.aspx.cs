@@ -252,5 +252,54 @@ namespace IR.ir
                 }
             }
         }
+
+        protected void btnExportTotalbyIR_Click(object sender, EventArgs e)
+        {
+            if (gvIR.Rows.Count > 0)
+            {
+                var q = (from ir in db.IRTransactions
+                         join cc in db.CrisisCodes
+                         on ir.CrisisId equals cc.Id
+                         group ir by ir.CrisisId into irg
+                         select new
+                         {
+                             IRCode = (from ccc in db.CrisisCodes where ccc.Id == irg.Key
+                                      select new {
+                                          IR = ccc.Name
+                                      }).FirstOrDefault().IR,
+                             Total = irg.Count()
+                         }).ToList();
+
+
+                GridView2.DataSource = q;
+                GridView2.DataBind();
+                ExcelPackage excel = new ExcelPackage();
+                var workSheet = excel.Workbook.Worksheets.Add("Incident Report");
+                var totalCols = GridView2.Rows[0].Cells.Count;
+                var totalRows = GridView2.Rows.Count;
+                var headerRow = GridView2.HeaderRow;
+                for (var i = 1; i <= totalCols; i++)
+                {
+                    workSheet.Cells[1, i].Value = headerRow.Cells[i - 1].Text;
+                }
+                for (var j = 1; j <= totalRows; j++)
+                {
+                    for (var i = 1; i <= totalCols; i++)
+                    {
+                        var product = q.ElementAt(j - 1);
+                        workSheet.Cells[j + 1, i].Value = product.GetType().GetProperty(headerRow.Cells[i - 1].Text).GetValue(product, null);
+                    }
+                }
+                using (var memoryStream = new MemoryStream())
+                {
+                    Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+                    Response.AddHeader("content-disposition", "attachment;  filename=Incident-Report.xlsx");
+                    excel.SaveAs(memoryStream);
+                    memoryStream.WriteTo(Response.OutputStream);
+                    Response.Flush();
+                    Response.End();
+                }
+            }
+        }
     }
 }

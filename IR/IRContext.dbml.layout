@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="IRContext">
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.625" name="IRContext">
   <DataContextMoniker Name="/IRContextDataContext" />
   <nestedChildShapes>
     <classShape Id="c60a6ebd-27a1-44bc-aefd-532a90cabd0e" absoluteBounds="0.5, 0.5, 2, 1.3862939453125">
@@ -8,30 +8,30 @@
         <elementListCompartment Id="6d723e39-2631-4b9b-8f9a-1c78b42405fc" absoluteBounds="0.51500000000000012, 0.96, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="af9e4fb8-ee88-43f5-a201-4b6de834a3c2" absoluteBounds="3.75, 2.25, 2, 1.3862939453125">
-      <DataClassMoniker Name="/IRContextDataContext/EvidencePhoto" />
-      <nestedChildShapes>
-        <elementListCompartment Id="cf1a2bd3-9937-496e-8421-6f790a8beded" absoluteBounds="3.7649999999999997, 2.71, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
-      </nestedChildShapes>
-    </classShape>
-    <classShape Id="f3e629a4-10ff-4203-80d9-1ba8c676ca35" absoluteBounds="0.875, 3.125, 2, 4.8477197265625">
+    <classShape Id="9b1435f9-1135-4312-8788-ec929fd942d7" absoluteBounds="1.375, 3.75, 2, 4.6554182942708326">
       <DataClassMoniker Name="/IRContextDataContext/IRTransaction" />
       <nestedChildShapes>
-        <elementListCompartment Id="1637d521-28d6-4bd5-a9ef-a7ef51b69ac3" absoluteBounds="0.89, 3.585, 1.9700000000000002, 4.2877197265625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="cdcd32ea-a532-419f-b3b5-9baece0df6fd" absoluteBounds="1.3900000000000001, 4.21, 1.9700000000000002, 4.095418294270833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(2.875 : 3.38064697265625); (3.75 : 3.38064697265625)]" fixedFrom="Algorithm" fixedTo="Algorithm">
-      <AssociationMoniker Name="/IRContextDataContext/IRTransaction/IRTransaction_EvidencePhoto" />
-      <nodes>
-        <classShapeMoniker Id="f3e629a4-10ff-4203-80d9-1ba8c676ca35" />
-        <classShapeMoniker Id="af9e4fb8-ee88-43f5-a201-4b6de834a3c2" />
-      </nodes>
-    </associationConnector>
-    <associationConnector edgePoints="[(1.6875 : 1.8862939453125); (1.6875 : 3.125)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(1.9375 : 1.8862939453125); (1.9375 : 3.75)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/IRContextDataContext/CrisisCode/CrisisCode_IRTransaction" />
       <nodes>
         <classShapeMoniker Id="c60a6ebd-27a1-44bc-aefd-532a90cabd0e" />
-        <classShapeMoniker Id="f3e629a4-10ff-4203-80d9-1ba8c676ca35" />
+        <classShapeMoniker Id="9b1435f9-1135-4312-8788-ec929fd942d7" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="ceed3553-6a02-4f51-af82-2460d16debad" absoluteBounds="4.5, 2.5, 2, 1.3862939453125">
+      <DataClassMoniker Name="/IRContextDataContext/EvidencePhoto" />
+      <nestedChildShapes>
+        <elementListCompartment Id="ad5e3473-b00f-422e-ba4e-3f6a01a4473c" absoluteBounds="4.515, 2.96, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(3.375 : 6.14585661979167); (5.5 : 6.14585661979167); (5.5 : 3.8862939453125)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/IRContextDataContext/IRTransaction/IRTransaction_EvidencePhoto" />
+      <nodes>
+        <classShapeMoniker Id="9b1435f9-1135-4312-8788-ec929fd942d7" />
+        <classShapeMoniker Id="ceed3553-6a02-4f51-af82-2460d16debad" />
       </nodes>
     </associationConnector>
   </nestedChildShapes>

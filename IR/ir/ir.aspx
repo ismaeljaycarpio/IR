@@ -98,8 +98,15 @@
                                     runat="server"
                                     CssClass="navbar-link"
                                     PostBackUrl="~/ir/irform.aspx">Create Incident Report</asp:LinkButton>
+
+                                <asp:Button ID="btnExportTotalbyIR" 
+                                    runat="server" 
+                                    Text="Export Total of IR"
+                                    CssClass="btn btn-default btn-sm pull-right" 
+                                    OnClick="btnExportTotalbyIR_Click" />
                             </ContentTemplate>
                             <Triggers>
+                                <asp:PostBackTrigger ControlID="btnExportTotalbyIR" />
                             </Triggers>
                         </asp:UpdatePanel>
                     </div>
@@ -186,6 +193,8 @@
     </div>
 
     <asp:GridView ID="GridView1" runat="server"></asp:GridView>
+    <asp:GridView ID="GridView2" runat="server"></asp:GridView>
+
     <asp:LinqDataSource ID="IRDataSource"
         OnSelecting="IRDataSource_Selecting"
         runat="server">

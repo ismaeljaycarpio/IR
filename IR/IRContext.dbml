@@ -8,20 +8,11 @@
       <Association Name="CrisisCode_IRTransaction" Member="IRTransactions" ThisKey="Id" OtherKey="CrisisId" Type="IRTransaction" />
     </Type>
   </Table>
-  <Table Name="dbo.EvidencePhoto" Member="EvidencePhotos">
-    <Type Name="EvidencePhoto">
-      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="IrId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="ImagePath" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
-      <Association Name="IRTransaction_EvidencePhoto" Member="IRTransaction" ThisKey="IrId" OtherKey="Id" Type="IRTransaction" IsForeignKey="true" DeleteRule="CASCADE" />
-    </Type>
-  </Table>
   <Table Name="dbo.IRTransaction" Member="IRTransactions">
     <Type Name="IRTransaction">
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="TicketNo" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="CrisisId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="[For]" Member="For" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
       <Column Name="[From]" Member="From" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
       <Column Name="Subject" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
       <Column Name="Room" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
@@ -41,6 +32,14 @@
       <Column Name="ApprovedBy" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
       <Association Name="IRTransaction_EvidencePhoto" Member="EvidencePhotos" ThisKey="Id" OtherKey="IrId" Type="EvidencePhoto" />
       <Association Name="CrisisCode_IRTransaction" Member="CrisisCode" ThisKey="CrisisId" OtherKey="Id" Type="CrisisCode" IsForeignKey="true" DeleteRule="CASCADE" />
+    </Type>
+  </Table>
+  <Table Name="dbo.EvidencePhoto" Member="EvidencePhotos">
+    <Type Name="EvidencePhoto">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IrId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ImagePath" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Association Name="IRTransaction_EvidencePhoto" Member="IRTransaction" ThisKey="IrId" OtherKey="Id" Type="IRTransaction" IsForeignKey="true" DeleteRule="CASCADE" />
     </Type>
   </Table>
 </Database>

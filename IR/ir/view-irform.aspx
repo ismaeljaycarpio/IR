@@ -7,6 +7,8 @@
     <script type="text/javascript" src="../Scripts/jquery.tosrus.min.all.js"></script>
     <link rel="stylesheet" type="text/css" href="../Content/jquery.tosrus.all.css" />
 
+    
+
     <div class="row">
         <div class="col-md-12">
             <div class="panel panel-default">
@@ -200,11 +202,11 @@
                     </div>
                 </div>
 
-                <div class="panel-body">
+                <%--<div class="panel-body">
                     <div class="col-md-12">
                         <label for="FileUpload1">Image Evidence: </label>
                         <asp:FileUpload ID="FileUpload1" runat="server" AllowMultiple="true" CssClass="form-control" />
-                        <asp:RegularExpressionValidator ID="RegularExpressionValidator1" 
+                        <asp:RegularExpressionValidator ID="RegularExpressionValidator1"
                             runat="server"
                             ControlToValidate="FileUpload1"
                             Display="Dynamic"
@@ -213,16 +215,16 @@
                             CssClass="label label-danger"
                             ErrorMessage="Invalid image file"></asp:RegularExpressionValidator>
                     </div>
-                </div>
+                </div>--%>
 
                 <!-- Image Slideshow -->
                 <div class="panel-body">
                     <div class="col-md-12">
-                        <div id="links">
+                        <div id="wrapper">
                             <asp:Repeater ID="Repeater1" runat="server">
                                 <ItemTemplate>
-                                    <a href="#">
-                                        <img src="<%# "../photo-evidence/" + Eval("IrId") + "_" + Eval("ImagePath") %>" />
+                                    <a href="<%# "../photo-evidence/" + Eval("IrId") + "_" + Eval("ImagePath") %>">
+                                        <img src="<%# "../photo-evidence/" + Eval("IrId") + "_" + "thumb_" + Eval("ImagePath") %>" />
                                     </a>
                                 </ItemTemplate>
                             </asp:Repeater>
@@ -347,6 +349,12 @@
     <script type="text/javascript">
         $(function () {
             $('#<%= txtWhenIncident.ClientID%>').datetimepicker();
+        });
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#wrapper a').tosrus();
         });
     </script>
 

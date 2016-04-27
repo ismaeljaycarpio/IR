@@ -6,6 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.Security;
 using System.IO;
+using System.Drawing;
 
 namespace IR.ir
 {
@@ -75,6 +76,11 @@ namespace IR.ir
                     {
                         string fileName = Path.GetFileName(postedFile.FileName);
                         postedFile.SaveAs(Server.MapPath("~/photo-evidence/") + tranId + "_" + fileName);
+
+                        //create thumbnail
+                        System.Drawing.Image image = System.Drawing.Image.FromFile(Server.MapPath("~/photo-evidence/") + tranId + "_" + fileName);
+                        System.Drawing.Image bmp1 = image.GetThumbnailImage(100, 100, null, IntPtr.Zero);
+                        bmp1.Save(Server.MapPath("~/photo-evidence/") + tranId + "_" + "thumb_" + fileName);
 
                         //record to db
                         EvidencePhoto ep = new EvidencePhoto();
