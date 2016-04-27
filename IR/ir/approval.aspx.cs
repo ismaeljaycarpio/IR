@@ -113,7 +113,7 @@ namespace IR.ir
                 int index = Convert.ToInt32(e.CommandArgument);
                 int irId = Convert.ToInt32(gvIR.DataKeys[index].Value);
 
-                Response.Redirect("~/ir/view-irform.aspx?Id=" + irId.ToString());
+                Response.Redirect("~/ir/approval-irform.aspx?Id=" + irId.ToString());
             }
             else if (e.CommandName.Equals("approvalRecord"))
             {
