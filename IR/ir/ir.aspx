@@ -73,7 +73,7 @@
                                         <asp:BoundField DataField="IncidentDate" HeaderText="Incident Date" SortExpression="IncidentDate" />
                                         <asp:BoundField DataField="DateSolved" HeaderText="Solved Date" SortExpression="DateSolved" DataFormatString="{0:d}"/>
 
-                                        <asp:TemplateField HeaderText="Status">
+                                        <asp:TemplateField HeaderText="Status" SortExpression="Status">
                                             <ItemTemplate>
                                                 <asp:Label ID="lblStatus" runat="server" Text='<%# Eval("Status") %>'></asp:Label>
                                             </ItemTemplate>

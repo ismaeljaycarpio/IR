@@ -18,6 +18,12 @@
                                 placeholder="Search..."></asp:TextBox>
                             <asp:TextBox ID="txtFromDate" runat="server" CssClass="form-control" data-provide="datepicker" placeholder="From Date"></asp:TextBox>
                             <asp:TextBox ID="txtToDate" runat="server" CssClass="form-control" data-provide="datepicker" placeholder="To Date"></asp:TextBox>
+                            <asp:DropDownList ID="ddlApprovalStatus" runat="server" CssClass="form-control">
+                                <asp:ListItem Value="0">-- All Status --</asp:ListItem>
+                                <asp:ListItem Value="Pending" Selected="True">Pending</asp:ListItem>
+                                <asp:ListItem Value="Approved">Approved</asp:ListItem>
+                                <asp:ListItem Value="Disapproved">Disapproved</asp:ListItem>
+                            </asp:DropDownList>
                             <asp:Button ID="btnSearch"
                                 runat="server"
                                 CssClass="btn btn-primary"

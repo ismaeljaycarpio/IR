@@ -7,8 +7,6 @@
     <script type="text/javascript" src="../Scripts/jquery.tosrus.min.all.js"></script>
     <link rel="stylesheet" type="text/css" href="../Content/jquery.tosrus.all.css" />
 
-    
-
     <div class="row">
         <div class="col-md-12">
             <div class="panel panel-default">
@@ -202,7 +200,7 @@
                     </div>
                 </div>
 
-                <%--<div class="panel-body">
+                <div class="panel-body">
                     <div class="col-md-12">
                         <label for="FileUpload1">Image Evidence: </label>
                         <asp:FileUpload ID="FileUpload1" runat="server" AllowMultiple="true" CssClass="form-control" />
@@ -215,23 +213,69 @@
                             CssClass="label label-danger"
                             ErrorMessage="Invalid image file"></asp:RegularExpressionValidator>
                     </div>
-                </div>--%>
+                </div>
 
                 <!-- Image Slideshow -->
                 <div class="panel-body">
                     <div class="col-md-12">
-                        <div id="wrapper">
-                            <asp:Repeater ID="Repeater1" runat="server">
-                                <ItemTemplate>
-                                    <a href="<%# "../photo-evidence/" + Eval("IrId") + "_" + Eval("ImagePath") %>">
-                                        <img src="<%# "../photo-evidence/" + Eval("IrId") + "_" + "thumb_" + Eval("ImagePath") %>" />
-                                    </a>
-                                </ItemTemplate>
-                            </asp:Repeater>
-                        </div>
+                        <asp:UpdatePanel ID="upImageSlideshow" runat="server">
+                            <ContentTemplate>
+                                <div id="wrapper">
+                                    <asp:Repeater ID="Repeater1" runat="server" DataSourceID="ImageSlideShowDataSource">
+                                        <ItemTemplate>
+                                            <a href="<%# "../photo-evidence/" + Eval("IrId") + "_" + Eval("ImagePath") %>">
+                                                <img src="<%# "../photo-evidence/" + Eval("IrId") + "_" + "thumb_" + Eval("ImagePath") %>" />
+                                            </a>
+                                        </ItemTemplate>
+                                    </asp:Repeater>
+                                </div>
+                            </ContentTemplate>
+                        </asp:UpdatePanel>
                     </div>
                 </div>
 
+                <!-- Image CMS -->
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <asp:UpdatePanel ID="upImages" runat="server">
+                            <ContentTemplate>
+                                <asp:GridView ID="gvImages"
+                                    runat="server"
+                                    CssClass="table table-striped table-hover dataTable"
+                                    GridLines="None"
+                                    AutoGenerateColumns="False"
+                                    AllowPaging="True"
+                                    AllowSorting="True"
+                                    EmptyDataText="No Record(s) found"
+                                    ShowHeaderWhenEmpty="True"
+                                    DataKeyNames="Id"
+                                    OnRowCommand="gvImages_RowCommand"
+                                    DataSourceID="ImageDataSource">
+                                    <Columns>
+                                        <asp:TemplateField HeaderText="Row Id" Visible="false">
+                                            <ItemTemplate>
+                                                <asp:Label ID="lblRowId" runat="server" Text='<%# Eval("Id") %>'></asp:Label>
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+
+                                        <asp:BoundField DataField="ImagePath" HeaderText="Image List" SortExpression="ImagePath" />
+
+                                        <asp:TemplateField>
+                                            <ItemTemplate>
+                                                <asp:Button ID="btnShowDelete" runat="server" Text="Delete" CommandName="deleteRecord" CssClass="btn btn-danger" CommandArgument='<%#((GridViewRow) Container).RowIndex %>' />
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+
+                                    </Columns>
+                                    <PagerStyle CssClass="pagination-ys" />
+                                </asp:GridView>
+                            </ContentTemplate>
+                            <Triggers>
+                                <asp:AsyncPostBackTrigger ControlID="gvImages" EventName="RowCommand" />
+                            </Triggers>
+                        </asp:UpdatePanel>
+                    </div>
+                </div>
 
                 <div class="panel-body">
                     <div class="col-md-12">
@@ -330,6 +374,39 @@
             </div>
         </div>
     </div>
+
+    <!-- Delete Modal -->
+    <div id="deleteModal" class="modal fade" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <asp:UpdatePanel ID="UpdatePanel4" runat="server">
+                    <ContentTemplate>
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Delete Image</h4>
+                        </div>
+                        <div class="modal-body">
+                            Are you sure you want to delete this image ?
+                            <asp:HiddenField ID="hfDeleteId" runat="server" />
+                        </div>
+                        <div class="modal-footer">
+                            <asp:Button ID="btnDelete"
+                                runat="server"
+                                CssClass="btn btn-danger"
+                                Text="Delete"
+                                OnClick="btnDelete_Click" />
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        </div>
+                    </ContentTemplate>
+                    <Triggers>
+                        <asp:AsyncPostBackTrigger ControlID="btnDelete" EventName="Click" />
+                    </Triggers>
+                </asp:UpdatePanel>
+            </div>
+        </div>
+    </div>
+
     <ajaxToolkit:HtmlEditorExtender ID="HtmlEditorExtender1"
         TargetControlID="txtInvestigation"
         EnableSanitization="false"
@@ -346,6 +423,14 @@
         runat="server">
     </ajaxToolkit:HtmlEditorExtender>
 
+
+    <asp:LinqDataSource ID="ImageDataSource"
+        OnSelecting="ImageDataSource_Selecting"
+        runat="server"></asp:LinqDataSource>
+
+    <asp:LinqDataSource ID="ImageSlideShowDataSource"
+        OnSelecting="ImageSlideShowDataSource_Selecting" 
+        runat="server"></asp:LinqDataSource>
     <script type="text/javascript">
         $(function () {
             $('#<%= txtWhenIncident.ClientID%>').datetimepicker();

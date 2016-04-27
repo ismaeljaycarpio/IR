@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.Security;
+using System.IO;
 
 namespace IR.ir
 {
@@ -62,9 +63,6 @@ namespace IR.ir
 
                         txtPreparedBy.Text = user.FullName;
                         txtPosition.Text = user.Position;
-
-                        //load images
-                        bindSlider();
                     }
                     else
                     {
@@ -154,20 +152,97 @@ namespace IR.ir
 
                 dbIR.SubmitChanges();
 
+                int tranId = q.Id;
 
+                //uploaded imgs
+                if(FileUpload1.HasFiles)
+                {
+                    foreach (HttpPostedFile postedFile in FileUpload1.PostedFiles)
+                    {
+                        string fileName = Path.GetFileName(postedFile.FileName);
+                        postedFile.SaveAs(Server.MapPath("~/photo-evidence/") + tranId + "_" + fileName);
+
+                        //create thumbnail
+                        System.Drawing.Image image = System.Drawing.Image.FromFile(Server.MapPath("~/photo-evidence/") + tranId + "_" + fileName);
+                        System.Drawing.Image bmp1 = image.GetThumbnailImage(100, 100, null, IntPtr.Zero);
+                        bmp1.Save(Server.MapPath("~/photo-evidence/") + tranId + "_" + "thumb_" + fileName);
+
+                        //record to db
+                        EvidencePhoto ep = new EvidencePhoto();
+                        ep.IrId = tranId;
+                        ep.ImagePath = fileName;
+
+                        dbIR.EvidencePhotos.InsertOnSubmit(ep);
+                        dbIR.SubmitChanges();
+                    }
+                }
 
                 Response.Redirect("~/ir/ir.aspx");
             }
         } 
 
-        protected void bindSlider()
+        protected void gvImages_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            if(e.CommandName.Equals("deleteRecord"))
+            {
+                int index = Convert.ToInt32(e.CommandArgument);
+                int Id = Convert.ToInt32(gvImages.DataKeys[index].Value);
+
+                hfDeleteId.Value = Id.ToString();
+
+                System.Text.StringBuilder sb = new System.Text.StringBuilder();
+                sb.Append(@"<script type='text/javascript'>");
+                sb.Append("$('#deleteModal').modal('show');");
+                sb.Append(@"</script>");
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "EditShowModalScript", sb.ToString(), false);
+            }
+        }
+
+        protected void ImageDataSource_Selecting(object sender, LinqDataSourceSelectEventArgs e)
+        {
+            var q = (from ep in dbIR.EvidencePhotos
+                     where ep.IrId == Convert.ToInt16(Request.QueryString["Id"])
+                     select ep).ToList();
+
+            e.Result = q;
+        }
+
+        protected void btnDelete_Click(object sender, EventArgs e)
+        {
+            int tranId = Convert.ToInt32(Request.QueryString["Id"]);
+
+            var q = (from ep in dbIR.EvidencePhotos
+                     where ep.Id == Convert.ToInt32(hfDeleteId.Value)
+                     select ep).FirstOrDefault();
+
+            dbIR.EvidencePhotos.DeleteOnSubmit(q);
+            dbIR.SubmitChanges();
+
+            this.gvImages.DataBind();
+
+            //delete images in dir
+            FileInfo fi = new FileInfo(Server.MapPath("~/photo-evidence/") + tranId + "_" + q.ImagePath);
+            fi.Delete();
+
+            FileInfo fiThumb = new FileInfo(Server.MapPath("~/photo-evidence") + tranId + "_" + "thumb_" + q.ImagePath);
+            fiThumb.Delete();
+
+            this.Repeater1.DataBind();
+
+            System.Text.StringBuilder sb = new System.Text.StringBuilder();
+            sb.Append(@"<script type='text/javascript'>");
+            sb.Append("$('#deleteModal').modal('hide');");
+            sb.Append(@"</script>");
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "EditShowModalScript", sb.ToString(), false);
+        }
+
+        protected void ImageSlideShowDataSource_Selecting(object sender, LinqDataSourceSelectEventArgs e)
         {
             var q = (from ep in dbIR.EvidencePhotos
                      where ep.IrId == Convert.ToInt32(Request.QueryString["Id"])
                      select ep).ToList();
 
-            Repeater1.DataSource = q;
-            Repeater1.DataBind();
+            e.Result = q;
         }
     }
 }

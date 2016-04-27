@@ -173,7 +173,7 @@ namespace IR.ir
                      where ir.Id == Convert.ToInt32(hfIRId.Value)
                      select ir).FirstOrDefault();
 
-            q.Approval = "Disapprove";
+            q.Approval = "Disapproved";
             q.ApprovedBy = User.Identity.Name;
             db.SubmitChanges();
 
@@ -201,8 +201,6 @@ namespace IR.ir
                         ir.Subject.Contains(strSearch) ||
                         ir.Room.Contains(strSearch)
                      )
-                     &&
-                     ir.Approval == "Pending"
                      select new
                      {
                          Id = ir.Id,
@@ -212,7 +210,8 @@ namespace IR.ir
                          Room = ir.Room,
                          IncidentDate = ir.WhenIncidentHappen,
                          Status = ir.Status,
-                         DateSolved = ir.DateSolved
+                         DateSolved = ir.DateSolved,
+                         Approval = ir.Approval
                      }).ToList();
 
             if (txtFromDate.Text != String.Empty && txtToDate.Text == String.Empty)
@@ -229,6 +228,11 @@ namespace IR.ir
             {
                 q = q.Where(x => (x.IncidentDate.Value.Date >= Convert.ToDateTime(txtFromDate.Text).Date &&
                     x.IncidentDate.Value.Date <= Convert.ToDateTime(txtToDate.Text).Date)).ToList();
+            }
+
+            if (ddlApprovalStatus.SelectedValue != "0") 
+            {
+                q = q.Where(x => x.Approval == ddlApprovalStatus.SelectedValue).ToList();
             }
 
             e.Result = q;

@@ -11,29 +11,25 @@
                 </div>
 
                 <div class="panel-body">
-                    <div class="form-horizontal">
+                    <div class="form-inline">
                         <div class="form-group">
-                            <div class="col-md-12">
-                                <div class="input-group">
-                                    <asp:TextBox ID="txtSearch" runat="server" CssClass="form-control" placeholder="Search..."></asp:TextBox>
-                                    <span class="input-group-btn">
-                                        <asp:Button ID="btnSearch"
-                                            runat="server"
-                                            CssClass="btn btn-primary"
-                                            Text="Go"
-                                            OnClick="btnSearch_Click" />
-                                    </span>
-                                    <div class="pull-right">
-                                        <asp:Button ID="btnExport" 
-                                            runat="server" 
-                                            Text="Export to Excel"
-                                            CssClass="btn btn-default btn-sm" 
-                                            OnClick="btnExport_Click" />
-                                    </div>
-                                </div>
-                            </div>
+                            <asp:TextBox ID="txtSearch" runat="server" CssClass="form-control" placeholder="Search..."></asp:TextBox>
+                            <asp:Button ID="btnSearch"
+                                runat="server"
+                                CssClass="btn btn-primary"
+                                Text="Go"
+                                OnClick="btnSearch_Click" />
+                        </div>
+                        <div class="pull-right">
+                            <asp:Button ID="btnExport"
+                                runat="server"
+                                Text="Export to Excel"
+                                CssClass="btn btn-default btn-sm"
+                                OnClick="btnExport_Click" />
                         </div>
                     </div>
+
+                    <br />
 
                     <div class="table-responsive">
                         <asp:UpdatePanel ID="upCrisisCodes" runat="server">
