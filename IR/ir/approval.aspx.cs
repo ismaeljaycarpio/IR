@@ -156,6 +156,7 @@ namespace IR.ir
 
             q.Approval = "Approved";
             q.ApprovedBy = User.Identity.Name;
+            q.ApprovedDate = DateTime.Now;
             db.SubmitChanges();
 
             this.gvIR.DataBind();
@@ -174,7 +175,8 @@ namespace IR.ir
                      select ir).FirstOrDefault();
 
             q.Approval = "Disapproved";
-            q.ApprovedBy = User.Identity.Name;
+            q.DisapprovedBy = User.Identity.Name;
+            q.DisapprovedDate = DateTime.Now;
             db.SubmitChanges();
 
             this.gvIR.DataBind();
@@ -257,6 +259,5 @@ namespace IR.ir
             ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "EditShowModalScript", sb.ToString(), false);
         }
 
-        
     }
 }

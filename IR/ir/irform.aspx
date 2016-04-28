@@ -16,7 +16,10 @@
 
                     <div class="col-md-4">
                         <label for="txtTicketNo">IR No: </label>
-                        <asp:TextBox ID="txtTicketNo" runat="server" CssClass="form-control" placeholder="IR No"></asp:TextBox>
+                        <asp:TextBox ID="txtTicketNo" 
+                            runat="server" 
+                            CssClass="form-control"
+                            Enabled="false"></asp:TextBox>
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator2"
                             runat="server"
                             Display="Dynamic"

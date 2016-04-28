@@ -114,7 +114,7 @@
                         <div class="modal-body">
                             <div class="form-group">
                                 <asp:Label ID="lblUserId" runat="server" Visible="false"></asp:Label>
-                                <asp:Label ID="lblUserName" runat="server" Visible="false"></asp:Label>
+                                <asp:Label ID="lblUserName" runat="server"></asp:Label>
                             </div>
                             <div class="form-group">
                                 <label for="ddlRoles">Role</label>

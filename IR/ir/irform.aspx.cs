@@ -37,6 +37,8 @@ namespace IR.ir
 
                 txtPreparedBy.Text = user.FullName;
                 txtPosition.Text = user.Position;
+
+                txtTicketNo.Text = (2600 + dbIR.IRTransactions.DefaultIfEmpty().Max(x => x == null ? 0 : x.Id) + 1).ToString();
             }
         }
 

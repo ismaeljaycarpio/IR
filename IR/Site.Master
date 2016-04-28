@@ -74,8 +74,7 @@
                                         <li><a runat="server" href="~/file-maintenance/crisis-codes.aspx">Crisis Codes</a></li>
                                     </ul>
                                 </li>
-                                <% if (Page.User.IsInRole("General Manager") || 
-                                       Page.User.IsInRole("Director"))
+                                <% if (Page.User.IsInRole("CanApprove"))
                                    { %>
                                 <li><a runat="server" href="~/ir/approval.aspx">Approval</a></li>
                                 <%} %>
@@ -93,12 +92,14 @@
                                         <span class="badge"><%: System.Web.Security.Roles.GetRolesForUser().FirstOrDefault() %></span>
                                         <asp:LoginName ID="LoginName1" runat="server" />
                                         <span class="caret"></span>
+
+                                        <ul class="dropdown-menu">
+                                            <li><a runat="server" href="~/Account/ChangePass.aspx">Change Password</a></li>
+                                            <li>
+                                                <asp:LoginStatus ID="LoginStatus1" runat="server" LogoutAction="RedirectToLoginPage" LogoutText="Log Out" />
+                                            </li>
+                                        </ul>
                                     </a>
-                                    <ul class="dropdown-menu">
-                                        <li>
-                                            <asp:LoginStatus ID="LoginStatus1" runat="server" LogoutAction="RedirectToLoginPage" LogoutText="Log Out" />
-                                        </li>
-                                    </ul>
                                 </li>
                             </ul>
                         </LoggedInTemplate>
@@ -114,14 +115,9 @@
                                         </li>
                                         <li><a runat="server" href="~/ir/approval.aspx">Approval</a></li>
                                         <li><a runat="server" href="~/ir/ir.aspx">Incident Report</a></li>
+                                        <li><a runat="server" href="~/admin/user-access.aspx">User Access</a></li>
                                     </ul>
                                     <ul class="nav navbar-nav navbar-right">
-                                        <li>
-                                            <a href="#">
-                                                <span class="badge"><%: System.Web.Security.Roles.GetRolesForUser().FirstOrDefault() %></span>
-                                                <asp:LoginName ID="LoginName2" runat="server" />
-                                            </a>
-                                        </li>
                                         <li class="dropdown">
                                             <a runat="server"
                                                 href="#"
@@ -130,13 +126,17 @@
                                                 role="button"
                                                 aria-haspopup="true"
                                                 aria-expanded="false">
+                                                <span class="badge"><%: System.Web.Security.Roles.GetRolesForUser().FirstOrDefault() %></span>
+                                                <asp:LoginName ID="LoginName1" runat="server" />
                                                 <span class="caret"></span>
+
+                                                <ul class="dropdown-menu">
+                                                    <li><a runat="server" href="~/Account/ChangePass.aspx">Change Password</a></li>
+                                                    <li>
+                                                        <asp:LoginStatus ID="LoginStatus1" runat="server" LogoutAction="RedirectToLoginPage" LogoutText="Log Out" />
+                                                    </li>
+                                                </ul>
                                             </a>
-                                            <ul class="dropdown-menu">
-                                                <li>
-                                                    <asp:LoginStatus ID="LoginStatus1" runat="server" LogoutAction="RedirectToLoginPage" LogoutText="Log Out" />
-                                                </li>
-                                            </ul>
                                         </li>
                                     </ul>
                                 </ContentTemplate>

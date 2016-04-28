@@ -16,27 +16,30 @@ namespace IR.admin
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!Page.IsPostBack)
+            if(!Page.IsPostBack)
             {
-                this.gvUsers.DataBind();
+                if (!Roles.RoleExists("Admin"))
+                {
+                    Roles.CreateRole("Admin");
+                }
 
-                //load roles
-                //var roles = (from r in dbGc.Roles
-                //             select r).ToList();
+                if (!Roles.RoleExists("CanApprove"))
+                {
+                    Roles.CreateRole("CanApprove");
+                }
 
-                //ddlRoles.DataSource = roles;
-                //ddlRoles.DataTextField = "RoleName";
-                //ddlRoles.DataValueField = "RoleId";
-                //ddlRoles.DataBind();
+                if (!Roles.RoleExists("CanCreate"))
+                {
+                    Roles.CreateRole("CanCreate");
+                }
 
-                ddlRoles.Items.Insert(0, new ListItem("Select a Role", "0"));
+                bindRoles();
             }
         }
 
         protected void btnSearch_Click(object sender, EventArgs e)
         {
             this.gvUsers.DataBind();
-            txtSearch.Focus();
         }
 
         protected void gvUsers_RowDataBound(object sender, GridViewRowEventArgs e)
@@ -90,28 +93,28 @@ namespace IR.admin
 
 
                 //set selected role
-                //var ro = (from u in dbGc.Users
-                //          join uir in dbGc.UsersInRoles
-                //          on u.UserId equals uir.UserId
-                //          join r in dbGc.Roles
-                //          on uir.RoleId equals r.RoleId
-                //          where
-                //          u.UserName == lblUserName.Text
-                //          select new
-                //          {
-                //              RoleId = r.RoleId
-                //          }).ToList();
+                var ro = (from u in dbIR.Users
+                          join uir in dbIR.UsersInRoles
+                          on u.UserId equals uir.UserId
+                          join r in dbIR.Roles
+                          on uir.RoleId equals r.RoleId
+                          where
+                          u.UserName == lblUserName.Text
+                          select new
+                          {
+                              RoleId = r.RoleId
+                          }).ToList();
 
-                //if (ro.Count > 0)
-                //{
-                //    var userInRole = ro.FirstOrDefault();
+                if (ro.Count > 0)
+                {
+                    var userInRole = ro.FirstOrDefault();
 
-                //    ddlRoles.SelectedValue = userInRole.RoleId.ToString();
-                //}
-                //else
-                //{
-                //    ddlRoles.SelectedValue = "0";
-                //}
+                    ddlRoles.SelectedValue = userInRole.RoleId.ToString();
+                }
+                else
+                {
+                    ddlRoles.SelectedValue = "0";
+                }
 
                 System.Text.StringBuilder sb = new System.Text.StringBuilder();
                 sb.Append(@"<script type='text/javascript'>");
@@ -209,46 +212,47 @@ namespace IR.admin
 
         protected void UserDataSource_Selecting(object sender, LinqDataSourceSelectEventArgs e)
         {
-            //string strSearch = txtSearch.Text;
+            string strSearch = txtSearch.Text;
 
-            //var emp = (from em in dbeHRIS.EMPLOYEEs
-            //           select em).ToList();
+            var emp = (from em in dbEHRIS.EMPLOYEEs
+                       select em).ToList();
 
-            //var q = (from empl in emp
-            //         join u in dbGc.Users
-            //         on empl.Emp_Id equals u.UserName
-            //         into a
-            //         from b in a.DefaultIfEmpty(new User())
-            //         join mem in dbGc.MembershipLINQs
-            //         on b.UserId equals mem.UserId
-            //         into x
-            //         from z in x.DefaultIfEmpty(new MembershipLINQ())
-            //         join uir in dbGc.UsersInRoles
-            //         on b.UserId equals uir.UserId
-            //         into c
-            //         from d in c.DefaultIfEmpty(new UsersInRole())
-            //         join r in dbGc.Roles
-            //         on d.RoleId equals r.RoleId
-            //         into f
-            //         from g in f.DefaultIfEmpty(new Role())
-            //         where
-            //         (
-            //         empl.Emp_Id.Contains(strSearch) ||
-            //         empl.LastName.Contains(strSearch) ||
-            //         empl.FirstName.Contains(strSearch) ||
-            //         empl.MiddleName.Contains(strSearch)
-            //         )
-            //         select new
-            //         {
-            //             UserId = b.UserId,
-            //             EmpId = empl.Emp_Id,
-            //             FullName = empl.LastName + " , " + empl.FirstName + " " + empl.MiddleName,
-            //             RoleName = g.RoleName,
-            //             IsApproved = z.IsApproved,
-            //             IsLockedOut = z.IsLockedOut
-            //         }).ToList();
+            var q = (from empl in emp
+                     join u in dbIR.Users
+                     on empl.Emp_Id equals u.UserName
+                     into a
+                     from b in a.DefaultIfEmpty(new User())
+                     join mem in dbIR.MembershipLINQs
+                     on b.UserId equals mem.UserId
+                     into x
+                     from z in x.DefaultIfEmpty(new MembershipLINQ())
+                     join uir in dbIR.UsersInRoles
+                     on b.UserId equals uir.UserId
+                     into c
+                     from d in c.DefaultIfEmpty(new UsersInRole())
+                     join r in dbIR.Roles
+                     on d.RoleId equals r.RoleId
+                     into f
+                     from g in f.DefaultIfEmpty(new Role())
+                     where
+                     (
+                     empl.Emp_Id.Contains(strSearch) ||
+                     empl.LastName.Contains(strSearch) ||
+                     empl.FirstName.Contains(strSearch) ||
+                     empl.MiddleName.Contains(strSearch)
+                     )
+                     select new
+                     {
+                         UserId = b.UserId,
+                         EmpId = empl.Emp_Id,
+                         FullName = empl.LastName + " , " + empl.FirstName + " " + empl.MiddleName,
+                         RoleName = g.RoleName,
+                         IsApproved = z.IsApproved,
+                         IsLockedOut = z.IsLockedOut
+                     }).ToList();
 
-            //e.Result = q;
+            e.Result = q;
+            txtSearch.Focus();
         }
 
         private int rowCount()
@@ -286,6 +290,19 @@ namespace IR.admin
 
             //return q.Count;
             return 0;
+        }
+
+        protected void bindRoles()
+        {
+            
+            var q = (from r in dbIR.Roles
+                     select r).ToList();
+
+            ddlRoles.DataSource = q;
+            ddlRoles.DataTextField = "RoleName";
+            ddlRoles.DataValueField = "RoleId";
+            ddlRoles.DataBind();
+            ddlRoles.Items.Insert(0, new ListItem("-- Select Role --", "0"));
         }
     }
 }
