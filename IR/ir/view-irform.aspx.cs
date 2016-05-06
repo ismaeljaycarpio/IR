@@ -53,7 +53,7 @@ namespace IR.ir
                                     join p in dbEHRIS.POSITIONs
                                     on emp.PositionId equals p.Id
                                     where
-                                    (emp.UserId == q.PreparedBy)
+                                    (emp.Emp_Id == q.PreparedBy)
                                     select new
                                     {
                                         UserId = emp.UserId,

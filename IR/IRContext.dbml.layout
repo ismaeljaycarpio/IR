@@ -52,31 +52,31 @@
         <classShapeMoniker Id="5c739f70-f1af-46af-8b31-fedb7efc2804" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(4.75 : 11.3854484049479); (3.25 : 11.3854484049479)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(4.75 : 11.3854484049479); (3.25 : 11.3854484049479)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/IRContextDataContext/User/User_MembershipLINQ" />
       <nodes>
         <classShapeMoniker Id="57cb749a-17f9-409b-9529-81b373318b48" />
         <classShapeMoniker Id="e462a410-2aae-489f-a542-a57a40ca6be7" />
       </nodes>
     </associationConnector>
-    <classShape Id="31e9d8ee-22df-4d6e-b312-bc082fcc3c04" absoluteBounds="2.875, 3.875, 2, 5.2323225911458326">
+    <classShape Id="4c03b239-9507-4d07-88d0-3d63b095e5d6" absoluteBounds="2.5, 3.375, 2, 5.2323225911458326">
       <DataClassMoniker Name="/IRContextDataContext/IRTransaction" />
       <nestedChildShapes>
-        <elementListCompartment Id="8927f8b4-0783-41b6-93ea-9a7a2956cf7a" absoluteBounds="2.89, 4.335, 1.9700000000000002, 4.672322591145833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="6927934d-fc0a-48ad-ae22-ba14d12b92cb" absoluteBounds="2.515, 3.835, 1.9700000000000002, 4.672322591145833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(3.875 : 3.875); (3.875 : 1.19314697265625); (5 : 1.19314697265625)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(3.53125 : 3.375); (3.53125 : 1.19314697265625); (5 : 1.19314697265625)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/IRContextDataContext/IRTransaction/IRTransaction_EvidencePhoto" />
       <nodes>
-        <classShapeMoniker Id="31e9d8ee-22df-4d6e-b312-bc082fcc3c04" />
+        <classShapeMoniker Id="4c03b239-9507-4d07-88d0-3d63b095e5d6" />
         <classShapeMoniker Id="ceed3553-6a02-4f51-af82-2460d16debad" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(1.5 : 1.8862939453125); (1.5 : 6.49116129557292); (2.875 : 6.49116129557292)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(1.46875 : 1.8862939453125); (1.46875 : 5.99116129557292); (2.5 : 5.99116129557292)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/IRContextDataContext/CrisisCode/CrisisCode_IRTransaction" />
       <nodes>
         <classShapeMoniker Id="c60a6ebd-27a1-44bc-aefd-532a90cabd0e" />
-        <classShapeMoniker Id="31e9d8ee-22df-4d6e-b312-bc082fcc3c04" />
+        <classShapeMoniker Id="4c03b239-9507-4d07-88d0-3d63b095e5d6" />
       </nodes>
     </associationConnector>
   </nestedChildShapes>

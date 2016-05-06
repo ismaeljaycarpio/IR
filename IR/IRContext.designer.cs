@@ -1550,7 +1550,7 @@ namespace IR
 		
 		private string _Recommendation;
 		
-		private System.Nullable<System.Guid> _PreparedBy;
+		private string _PreparedBy;
 		
 		private System.Nullable<System.DateTime> _DateSolved;
 		
@@ -1604,7 +1604,7 @@ namespace IR
     partial void OnActionTakenChanged();
     partial void OnRecommendationChanging(string value);
     partial void OnRecommendationChanged();
-    partial void OnPreparedByChanging(System.Nullable<System.Guid> value);
+    partial void OnPreparedByChanging(string value);
     partial void OnPreparedByChanged();
     partial void OnDateSolvedChanging(System.Nullable<System.DateTime> value);
     partial void OnDateSolvedChanged();
@@ -1951,8 +1951,8 @@ namespace IR
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PreparedBy", DbType="UniqueIdentifier")]
-		public System.Nullable<System.Guid> PreparedBy
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PreparedBy", DbType="VarChar(MAX)")]
+		public string PreparedBy
 		{
 			get
 			{

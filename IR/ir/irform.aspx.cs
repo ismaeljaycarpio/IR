@@ -22,12 +22,13 @@ namespace IR.ir
                 bindDropdown();
 
                 //load employee info
-                Guid myUserId = Guid.Parse(Membership.GetUser().ProviderUserKey.ToString());
+                string myUsername = Membership.GetUser().UserName.ToString();
+
                 var user = (from emp in dbEHRIS.EMPLOYEEs
                             join p in dbEHRIS.POSITIONs
                             on emp.PositionId equals p.Id
                             where 
-                            (emp.UserId == myUserId)
+                            (emp.Emp_Id == myUsername)
                             select new
                             {
                                 UserId = emp.UserId,
@@ -63,7 +64,7 @@ namespace IR.ir
                 ir.Investigation = txtInvestigation.Text;
                 ir.ActionTaken = txtActionTaken.Text;
                 ir.Recommendation = txtRecommendation.Text;
-                ir.PreparedBy = Guid.Parse(Membership.GetUser().ProviderUserKey.ToString());
+                ir.PreparedBy = Membership.GetUser().UserName.ToString();
                 ir.Approval = "Pending";
 
                 dbIR.IRTransactions.InsertOnSubmit(ir);
@@ -150,6 +151,11 @@ namespace IR.ir
             ddlCrisis.DataValueField = "Id";
             ddlCrisis.DataBind();
             ddlCrisis.Items.Insert(0, new ListItem("Select Crisis Code", "0"));
+        }
+
+        protected void createPhotoFolder()
+        {
+
         }
     }
 }

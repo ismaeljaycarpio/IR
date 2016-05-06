@@ -86,7 +86,7 @@
       <Column Name="Investigation" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
       <Column Name="ActionTaken" Type="System.String" DbType="VarChar(MAX) NOT NULL" CanBeNull="false" />
       <Column Name="Recommendation" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
-      <Column Name="PreparedBy" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="PreparedBy" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
       <Column Name="DateSolved" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="Approval" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="ApprovedBy" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />

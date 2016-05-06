@@ -241,6 +241,7 @@ namespace IR.admin
                      empl.FirstName.Contains(strSearch) ||
                      empl.MiddleName.Contains(strSearch)
                      )
+                     orderby g.RoleName descending
                      select new
                      {
                          UserId = b.UserId,
