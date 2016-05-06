@@ -36,9 +36,6 @@ namespace IR
     partial void InsertEvidencePhoto(EvidencePhoto instance);
     partial void UpdateEvidencePhoto(EvidencePhoto instance);
     partial void DeleteEvidencePhoto(EvidencePhoto instance);
-    partial void InsertIRTransaction(IRTransaction instance);
-    partial void UpdateIRTransaction(IRTransaction instance);
-    partial void DeleteIRTransaction(IRTransaction instance);
     partial void InsertMembershipLINQ(MembershipLINQ instance);
     partial void UpdateMembershipLINQ(MembershipLINQ instance);
     partial void DeleteMembershipLINQ(MembershipLINQ instance);
@@ -51,6 +48,9 @@ namespace IR
     partial void InsertRole(Role instance);
     partial void UpdateRole(Role instance);
     partial void DeleteRole(Role instance);
+    partial void InsertIRTransaction(IRTransaction instance);
+    partial void UpdateIRTransaction(IRTransaction instance);
+    partial void DeleteIRTransaction(IRTransaction instance);
     #endregion
 		
 		public IRContextDataContext() : 
@@ -99,14 +99,6 @@ namespace IR
 			}
 		}
 		
-		public System.Data.Linq.Table<IRTransaction> IRTransactions
-		{
-			get
-			{
-				return this.GetTable<IRTransaction>();
-			}
-		}
-		
 		public System.Data.Linq.Table<MembershipLINQ> MembershipLINQs
 		{
 			get
@@ -136,6 +128,14 @@ namespace IR
 			get
 			{
 				return this.GetTable<Role>();
+			}
+		}
+		
+		public System.Data.Linq.Table<IRTransaction> IRTransactions
+		{
+			get
+			{
+				return this.GetTable<IRTransaction>();
 			}
 		}
 	}
@@ -426,689 +426,6 @@ namespace IR
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.IRTransaction")]
-	public partial class IRTransaction : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _Id;
-		
-		private string _TicketNo;
-		
-		private System.Nullable<int> _CrisisId;
-		
-		private System.Nullable<System.Guid> _For;
-		
-		private System.Nullable<System.Guid> _From;
-		
-		private string _Subject;
-		
-		private string _Room;
-		
-		private System.Nullable<System.DateTime> _Date;
-		
-		private string _Status;
-		
-		private System.Nullable<int> _DepartmentId;
-		
-		private System.Nullable<System.DateTime> _WhenIncidentHappen;
-		
-		private string _WhenAware;
-		
-		private string _WhoInvolved;
-		
-		private string _WhatHappened;
-		
-		private string _Investigation;
-		
-		private string _ActionTaken;
-		
-		private string _Recommendation;
-		
-		private System.Nullable<System.Guid> _PreparedBy;
-		
-		private System.Nullable<System.DateTime> _DateSolved;
-		
-		private string _Approval;
-		
-		private string _ApprovedBy;
-		
-		private System.Nullable<System.DateTime> _ApprovedDate;
-		
-		private string _DisapprovedBy;
-		
-		private System.Nullable<System.DateTime> _DisapprovedDate;
-		
-		private EntitySet<EvidencePhoto> _EvidencePhotos;
-		
-		private EntityRef<CrisisCode> _CrisisCode;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIdChanging(int value);
-    partial void OnIdChanged();
-    partial void OnTicketNoChanging(string value);
-    partial void OnTicketNoChanged();
-    partial void OnCrisisIdChanging(System.Nullable<int> value);
-    partial void OnCrisisIdChanged();
-    partial void OnForChanging(System.Nullable<System.Guid> value);
-    partial void OnForChanged();
-    partial void OnFromChanging(System.Nullable<System.Guid> value);
-    partial void OnFromChanged();
-    partial void OnSubjectChanging(string value);
-    partial void OnSubjectChanged();
-    partial void OnRoomChanging(string value);
-    partial void OnRoomChanged();
-    partial void OnDateChanging(System.Nullable<System.DateTime> value);
-    partial void OnDateChanged();
-    partial void OnStatusChanging(string value);
-    partial void OnStatusChanged();
-    partial void OnDepartmentIdChanging(System.Nullable<int> value);
-    partial void OnDepartmentIdChanged();
-    partial void OnWhenIncidentHappenChanging(System.Nullable<System.DateTime> value);
-    partial void OnWhenIncidentHappenChanged();
-    partial void OnWhenAwareChanging(string value);
-    partial void OnWhenAwareChanged();
-    partial void OnWhoInvolvedChanging(string value);
-    partial void OnWhoInvolvedChanged();
-    partial void OnWhatHappenedChanging(string value);
-    partial void OnWhatHappenedChanged();
-    partial void OnInvestigationChanging(string value);
-    partial void OnInvestigationChanged();
-    partial void OnActionTakenChanging(string value);
-    partial void OnActionTakenChanged();
-    partial void OnRecommendationChanging(string value);
-    partial void OnRecommendationChanged();
-    partial void OnPreparedByChanging(System.Nullable<System.Guid> value);
-    partial void OnPreparedByChanged();
-    partial void OnDateSolvedChanging(System.Nullable<System.DateTime> value);
-    partial void OnDateSolvedChanged();
-    partial void OnApprovalChanging(string value);
-    partial void OnApprovalChanged();
-    partial void OnApprovedByChanging(string value);
-    partial void OnApprovedByChanged();
-    partial void OnApprovedDateChanging(System.Nullable<System.DateTime> value);
-    partial void OnApprovedDateChanged();
-    partial void OnDisapprovedByChanging(string value);
-    partial void OnDisapprovedByChanged();
-    partial void OnDisapprovedDateChanging(System.Nullable<System.DateTime> value);
-    partial void OnDisapprovedDateChanged();
-    #endregion
-		
-		public IRTransaction()
-		{
-			this._EvidencePhotos = new EntitySet<EvidencePhoto>(new Action<EvidencePhoto>(this.attach_EvidencePhotos), new Action<EvidencePhoto>(this.detach_EvidencePhotos));
-			this._CrisisCode = default(EntityRef<CrisisCode>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int Id
-		{
-			get
-			{
-				return this._Id;
-			}
-			set
-			{
-				if ((this._Id != value))
-				{
-					this.OnIdChanging(value);
-					this.SendPropertyChanging();
-					this._Id = value;
-					this.SendPropertyChanged("Id");
-					this.OnIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TicketNo", DbType="VarChar(50)")]
-		public string TicketNo
-		{
-			get
-			{
-				return this._TicketNo;
-			}
-			set
-			{
-				if ((this._TicketNo != value))
-				{
-					this.OnTicketNoChanging(value);
-					this.SendPropertyChanging();
-					this._TicketNo = value;
-					this.SendPropertyChanged("TicketNo");
-					this.OnTicketNoChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CrisisId", DbType="Int")]
-		public System.Nullable<int> CrisisId
-		{
-			get
-			{
-				return this._CrisisId;
-			}
-			set
-			{
-				if ((this._CrisisId != value))
-				{
-					if (this._CrisisCode.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnCrisisIdChanging(value);
-					this.SendPropertyChanging();
-					this._CrisisId = value;
-					this.SendPropertyChanged("CrisisId");
-					this.OnCrisisIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[For]", Storage="_For", DbType="UniqueIdentifier")]
-		public System.Nullable<System.Guid> For
-		{
-			get
-			{
-				return this._For;
-			}
-			set
-			{
-				if ((this._For != value))
-				{
-					this.OnForChanging(value);
-					this.SendPropertyChanging();
-					this._For = value;
-					this.SendPropertyChanged("For");
-					this.OnForChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[From]", Storage="_From", DbType="UniqueIdentifier")]
-		public System.Nullable<System.Guid> From
-		{
-			get
-			{
-				return this._From;
-			}
-			set
-			{
-				if ((this._From != value))
-				{
-					this.OnFromChanging(value);
-					this.SendPropertyChanging();
-					this._From = value;
-					this.SendPropertyChanged("From");
-					this.OnFromChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Subject", DbType="VarChar(MAX)")]
-		public string Subject
-		{
-			get
-			{
-				return this._Subject;
-			}
-			set
-			{
-				if ((this._Subject != value))
-				{
-					this.OnSubjectChanging(value);
-					this.SendPropertyChanging();
-					this._Subject = value;
-					this.SendPropertyChanged("Subject");
-					this.OnSubjectChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Room", DbType="VarChar(MAX)")]
-		public string Room
-		{
-			get
-			{
-				return this._Room;
-			}
-			set
-			{
-				if ((this._Room != value))
-				{
-					this.OnRoomChanging(value);
-					this.SendPropertyChanging();
-					this._Room = value;
-					this.SendPropertyChanged("Room");
-					this.OnRoomChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Date", DbType="Date")]
-		public System.Nullable<System.DateTime> Date
-		{
-			get
-			{
-				return this._Date;
-			}
-			set
-			{
-				if ((this._Date != value))
-				{
-					this.OnDateChanging(value);
-					this.SendPropertyChanging();
-					this._Date = value;
-					this.SendPropertyChanged("Date");
-					this.OnDateChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Status", DbType="VarChar(50)")]
-		public string Status
-		{
-			get
-			{
-				return this._Status;
-			}
-			set
-			{
-				if ((this._Status != value))
-				{
-					this.OnStatusChanging(value);
-					this.SendPropertyChanging();
-					this._Status = value;
-					this.SendPropertyChanged("Status");
-					this.OnStatusChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DepartmentId", DbType="Int")]
-		public System.Nullable<int> DepartmentId
-		{
-			get
-			{
-				return this._DepartmentId;
-			}
-			set
-			{
-				if ((this._DepartmentId != value))
-				{
-					this.OnDepartmentIdChanging(value);
-					this.SendPropertyChanging();
-					this._DepartmentId = value;
-					this.SendPropertyChanged("DepartmentId");
-					this.OnDepartmentIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_WhenIncidentHappen", DbType="DateTime")]
-		public System.Nullable<System.DateTime> WhenIncidentHappen
-		{
-			get
-			{
-				return this._WhenIncidentHappen;
-			}
-			set
-			{
-				if ((this._WhenIncidentHappen != value))
-				{
-					this.OnWhenIncidentHappenChanging(value);
-					this.SendPropertyChanging();
-					this._WhenIncidentHappen = value;
-					this.SendPropertyChanged("WhenIncidentHappen");
-					this.OnWhenIncidentHappenChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_WhenAware", DbType="VarChar(50)")]
-		public string WhenAware
-		{
-			get
-			{
-				return this._WhenAware;
-			}
-			set
-			{
-				if ((this._WhenAware != value))
-				{
-					this.OnWhenAwareChanging(value);
-					this.SendPropertyChanging();
-					this._WhenAware = value;
-					this.SendPropertyChanged("WhenAware");
-					this.OnWhenAwareChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_WhoInvolved", DbType="VarChar(MAX)")]
-		public string WhoInvolved
-		{
-			get
-			{
-				return this._WhoInvolved;
-			}
-			set
-			{
-				if ((this._WhoInvolved != value))
-				{
-					this.OnWhoInvolvedChanging(value);
-					this.SendPropertyChanging();
-					this._WhoInvolved = value;
-					this.SendPropertyChanged("WhoInvolved");
-					this.OnWhoInvolvedChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_WhatHappened", DbType="VarChar(MAX)")]
-		public string WhatHappened
-		{
-			get
-			{
-				return this._WhatHappened;
-			}
-			set
-			{
-				if ((this._WhatHappened != value))
-				{
-					this.OnWhatHappenedChanging(value);
-					this.SendPropertyChanging();
-					this._WhatHappened = value;
-					this.SendPropertyChanged("WhatHappened");
-					this.OnWhatHappenedChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Investigation", DbType="VarChar(MAX)")]
-		public string Investigation
-		{
-			get
-			{
-				return this._Investigation;
-			}
-			set
-			{
-				if ((this._Investigation != value))
-				{
-					this.OnInvestigationChanging(value);
-					this.SendPropertyChanging();
-					this._Investigation = value;
-					this.SendPropertyChanged("Investigation");
-					this.OnInvestigationChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ActionTaken", DbType="VarChar(MAX) NOT NULL", CanBeNull=false)]
-		public string ActionTaken
-		{
-			get
-			{
-				return this._ActionTaken;
-			}
-			set
-			{
-				if ((this._ActionTaken != value))
-				{
-					this.OnActionTakenChanging(value);
-					this.SendPropertyChanging();
-					this._ActionTaken = value;
-					this.SendPropertyChanged("ActionTaken");
-					this.OnActionTakenChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Recommendation", DbType="VarChar(MAX)")]
-		public string Recommendation
-		{
-			get
-			{
-				return this._Recommendation;
-			}
-			set
-			{
-				if ((this._Recommendation != value))
-				{
-					this.OnRecommendationChanging(value);
-					this.SendPropertyChanging();
-					this._Recommendation = value;
-					this.SendPropertyChanged("Recommendation");
-					this.OnRecommendationChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PreparedBy", DbType="UniqueIdentifier")]
-		public System.Nullable<System.Guid> PreparedBy
-		{
-			get
-			{
-				return this._PreparedBy;
-			}
-			set
-			{
-				if ((this._PreparedBy != value))
-				{
-					this.OnPreparedByChanging(value);
-					this.SendPropertyChanging();
-					this._PreparedBy = value;
-					this.SendPropertyChanged("PreparedBy");
-					this.OnPreparedByChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateSolved", DbType="DateTime")]
-		public System.Nullable<System.DateTime> DateSolved
-		{
-			get
-			{
-				return this._DateSolved;
-			}
-			set
-			{
-				if ((this._DateSolved != value))
-				{
-					this.OnDateSolvedChanging(value);
-					this.SendPropertyChanging();
-					this._DateSolved = value;
-					this.SendPropertyChanged("DateSolved");
-					this.OnDateSolvedChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Approval", DbType="VarChar(50)")]
-		public string Approval
-		{
-			get
-			{
-				return this._Approval;
-			}
-			set
-			{
-				if ((this._Approval != value))
-				{
-					this.OnApprovalChanging(value);
-					this.SendPropertyChanging();
-					this._Approval = value;
-					this.SendPropertyChanged("Approval");
-					this.OnApprovalChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ApprovedBy", DbType="VarChar(MAX)")]
-		public string ApprovedBy
-		{
-			get
-			{
-				return this._ApprovedBy;
-			}
-			set
-			{
-				if ((this._ApprovedBy != value))
-				{
-					this.OnApprovedByChanging(value);
-					this.SendPropertyChanging();
-					this._ApprovedBy = value;
-					this.SendPropertyChanged("ApprovedBy");
-					this.OnApprovedByChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ApprovedDate", DbType="DateTime")]
-		public System.Nullable<System.DateTime> ApprovedDate
-		{
-			get
-			{
-				return this._ApprovedDate;
-			}
-			set
-			{
-				if ((this._ApprovedDate != value))
-				{
-					this.OnApprovedDateChanging(value);
-					this.SendPropertyChanging();
-					this._ApprovedDate = value;
-					this.SendPropertyChanged("ApprovedDate");
-					this.OnApprovedDateChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DisapprovedBy", DbType="VarChar(MAX)")]
-		public string DisapprovedBy
-		{
-			get
-			{
-				return this._DisapprovedBy;
-			}
-			set
-			{
-				if ((this._DisapprovedBy != value))
-				{
-					this.OnDisapprovedByChanging(value);
-					this.SendPropertyChanging();
-					this._DisapprovedBy = value;
-					this.SendPropertyChanged("DisapprovedBy");
-					this.OnDisapprovedByChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DisapprovedDate", DbType="DateTime")]
-		public System.Nullable<System.DateTime> DisapprovedDate
-		{
-			get
-			{
-				return this._DisapprovedDate;
-			}
-			set
-			{
-				if ((this._DisapprovedDate != value))
-				{
-					this.OnDisapprovedDateChanging(value);
-					this.SendPropertyChanging();
-					this._DisapprovedDate = value;
-					this.SendPropertyChanged("DisapprovedDate");
-					this.OnDisapprovedDateChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="IRTransaction_EvidencePhoto", Storage="_EvidencePhotos", ThisKey="Id", OtherKey="IrId")]
-		public EntitySet<EvidencePhoto> EvidencePhotos
-		{
-			get
-			{
-				return this._EvidencePhotos;
-			}
-			set
-			{
-				this._EvidencePhotos.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="CrisisCode_IRTransaction", Storage="_CrisisCode", ThisKey="CrisisId", OtherKey="Id", IsForeignKey=true, DeleteRule="CASCADE")]
-		public CrisisCode CrisisCode
-		{
-			get
-			{
-				return this._CrisisCode.Entity;
-			}
-			set
-			{
-				CrisisCode previousValue = this._CrisisCode.Entity;
-				if (((previousValue != value) 
-							|| (this._CrisisCode.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._CrisisCode.Entity = null;
-						previousValue.IRTransactions.Remove(this);
-					}
-					this._CrisisCode.Entity = value;
-					if ((value != null))
-					{
-						value.IRTransactions.Add(this);
-						this._CrisisId = value.Id;
-					}
-					else
-					{
-						this._CrisisId = default(Nullable<int>);
-					}
-					this.SendPropertyChanged("CrisisCode");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_EvidencePhotos(EvidencePhoto entity)
-		{
-			this.SendPropertyChanging();
-			entity.IRTransaction = this;
-		}
-		
-		private void detach_EvidencePhotos(EvidencePhoto entity)
-		{
-			this.SendPropertyChanging();
-			entity.IRTransaction = null;
 		}
 	}
 	
@@ -1592,7 +909,7 @@ namespace IR
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_Membership", Storage="_User", ThisKey="UserId", OtherKey="UserId", IsForeignKey=true)]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_MembershipLINQ", Storage="_User", ThisKey="UserId", OtherKey="UserId", IsForeignKey=true)]
 		public User User
 		{
 			get
@@ -1790,7 +1107,7 @@ namespace IR
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_Membership", Storage="_MembershipLINQ", ThisKey="UserId", OtherKey="UserId", IsUnique=true, IsForeignKey=false)]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_MembershipLINQ", Storage="_MembershipLINQ", ThisKey="UserId", OtherKey="UserId", IsUnique=true, IsForeignKey=false)]
 		public MembershipLINQ MembershipLINQ
 		{
 			get
@@ -2192,6 +1509,665 @@ namespace IR
 		{
 			this.SendPropertyChanging();
 			entity.Role = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.IRTransaction")]
+	public partial class IRTransaction : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _Id;
+		
+		private string _TicketNo;
+		
+		private System.Nullable<int> _CrisisId;
+		
+		private System.Nullable<System.Guid> _From;
+		
+		private string _Subject;
+		
+		private string _Room;
+		
+		private System.Nullable<System.DateTime> _Date;
+		
+		private string _Status;
+		
+		private System.Nullable<int> _DepartmentId;
+		
+		private System.Nullable<System.DateTime> _WhenIncidentHappen;
+		
+		private string _WhenAware;
+		
+		private string _WhoInvolved;
+		
+		private string _WhatHappened;
+		
+		private string _Investigation;
+		
+		private string _ActionTaken;
+		
+		private string _Recommendation;
+		
+		private System.Nullable<System.Guid> _PreparedBy;
+		
+		private System.Nullable<System.DateTime> _DateSolved;
+		
+		private string _Approval;
+		
+		private string _ApprovedBy;
+		
+		private System.Nullable<System.DateTime> _ApprovedDate;
+		
+		private string _DisapprovedBy;
+		
+		private System.Nullable<System.DateTime> _DisapprovedDate;
+		
+		private EntitySet<EvidencePhoto> _EvidencePhotos;
+		
+		private EntityRef<CrisisCode> _CrisisCode;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(int value);
+    partial void OnIdChanged();
+    partial void OnTicketNoChanging(string value);
+    partial void OnTicketNoChanged();
+    partial void OnCrisisIdChanging(System.Nullable<int> value);
+    partial void OnCrisisIdChanged();
+    partial void OnFromChanging(System.Nullable<System.Guid> value);
+    partial void OnFromChanged();
+    partial void OnSubjectChanging(string value);
+    partial void OnSubjectChanged();
+    partial void OnRoomChanging(string value);
+    partial void OnRoomChanged();
+    partial void OnDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnDateChanged();
+    partial void OnStatusChanging(string value);
+    partial void OnStatusChanged();
+    partial void OnDepartmentIdChanging(System.Nullable<int> value);
+    partial void OnDepartmentIdChanged();
+    partial void OnWhenIncidentHappenChanging(System.Nullable<System.DateTime> value);
+    partial void OnWhenIncidentHappenChanged();
+    partial void OnWhenAwareChanging(string value);
+    partial void OnWhenAwareChanged();
+    partial void OnWhoInvolvedChanging(string value);
+    partial void OnWhoInvolvedChanged();
+    partial void OnWhatHappenedChanging(string value);
+    partial void OnWhatHappenedChanged();
+    partial void OnInvestigationChanging(string value);
+    partial void OnInvestigationChanged();
+    partial void OnActionTakenChanging(string value);
+    partial void OnActionTakenChanged();
+    partial void OnRecommendationChanging(string value);
+    partial void OnRecommendationChanged();
+    partial void OnPreparedByChanging(System.Nullable<System.Guid> value);
+    partial void OnPreparedByChanged();
+    partial void OnDateSolvedChanging(System.Nullable<System.DateTime> value);
+    partial void OnDateSolvedChanged();
+    partial void OnApprovalChanging(string value);
+    partial void OnApprovalChanged();
+    partial void OnApprovedByChanging(string value);
+    partial void OnApprovedByChanged();
+    partial void OnApprovedDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnApprovedDateChanged();
+    partial void OnDisapprovedByChanging(string value);
+    partial void OnDisapprovedByChanged();
+    partial void OnDisapprovedDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnDisapprovedDateChanged();
+    #endregion
+		
+		public IRTransaction()
+		{
+			this._EvidencePhotos = new EntitySet<EvidencePhoto>(new Action<EvidencePhoto>(this.attach_EvidencePhotos), new Action<EvidencePhoto>(this.detach_EvidencePhotos));
+			this._CrisisCode = default(EntityRef<CrisisCode>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TicketNo", DbType="VarChar(50)")]
+		public string TicketNo
+		{
+			get
+			{
+				return this._TicketNo;
+			}
+			set
+			{
+				if ((this._TicketNo != value))
+				{
+					this.OnTicketNoChanging(value);
+					this.SendPropertyChanging();
+					this._TicketNo = value;
+					this.SendPropertyChanged("TicketNo");
+					this.OnTicketNoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CrisisId", DbType="Int")]
+		public System.Nullable<int> CrisisId
+		{
+			get
+			{
+				return this._CrisisId;
+			}
+			set
+			{
+				if ((this._CrisisId != value))
+				{
+					if (this._CrisisCode.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnCrisisIdChanging(value);
+					this.SendPropertyChanging();
+					this._CrisisId = value;
+					this.SendPropertyChanged("CrisisId");
+					this.OnCrisisIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[From]", Storage="_From", DbType="UniqueIdentifier")]
+		public System.Nullable<System.Guid> From
+		{
+			get
+			{
+				return this._From;
+			}
+			set
+			{
+				if ((this._From != value))
+				{
+					this.OnFromChanging(value);
+					this.SendPropertyChanging();
+					this._From = value;
+					this.SendPropertyChanged("From");
+					this.OnFromChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Subject", DbType="VarChar(MAX)")]
+		public string Subject
+		{
+			get
+			{
+				return this._Subject;
+			}
+			set
+			{
+				if ((this._Subject != value))
+				{
+					this.OnSubjectChanging(value);
+					this.SendPropertyChanging();
+					this._Subject = value;
+					this.SendPropertyChanged("Subject");
+					this.OnSubjectChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Room", DbType="VarChar(MAX)")]
+		public string Room
+		{
+			get
+			{
+				return this._Room;
+			}
+			set
+			{
+				if ((this._Room != value))
+				{
+					this.OnRoomChanging(value);
+					this.SendPropertyChanging();
+					this._Room = value;
+					this.SendPropertyChanged("Room");
+					this.OnRoomChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Date", DbType="Date")]
+		public System.Nullable<System.DateTime> Date
+		{
+			get
+			{
+				return this._Date;
+			}
+			set
+			{
+				if ((this._Date != value))
+				{
+					this.OnDateChanging(value);
+					this.SendPropertyChanging();
+					this._Date = value;
+					this.SendPropertyChanged("Date");
+					this.OnDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Status", DbType="VarChar(50)")]
+		public string Status
+		{
+			get
+			{
+				return this._Status;
+			}
+			set
+			{
+				if ((this._Status != value))
+				{
+					this.OnStatusChanging(value);
+					this.SendPropertyChanging();
+					this._Status = value;
+					this.SendPropertyChanged("Status");
+					this.OnStatusChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DepartmentId", DbType="Int")]
+		public System.Nullable<int> DepartmentId
+		{
+			get
+			{
+				return this._DepartmentId;
+			}
+			set
+			{
+				if ((this._DepartmentId != value))
+				{
+					this.OnDepartmentIdChanging(value);
+					this.SendPropertyChanging();
+					this._DepartmentId = value;
+					this.SendPropertyChanged("DepartmentId");
+					this.OnDepartmentIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_WhenIncidentHappen", DbType="DateTime")]
+		public System.Nullable<System.DateTime> WhenIncidentHappen
+		{
+			get
+			{
+				return this._WhenIncidentHappen;
+			}
+			set
+			{
+				if ((this._WhenIncidentHappen != value))
+				{
+					this.OnWhenIncidentHappenChanging(value);
+					this.SendPropertyChanging();
+					this._WhenIncidentHappen = value;
+					this.SendPropertyChanged("WhenIncidentHappen");
+					this.OnWhenIncidentHappenChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_WhenAware", DbType="VarChar(50)")]
+		public string WhenAware
+		{
+			get
+			{
+				return this._WhenAware;
+			}
+			set
+			{
+				if ((this._WhenAware != value))
+				{
+					this.OnWhenAwareChanging(value);
+					this.SendPropertyChanging();
+					this._WhenAware = value;
+					this.SendPropertyChanged("WhenAware");
+					this.OnWhenAwareChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_WhoInvolved", DbType="VarChar(MAX)")]
+		public string WhoInvolved
+		{
+			get
+			{
+				return this._WhoInvolved;
+			}
+			set
+			{
+				if ((this._WhoInvolved != value))
+				{
+					this.OnWhoInvolvedChanging(value);
+					this.SendPropertyChanging();
+					this._WhoInvolved = value;
+					this.SendPropertyChanged("WhoInvolved");
+					this.OnWhoInvolvedChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_WhatHappened", DbType="VarChar(MAX)")]
+		public string WhatHappened
+		{
+			get
+			{
+				return this._WhatHappened;
+			}
+			set
+			{
+				if ((this._WhatHappened != value))
+				{
+					this.OnWhatHappenedChanging(value);
+					this.SendPropertyChanging();
+					this._WhatHappened = value;
+					this.SendPropertyChanged("WhatHappened");
+					this.OnWhatHappenedChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Investigation", DbType="VarChar(MAX)")]
+		public string Investigation
+		{
+			get
+			{
+				return this._Investigation;
+			}
+			set
+			{
+				if ((this._Investigation != value))
+				{
+					this.OnInvestigationChanging(value);
+					this.SendPropertyChanging();
+					this._Investigation = value;
+					this.SendPropertyChanged("Investigation");
+					this.OnInvestigationChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ActionTaken", DbType="VarChar(MAX) NOT NULL", CanBeNull=false)]
+		public string ActionTaken
+		{
+			get
+			{
+				return this._ActionTaken;
+			}
+			set
+			{
+				if ((this._ActionTaken != value))
+				{
+					this.OnActionTakenChanging(value);
+					this.SendPropertyChanging();
+					this._ActionTaken = value;
+					this.SendPropertyChanged("ActionTaken");
+					this.OnActionTakenChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Recommendation", DbType="VarChar(MAX)")]
+		public string Recommendation
+		{
+			get
+			{
+				return this._Recommendation;
+			}
+			set
+			{
+				if ((this._Recommendation != value))
+				{
+					this.OnRecommendationChanging(value);
+					this.SendPropertyChanging();
+					this._Recommendation = value;
+					this.SendPropertyChanged("Recommendation");
+					this.OnRecommendationChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PreparedBy", DbType="UniqueIdentifier")]
+		public System.Nullable<System.Guid> PreparedBy
+		{
+			get
+			{
+				return this._PreparedBy;
+			}
+			set
+			{
+				if ((this._PreparedBy != value))
+				{
+					this.OnPreparedByChanging(value);
+					this.SendPropertyChanging();
+					this._PreparedBy = value;
+					this.SendPropertyChanged("PreparedBy");
+					this.OnPreparedByChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateSolved", DbType="DateTime")]
+		public System.Nullable<System.DateTime> DateSolved
+		{
+			get
+			{
+				return this._DateSolved;
+			}
+			set
+			{
+				if ((this._DateSolved != value))
+				{
+					this.OnDateSolvedChanging(value);
+					this.SendPropertyChanging();
+					this._DateSolved = value;
+					this.SendPropertyChanged("DateSolved");
+					this.OnDateSolvedChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Approval", DbType="VarChar(50)")]
+		public string Approval
+		{
+			get
+			{
+				return this._Approval;
+			}
+			set
+			{
+				if ((this._Approval != value))
+				{
+					this.OnApprovalChanging(value);
+					this.SendPropertyChanging();
+					this._Approval = value;
+					this.SendPropertyChanged("Approval");
+					this.OnApprovalChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ApprovedBy", DbType="VarChar(MAX)")]
+		public string ApprovedBy
+		{
+			get
+			{
+				return this._ApprovedBy;
+			}
+			set
+			{
+				if ((this._ApprovedBy != value))
+				{
+					this.OnApprovedByChanging(value);
+					this.SendPropertyChanging();
+					this._ApprovedBy = value;
+					this.SendPropertyChanged("ApprovedBy");
+					this.OnApprovedByChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ApprovedDate", DbType="DateTime")]
+		public System.Nullable<System.DateTime> ApprovedDate
+		{
+			get
+			{
+				return this._ApprovedDate;
+			}
+			set
+			{
+				if ((this._ApprovedDate != value))
+				{
+					this.OnApprovedDateChanging(value);
+					this.SendPropertyChanging();
+					this._ApprovedDate = value;
+					this.SendPropertyChanged("ApprovedDate");
+					this.OnApprovedDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DisapprovedBy", DbType="VarChar(MAX)")]
+		public string DisapprovedBy
+		{
+			get
+			{
+				return this._DisapprovedBy;
+			}
+			set
+			{
+				if ((this._DisapprovedBy != value))
+				{
+					this.OnDisapprovedByChanging(value);
+					this.SendPropertyChanging();
+					this._DisapprovedBy = value;
+					this.SendPropertyChanged("DisapprovedBy");
+					this.OnDisapprovedByChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DisapprovedDate", DbType="DateTime")]
+		public System.Nullable<System.DateTime> DisapprovedDate
+		{
+			get
+			{
+				return this._DisapprovedDate;
+			}
+			set
+			{
+				if ((this._DisapprovedDate != value))
+				{
+					this.OnDisapprovedDateChanging(value);
+					this.SendPropertyChanging();
+					this._DisapprovedDate = value;
+					this.SendPropertyChanged("DisapprovedDate");
+					this.OnDisapprovedDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="IRTransaction_EvidencePhoto", Storage="_EvidencePhotos", ThisKey="Id", OtherKey="IrId")]
+		public EntitySet<EvidencePhoto> EvidencePhotos
+		{
+			get
+			{
+				return this._EvidencePhotos;
+			}
+			set
+			{
+				this._EvidencePhotos.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="CrisisCode_IRTransaction", Storage="_CrisisCode", ThisKey="CrisisId", OtherKey="Id", IsForeignKey=true, DeleteRule="CASCADE")]
+		public CrisisCode CrisisCode
+		{
+			get
+			{
+				return this._CrisisCode.Entity;
+			}
+			set
+			{
+				CrisisCode previousValue = this._CrisisCode.Entity;
+				if (((previousValue != value) 
+							|| (this._CrisisCode.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._CrisisCode.Entity = null;
+						previousValue.IRTransactions.Remove(this);
+					}
+					this._CrisisCode.Entity = value;
+					if ((value != null))
+					{
+						value.IRTransactions.Add(this);
+						this._CrisisId = value.Id;
+					}
+					else
+					{
+						this._CrisisId = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("CrisisCode");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_EvidencePhotos(EvidencePhoto entity)
+		{
+			this.SendPropertyChanging();
+			entity.IRTransaction = this;
+		}
+		
+		private void detach_EvidencePhotos(EvidencePhoto entity)
+		{
+			this.SendPropertyChanging();
+			entity.IRTransaction = null;
 		}
 	}
 }

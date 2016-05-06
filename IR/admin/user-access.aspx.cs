@@ -304,5 +304,10 @@ namespace IR.admin
             ddlRoles.DataBind();
             ddlRoles.Items.Insert(0, new ListItem("-- Select Role --", "0"));
         }
+
+        protected void createAdmin()
+        {
+            
+        }
     }
 }
