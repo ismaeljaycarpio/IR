@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 using System.Web.Security;
 using System.IO;
 using System.Drawing;
+using AjaxControlToolkit;
 
 namespace IR.ir
 {
@@ -40,6 +41,9 @@ namespace IR.ir
                 txtPosition.Text = user.Position;
 
                 txtTicketNo.Text = (2600 + dbIR.IRTransactions.DefaultIfEmpty().Max(x => x == null ? 0 : x.Id) + 1).ToString();
+
+                var ajaxActionTaken = HtmlEditorExtender2.AjaxFileUpload;
+                ajaxActionTaken.AllowedFileTypes = "jpg,jpeg,png,bmp";
             }
         }
 
@@ -153,9 +157,11 @@ namespace IR.ir
             ddlCrisis.Items.Insert(0, new ListItem("Select Crisis Code", "0"));
         }
 
-        protected void createPhotoFolder()
+        protected void HtmlEditorExtender2_ImageUploadComplete(object sender, AjaxFileUploadEventArgs e)
         {
-
+            var ajaxFileupload = (AjaxFileUpload)sender;
+            ajaxFileupload.SaveAs(Server.MapPath("~/photo-evidence/") + e.FileName);
+            e.PostedUrl = Page.ResolveClientUrl("../photo-evidence/" + e.FileName);
         }
     }
 }

@@ -283,6 +283,15 @@ namespace IR.ir {
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator13;
         
         /// <summary>
+        /// HtmlEditorExtender2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.HtmlEditorExtender HtmlEditorExtender2;
+        
+        /// <summary>
         /// txtRecommendation control.
         /// </summary>
         /// <remarks>
@@ -344,15 +353,6 @@ namespace IR.ir {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::AjaxControlToolkit.HtmlEditorExtender HtmlEditorExtender1;
-        
-        /// <summary>
-        /// HtmlEditorExtender2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::AjaxControlToolkit.HtmlEditorExtender HtmlEditorExtender2;
         
         /// <summary>
         /// HtmlEditorExtender3 control.

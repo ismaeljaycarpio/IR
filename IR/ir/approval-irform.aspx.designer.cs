@@ -13,6 +13,15 @@ namespace IR.ir {
     public partial class approval_irform {
         
         /// <summary>
+        /// lnkprint control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor lnkprint;
+        
+        /// <summary>
         /// txtTicketNo control.
         /// </summary>
         /// <remarks>

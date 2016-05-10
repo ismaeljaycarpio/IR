@@ -82,13 +82,23 @@
 
                                         <asp:TemplateField>
                                             <ItemTemplate>
-                                                <asp:Button ID="btnApproval" runat="server" Text="Approval" CommandName="approvalRecord" CssClass="btn btn-default" CommandArgument='<%# ((GridViewRow) Container).RowIndex %>' />
+                                                <asp:Button ID="btnApproval" 
+                                                    runat="server" 
+                                                    Text="Approval" 
+                                                    CommandName="approvalRecord" 
+                                                    CssClass="btn btn-default btn-sm" 
+                                                    CommandArgument='<%# ((GridViewRow) Container).RowIndex %>' />
                                             </ItemTemplate>
                                         </asp:TemplateField>
 
                                         <asp:TemplateField>
                                             <ItemTemplate>
-                                                <asp:Button ID="btnShowDelete" runat="server" Text="Delete" CommandName="deleteRecord" CssClass="btn btn-danger" CommandArgument='<%#((GridViewRow) Container).RowIndex %>' />
+                                                <asp:Button ID="btnShowDelete" 
+                                                    runat="server" 
+                                                    Text="Delete" 
+                                                    CommandName="deleteRecord" 
+                                                    CssClass="btn btn-danger btn-sm" 
+                                                    CommandArgument='<%#((GridViewRow) Container).RowIndex %>' />
                                             </ItemTemplate>
                                         </asp:TemplateField>
 

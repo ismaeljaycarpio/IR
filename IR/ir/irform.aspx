@@ -11,13 +11,17 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h4>Create Incident Report</h4>
+
+                    <div class="pull-right">
+                        <span class="glyphicon glyphicon-floppy-disk"></span>
+                    </div>
                 </div>
                 <div class="panel-body">
 
                     <div class="col-md-4">
                         <label for="txtTicketNo">IR No: </label>
-                        <asp:TextBox ID="txtTicketNo" 
-                            runat="server" 
+                        <asp:TextBox ID="txtTicketNo"
+                            runat="server"
                             CssClass="form-control"
                             Enabled="false"></asp:TextBox>
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator2"
@@ -40,10 +44,10 @@
                             InitialValue="0"
                             ValidationGroup="vgAdd"
                             ErrorMessage="Crisis Code is required"></asp:RequiredFieldValidator>
-                    </div>                    
+                    </div>
                 </div>
 
-               
+
                 <div class="panel-body">
                     <div class="col-md-4">
                         <label for="ddlFrom">From: </label>
@@ -146,7 +150,7 @@
 
                     <div class="col-md-4">
                         <label for="rblWhenAware">Did you know about it ? </label>
-                        <asp:RadioButtonList ID="rblWhenAware" 
+                        <asp:RadioButtonList ID="rblWhenAware"
                             runat="server"
                             CssClass="btn-group"
                             RepeatLayout="Flow"
@@ -162,7 +166,7 @@
                             CssClass="label label-danger"
                             ValidationGroup="vgAdd"
                             ErrorMessage="This field is required"></asp:RequiredFieldValidator>
-                    </div>             
+                    </div>
                 </div>
 
                 <div class="panel-body">
@@ -207,7 +211,7 @@
                     <div class="col-md-12">
                         <label for="FileUpload1">Photo Evidence: </label>
                         <asp:FileUpload ID="FileUpload1" runat="server" AllowMultiple="true" CssClass="form-control" />
-                        <asp:RegularExpressionValidator ID="RegularExpressionValidator1" 
+                        <asp:RegularExpressionValidator ID="RegularExpressionValidator1"
                             runat="server"
                             ControlToValidate="FileUpload1"
                             Display="Dynamic"
@@ -253,6 +257,47 @@
                             CssClass="label label-danger"
                             ValidationGroup="vgAdd"
                             ErrorMessage="Field is required"></asp:RequiredFieldValidator>
+                        <ajaxToolkit:HtmlEditorExtender ID="HtmlEditorExtender2"
+                            runat="server"
+                            EnableSanitization="false"
+                            DisplaySourceTab="true"
+                            TargetControlID="txtActionTaken"
+                            OnImageUploadComplete="HtmlEditorExtender2_ImageUploadComplete">
+                            <Toolbar>
+                                <ajaxToolkit:Undo />
+                                <ajaxToolkit:Redo />
+                                <ajaxToolkit:Bold />
+                                <ajaxToolkit:Italic />
+                                <ajaxToolkit:Underline />
+                                <ajaxToolkit:StrikeThrough />
+                                <ajaxToolkit:Subscript />
+                                <ajaxToolkit:Superscript />
+                                <ajaxToolkit:JustifyLeft />
+                                <ajaxToolkit:JustifyCenter />
+                                <ajaxToolkit:JustifyRight />
+                                <ajaxToolkit:JustifyFull />
+                                <ajaxToolkit:InsertOrderedList />
+                                <ajaxToolkit:InsertUnorderedList />
+                                <ajaxToolkit:CreateLink />
+                                <ajaxToolkit:UnLink />
+                                <ajaxToolkit:RemoveFormat />
+                                <ajaxToolkit:SelectAll />
+                                <ajaxToolkit:UnSelect />
+                                <ajaxToolkit:Delete />
+                                <ajaxToolkit:Cut />
+                                <ajaxToolkit:Copy />
+                                <ajaxToolkit:Paste />
+                                <ajaxToolkit:BackgroundColorSelector />
+                                <ajaxToolkit:ForeColorSelector />
+                                <ajaxToolkit:FontNameSelector />
+                                <ajaxToolkit:FontSizeSelector />
+                                <ajaxToolkit:Indent />
+                                <ajaxToolkit:Outdent />
+                                <ajaxToolkit:InsertHorizontalRule />
+                                <ajaxToolkit:HorizontalSeparator />
+                                <ajaxToolkit:InsertImage />
+                            </Toolbar>
+                        </ajaxToolkit:HtmlEditorExtender>
                     </div>
                 </div>
 
@@ -301,13 +346,13 @@
                 </div>
 
                 <div class="panel-footer text-center">
-                    <asp:Button ID="btnSave" 
+                    <asp:Button ID="btnSave"
                         runat="server"
                         Text="Save"
                         OnClick="btnSave_Click"
                         ValidationGroup="vgAdd"
                         CssClass="btn btn-primary" />
-                    <asp:Button ID="btnCancel" 
+                    <asp:Button ID="btnCancel"
                         runat="server"
                         Text="Cancel"
                         CausesValidation="false"
@@ -317,16 +362,15 @@
             </div>
         </div>
     </div>
+
     <ajaxToolkit:HtmlEditorExtender ID="HtmlEditorExtender1"
         TargetControlID="txtInvestigation"
         EnableSanitization="false"
         runat="server">
     </ajaxToolkit:HtmlEditorExtender>
-    <ajaxToolkit:HtmlEditorExtender ID="HtmlEditorExtender2"
-        TargetControlID="txtActionTaken"
-        EnableSanitization="false"
-        runat="server">
-    </ajaxToolkit:HtmlEditorExtender>
+
+
+
     <ajaxToolkit:HtmlEditorExtender ID="HtmlEditorExtender3"
         TargetControlID="txtRecommendation"
         EnableSanitization="false"

@@ -11,7 +11,11 @@
         <div class="col-md-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h4>Create Incident Report</h4>
+                    <h5>View Incident Report
+                    <a href="pPerformanceEvaluation.aspx" runat="server" id="lnkprint">
+                        <span class="glyphicon glyphicon-print pull-right"></span>
+                    </a>
+                    </h5>
                 </div>
                 <div class="panel-body">
 

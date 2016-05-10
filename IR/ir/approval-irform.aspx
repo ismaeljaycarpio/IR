@@ -10,7 +10,11 @@
         <div class="col-md-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h4>Create Incident Report</h4>
+                    <h5>Approve Incident Report
+                    <a href="pPerformanceEvaluation.aspx" runat="server" id="lnkprint">
+                        <span class="glyphicon glyphicon-print pull-right"></span>
+                    </a>
+                    </h5>
                 </div>
                 <div class="panel-body">
 
@@ -261,7 +265,12 @@
 
                                         <asp:TemplateField>
                                             <ItemTemplate>
-                                                <asp:Button ID="btnShowDelete" runat="server" Text="Delete" CommandName="deleteRecord" CssClass="btn btn-danger" CommandArgument='<%#((GridViewRow) Container).RowIndex %>' />
+                                                <asp:Button ID="btnShowDelete" 
+                                                    runat="server" 
+                                                    Text="Delete" 
+                                                    CommandName="deleteRecord" 
+                                                    CssClass="btn btn-danger btn-sm" 
+                                                    CommandArgument='<%#((GridViewRow) Container).RowIndex %>' />
                                             </ItemTemplate>
                                         </asp:TemplateField>
 

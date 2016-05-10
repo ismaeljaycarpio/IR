@@ -71,7 +71,7 @@
                                         <asp:BoundField DataField="Subject" HeaderText="Subject" SortExpression="Subject" />
                                         <asp:BoundField DataField="Room" HeaderText="Location" SortExpression="Room" />
                                         <asp:BoundField DataField="IncidentDate" HeaderText="Incident Date" SortExpression="IncidentDate" />
-                                        <asp:BoundField DataField="DateSolved" HeaderText="Solved Date" SortExpression="DateSolved" DataFormatString="{0:d}"/>
+                                        <asp:BoundField DataField="DateSolved" HeaderText="Solved Date" SortExpression="DateSolved" DataFormatString="{0:d}" />
 
                                         <asp:TemplateField HeaderText="Status" SortExpression="Status">
                                             <ItemTemplate>
@@ -81,7 +81,7 @@
 
                                         <asp:TemplateField>
                                             <ItemTemplate>
-                                                <asp:Button ID="btnSolved" runat="server" Text="Solved" CommandName="solveRecord" CssClass="btn btn-default" CommandArgument='<%# ((GridViewRow) Container).RowIndex %>'/>
+                                                <asp:Button ID="btnSolved" runat="server" Text="Solved" CommandName="solveRecord" CssClass="btn btn-default" CommandArgument='<%# ((GridViewRow) Container).RowIndex %>' />
                                             </ItemTemplate>
                                         </asp:TemplateField>
 
@@ -99,10 +99,10 @@
                                     CssClass="navbar-link"
                                     PostBackUrl="~/ir/irform.aspx">Create Incident Report</asp:LinkButton>
 
-                                <asp:Button ID="btnExportTotalbyIR" 
-                                    runat="server" 
+                                <asp:Button ID="btnExportTotalbyIR"
+                                    runat="server"
                                     Text="Export Total of IR"
-                                    CssClass="btn btn-default btn-sm pull-right" 
+                                    CssClass="btn btn-default btn-sm pull-right"
                                     OnClick="btnExportTotalbyIR_Click" />
                             </ContentTemplate>
                             <Triggers>
@@ -160,12 +160,12 @@
                         </div>
                         <div class="modal-body">
                             <label for="txtSolvedDate">Date Solved:</label>
-                            <asp:TextBox ID="txtSolvedDate" 
-                                runat="server" 
+                            <asp:TextBox ID="txtSolvedDate"
+                                runat="server"
                                 CssClass="form-control"
                                 placeholder="Date Solved"
                                 data-provide="datepicker"></asp:TextBox>
-                            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" 
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidator1"
                                 runat="server"
                                 ControlToValidate="txtSolvedDate"
                                 CssClass="label label-danger"

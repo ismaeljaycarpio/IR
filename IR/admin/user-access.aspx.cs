@@ -258,39 +258,38 @@ namespace IR.admin
 
         private int rowCount()
         {
-            //string strSearch = txtSearch.Text;
+            string strSearch = txtSearch.Text;
 
-            //var emp = (from e in dbeHRIS.EMPLOYEEs
-            //           select e).ToList();
+            var emp = (from e in dbEHRIS.EMPLOYEEs
+                       select e).ToList();
 
-            //var q = (from e in emp
-            //         join u in dbGc.Users
-            //         on e.Emp_Id equals u.UserName
-            //         into a
-            //         from b in a.DefaultIfEmpty(new User())
-            //         join uir in dbGc.UsersInRoles
-            //         on b.UserId equals uir.UserId
-            //         into c
-            //         from d in c.DefaultIfEmpty(new UsersInRole())
-            //         join r in dbGc.Roles
-            //         on d.RoleId equals r.RoleId
-            //         into f
-            //         from g in f.DefaultIfEmpty(new Role())
-            //         where
-            //         (e.Emp_Id.Contains(strSearch) ||
-            //         e.LastName.Contains(strSearch) ||
-            //         e.FirstName.Contains(strSearch) ||
-            //         e.MiddleName.Contains(strSearch))
-            //         select new
-            //         {
-            //             UserId = e.UserId,
-            //             EmpId = e.Emp_Id,
-            //             FullName = e.LastName + " , " + e.FirstName + " " + e.MiddleName,
-            //             RoleName = g.RoleName
-            //         }).ToList();
+            var q = (from e in emp
+                     join u in dbIR.Users
+                     on e.Emp_Id equals u.UserName
+                     into a
+                     from b in a.DefaultIfEmpty(new User())
+                     join uir in dbIR.UsersInRoles
+                     on b.UserId equals uir.UserId
+                     into c
+                     from d in c.DefaultIfEmpty(new UsersInRole())
+                     join r in dbIR.Roles
+                     on d.RoleId equals r.RoleId
+                     into f
+                     from g in f.DefaultIfEmpty(new Role())
+                     where
+                     (e.Emp_Id.Contains(strSearch) ||
+                     e.LastName.Contains(strSearch) ||
+                     e.FirstName.Contains(strSearch) ||
+                     e.MiddleName.Contains(strSearch))
+                     select new
+                     {
+                         UserId = e.UserId,
+                         EmpId = e.Emp_Id,
+                         FullName = e.LastName + " , " + e.FirstName + " " + e.MiddleName,
+                         RoleName = g.RoleName
+                     }).ToList();
 
-            //return q.Count;
-            return 0;
+            return q.Count;
         }
 
         protected void bindRoles()
