@@ -14,6 +14,7 @@ namespace IR
         private const string AntiXsrfTokenKey = "__AntiXsrfToken";
         private const string AntiXsrfUserNameKey = "__AntiXsrfUserName";
         private string _antiXsrfTokenValue;
+        IRContextDataContext db = new IRContextDataContext();
 
         protected void Page_Init(object sender, EventArgs e)
         {
@@ -68,7 +69,21 @@ namespace IR
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            if(!Page.IsPostBack)
+            {
 
+                //DateTime expDate = new DateTime(2016, 9, 2);
+                DateTime expDate = new DateTime(2016, 5, 12);
+
+                var site = (from s in db.SiteStatus
+                            where s.Id == 1
+                            select s).FirstOrDefault();
+
+                if(site.Status == true || DateTime.Today.Equals(expDate))
+                {
+                    Response.Redirect("~/site.html");
+                }
+            }
         }
     }
 }

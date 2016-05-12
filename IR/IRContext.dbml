@@ -97,4 +97,10 @@
       <Association Name="CrisisCode_IRTransaction" Member="CrisisCode" ThisKey="CrisisId" OtherKey="Id" Type="CrisisCode" IsForeignKey="true" DeleteRule="CASCADE" />
     </Type>
   </Table>
+  <Table Name="dbo.SiteStatus" Member="SiteStatus">
+    <Type Name="SiteStatus">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Status" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+    </Type>
+  </Table>
 </Database>
