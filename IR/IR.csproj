@@ -224,6 +224,16 @@
     <Content Include="ir\irform.aspx" />
     <Content Include="ir\report-ir.aspx" />
     <Content Include="ir\view-irform.aspx" />
+    <Content Include="jquery.bxslider\images\azalea-baguio-tent-event-venue.jpg" />
+    <Content Include="jquery.bxslider\images\azalea.jpg" />
+    <Content Include="jquery.bxslider\images\bx_loader.gif" />
+    <Content Include="jquery.bxslider\images\controls.png" />
+    <Content Include="jquery.bxslider\images\tradisyon.jpg" />
+    <Content Include="jquery.bxslider\jquery.bxslider.css" />
+    <Content Include="jquery.bxslider\jquery.bxslider.js" />
+    <Content Include="jquery.bxslider\jquery.bxslider.min.js" />
+    <Content Include="jquery.bxslider\plugins\jquery.easing.1.3.js" />
+    <Content Include="jquery.bxslider\plugins\jquery.fitvids.js" />
     <Content Include="Login.aspx" />
     <Content Include="logs.txt" />
     <Content Include="packages.config" />
@@ -324,6 +334,9 @@
     <Content Include="Content\bootstrap-datetimepicker-build.less" />
     <Content Include="Content\_bootstrap-datetimepicker.less" />
     <Content Include="admin\Web.config" />
+    <Content Include="jquery.bxslider\bower.json" />
+    <Content Include="jquery.bxslider\images\Thumbs.db" />
+    <Content Include="jquery.bxslider\readme.md" />
     <None Include="Properties\PublishProfiles\eIR.pubxml" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="photo-evidence\1_Penguins.jpg" />
