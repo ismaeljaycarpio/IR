@@ -58,6 +58,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.ReportViewer.WebForms, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -221,6 +222,7 @@
     <Content Include="ir\approval.aspx" />
     <Content Include="ir\ir.aspx" />
     <Content Include="ir\irform.aspx" />
+    <Content Include="ir\report-ir.aspx" />
     <Content Include="ir\view-irform.aspx" />
     <Content Include="Login.aspx" />
     <Content Include="logs.txt" />
@@ -466,6 +468,13 @@
     <Compile Include="ir\irform.aspx.designer.cs">
       <DependentUpon>irform.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ir\report-ir.aspx.cs">
+      <DependentUpon>report-ir.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ir\report-ir.aspx.designer.cs">
+      <DependentUpon>report-ir.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ir\view-irform.aspx.cs">
       <DependentUpon>view-irform.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -537,6 +546,9 @@
     <None Include="EHRIS.dbml.layout">
       <DependentUpon>EHRIS.dbml</DependentUpon>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ir\Report1.rdlc" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

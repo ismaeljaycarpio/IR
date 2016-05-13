@@ -23,5 +23,7 @@
         <siteMapNode url="~/Account/ChangePass.aspx" title="Change Password"  description="" />
       </siteMapNode>
       
+    <siteMapNode url="~/ir/report-ir.aspx" title="Print IR"  description="" />
+
     </siteMapNode>
 </siteMap>

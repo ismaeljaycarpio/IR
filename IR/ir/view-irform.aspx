@@ -12,9 +12,9 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h5>View Incident Report
-                    <a href="pPerformanceEvaluation.aspx" runat="server" id="lnkprint">
+                    <asp:HyperLink ID="hlPrintIr" runat="server">
                         <span class="glyphicon glyphicon-print pull-right"></span>
-                    </a>
+                    </asp:HyperLink>
                     </h5>
                 </div>
                 <div class="panel-body">
