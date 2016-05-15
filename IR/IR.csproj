@@ -579,7 +579,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="ir\Report1.rdlc" />
+    <Content Include="ir\Report1.rdlc" />
     <None Include="UserAccount.dbml.layout">
       <DependentUpon>UserAccount.dbml</DependentUpon>
     </None>
