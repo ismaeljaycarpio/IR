@@ -164,5 +164,6 @@ namespace IR.ir
             ajaxFileupload.SaveAs(Server.MapPath("~/photo-evidence/") + e.FileName);
             e.PostedUrl = Page.ResolveClientUrl("../photo-evidence/" + e.FileName);
         }
+
     }
 }

@@ -23,7 +23,7 @@ namespace IR.admin
 
                 checkRoles();
 
-                //load roles
+                //fill roles
                 var roles = (from r in dbUser.Roles
                              where
                              r.RoleName == "can-create-ir" ||
@@ -46,6 +46,22 @@ namespace IR.admin
 
                 ddlCreateRoles.Items.Insert(0, new ListItem("-- Select a Role --", "0"));
 
+
+                //fill positions
+                var positions = (from p in dbUser.Positions select p).ToList();
+
+                ddlCreatePosition.DataSource = positions;
+                ddlCreatePosition.DataTextField = "Name";
+                ddlCreatePosition.DataValueField = "Id";
+                ddlCreatePosition.DataBind();
+                ddlCreatePosition.Items.Insert(0, new ListItem("-- Select Position --", "0"));
+
+
+                ddlEditPosition.DataSource = positions;
+                ddlEditPosition.DataTextField = "Name";
+                ddlEditPosition.DataValueField = "Id";
+                ddlEditPosition.DataBind();
+                ddlEditPosition.Items.Insert(0, new ListItem("-- Select Position --", "0"));
                 txtSearch.Focus();
             }
         }
@@ -132,7 +148,8 @@ namespace IR.admin
                               FirstName = up.FirstName,
                               MiddleName = up.MiddleName,
                               LastName = up.LastName,
-                              RoleId = r.RoleId
+                              RoleId = r.RoleId,
+                              PositionId = up.PositionId
                           }).ToList();
 
                 if (ro.Count > 0)
@@ -143,7 +160,7 @@ namespace IR.admin
                     txtEditMiddleName.Text = user.MiddleName;
                     txtEditLastName.Text = user.LastName;
                     ddlRoles.SelectedValue = user.RoleId.ToString();
-
+                    ddlEditPosition.SelectedValue = user.PositionId.ToString();
                 }
                 else
                 {
@@ -230,6 +247,7 @@ namespace IR.admin
             user.FirstName = txtEditFirstName.Text;
             user.MiddleName = txtEditMiddleName.Text;
             user.LastName = txtEditLastName.Text;
+            user.PositionId = Convert.ToInt32(ddlEditPosition.SelectedValue);
 
             //save to db
             dbUser.SubmitChanges();
@@ -279,6 +297,7 @@ namespace IR.admin
                          Username = u.UserName,
                          FullName = up.LastName + " , " + up.FirstName + " " + up.MiddleName,
                          RoleName = r.RoleName,
+                         Position = p.Name,
                          IsApproved = m.IsApproved,
                          IsLockedOut = m.IsLockedOut
                      }).ToList();
@@ -371,6 +390,7 @@ namespace IR.admin
                 user.FirstName = txtCreateFirstName.Text;
                 user.MiddleName = txtCreateMiddleName.Text;
                 user.LastName = txtCreateLastName.Text;
+                user.PositionId = Convert.ToInt32(ddlCreatePosition.SelectedValue);
                 dbUser.UserProfiles.InsertOnSubmit(user);
                 dbUser.SubmitChanges();
 

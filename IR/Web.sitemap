@@ -15,9 +15,12 @@
       <siteMapNode title="IR Approval" url="~/ir/approval.aspx">
         <siteMapNode url="~/ir/approval-irform.aspx" title="Incident Report"  description="" />
       </siteMapNode>
-      
-      <siteMapNode url="~/admin/user-access.aspx" title="User Access"  description="" />
 
+      <siteMapNode title="Admin">
+        <siteMapNode url="~/admin/user-access.aspx" title="User Access"  description=""/>
+        <siteMapNode url="~/admin/position.aspx" title="Position"  description="" />
+      </siteMapNode>
+      
 
       <siteMapNode title="Account">
         <siteMapNode url="~/Account/ChangePass.aspx" title="Change Password"  description="" />

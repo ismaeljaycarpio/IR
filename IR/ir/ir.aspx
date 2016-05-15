@@ -81,13 +81,23 @@
 
                                         <asp:TemplateField>
                                             <ItemTemplate>
-                                                <asp:Button ID="btnSolved" runat="server" Text="Solved" CommandName="solveRecord" CssClass="btn btn-default" CommandArgument='<%# ((GridViewRow) Container).RowIndex %>' />
+                                                <asp:Button ID="btnSolved" 
+                                                    runat="server" 
+                                                    Text="Solved" 
+                                                    CommandName="solveRecord" 
+                                                    CssClass="btn btn-default btn-sm" 
+                                                    CommandArgument='<%# ((GridViewRow) Container).RowIndex %>' />
                                             </ItemTemplate>
                                         </asp:TemplateField>
 
                                         <asp:TemplateField>
                                             <ItemTemplate>
-                                                <asp:Button ID="btnShowDelete" runat="server" Text="Delete" CommandName="deleteRecord" CssClass="btn btn-danger" CommandArgument='<%#((GridViewRow) Container).RowIndex %>' />
+                                                <asp:Button ID="btnShowDelete" 
+                                                    runat="server" 
+                                                    Text="Delete" 
+                                                    CommandName="deleteRecord" 
+                                                    CssClass="btn btn-danger btn-sm" 
+                                                    CommandArgument='<%#((GridViewRow) Container).RowIndex %>' />
                                             </ItemTemplate>
                                         </asp:TemplateField>
 

@@ -66,7 +66,8 @@ namespace IR.ir
                         {
                             txtPreparedBy.Text = user.FullName;
                             txtPosition.Text = user.Position;
-                        }                    
+                        }
+                        hlPrintIr.NavigateUrl = "~/ir/report-ir.aspx?Id=" + Request.QueryString["Id"]; 
                     }
                     else
                     {

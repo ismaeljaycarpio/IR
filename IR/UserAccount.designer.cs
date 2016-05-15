@@ -1277,7 +1277,7 @@ namespace IR
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PositionId", DbType="Int", IsDbGenerated=true)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PositionId", DbType="Int")]
 		public System.Nullable<int> PositionId
 		{
 			get

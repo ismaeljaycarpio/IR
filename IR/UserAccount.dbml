@@ -56,7 +56,7 @@
       <Column Name="FirstName" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
       <Column Name="MiddleName" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
       <Column Name="LastName" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
-      <Column Name="PositionId" AutoSync="Never" Type="System.Int32" DbType="Int" IsDbGenerated="true" CanBeNull="true" />
+      <Column Name="PositionId" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Association Name="Position_UserProfile" Member="Position" ThisKey="PositionId" OtherKey="Id" Type="Position" IsForeignKey="true" DeleteRule="SET DEFAULT" />
       <Association Name="User_UserProfile" Member="User" ThisKey="UserId" OtherKey="UserId" Type="User" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
     </Type>

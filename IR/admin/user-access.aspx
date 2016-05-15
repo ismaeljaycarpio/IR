@@ -57,6 +57,8 @@
 
                                         <asp:BoundField DataField="RoleName" HeaderText="Role" SortExpression="RoleName" />
 
+                                        <asp:BoundField DataField="Position" HeaderText="Position" SortExpression="Position" />
+
                                         <asp:TemplateField HeaderText="Account Status" SortExpression="IsApproved">
                                             <ItemTemplate>
                                                 <asp:LinkButton ID="lblStatus"
@@ -202,6 +204,19 @@
                             </div>
 
                             <div class="form-group">
+                                <label for="ddlCreatePosition">Position</label>
+                                <asp:DropDownList ID="ddlCreatePosition" runat="server" CssClass="form-control"></asp:DropDownList>
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator10"
+                                    runat="server"
+                                    Display="Dynamic"
+                                    CssClass="label label-danger"
+                                    ControlToValidate="ddlCreatePosition"
+                                    InitialValue="0"
+                                    ValidationGroup="vgAddUser"
+                                    ErrorMessage="Position is required"></asp:RequiredFieldValidator>
+                            </div>
+
+                            <div class="form-group">
                                 <asp:Label ID="lblErrorMsg" runat="server" CssClass="label label-danger"></asp:Label>
                             </div>
 
@@ -290,6 +305,20 @@
                                     ValidationGroup="vgEditUser"
                                     ErrorMessage="Role is required"></asp:RequiredFieldValidator>
                             </div>
+
+                            <div class="form-group">
+                                <label for="ddlEditPosition">Position</label>
+                                <asp:DropDownList ID="ddlEditPosition" runat="server" CssClass="form-control"></asp:DropDownList>
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator11"
+                                    runat="server"
+                                    Display="Dynamic"
+                                    CssClass="label label-danger"
+                                    ControlToValidate="ddlEditPosition"
+                                    InitialValue="0"
+                                    ValidationGroup="vgEditUser"
+                                    ErrorMessage="Position is required"></asp:RequiredFieldValidator>
+                            </div>
+
                         </div>
                         <div class="modal-footer">
                             <asp:Button ID="btnUpdate"

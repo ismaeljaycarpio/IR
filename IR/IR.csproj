@@ -130,6 +130,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Account\ChangePass.aspx" />
+    <Content Include="admin\position.aspx" />
     <Content Include="admin\user-access.aspx" />
     <Content Include="App_Readme\Elmah.txt" />
     <Content Include="Content\addons\jquery.tosrus.buttons.css" />
@@ -218,6 +219,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="Images\azalea-logo.png" />
     <Content Include="ir\approval-irform.aspx" />
     <Content Include="ir\approval.aspx" />
     <Content Include="ir\ir.aspx" />
@@ -418,6 +420,13 @@
     <Compile Include="Account\ChangePass.aspx.designer.cs">
       <DependentUpon>ChangePass.aspx</DependentUpon>
     </Compile>
+    <Compile Include="admin\position.aspx.cs">
+      <DependentUpon>position.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\position.aspx.designer.cs">
+      <DependentUpon>position.aspx</DependentUpon>
+    </Compile>
     <Compile Include="admin\user-access.aspx.cs">
       <DependentUpon>user-access.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -551,7 +560,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Images\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Account\Web.config" />
