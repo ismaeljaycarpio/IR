@@ -11,8 +11,10 @@ namespace IR.ir
 {
     public partial class ir : System.Web.UI.Page
     {
-        IRContextDataContext db = new IRContextDataContext();
+        IRContextDataContext dbIR = new IRContextDataContext();
         EHRISDataContext dbEHRIS = new EHRISDataContext();
+        UserAccountDataContext dbUser = new UserAccountDataContext();
+
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -29,13 +31,13 @@ namespace IR.ir
             {
                 string strSearch = txtSearch.Text;
 
-                var employee = (from emp in dbEHRIS.EMPLOYEEs
+                var employee = (from emp in dbUser.UserProfiles
                                 select emp).ToList();
 
                 var q = (from emp in employee
-                         join ir in db.IRTransactions
+                         join ir in dbIR.IRTransactions
                          on emp.UserId equals ir.From
-                         join cc in db.CrisisCodes
+                         join cc in dbIR.CrisisCodes
                          on ir.CrisisId equals cc.Id
                          where
                          (
@@ -149,12 +151,12 @@ namespace IR.ir
 
         protected void btnDelete_Click(object sender, EventArgs e)
         {
-            var q = (from ir in db.IRTransactions
+            var q = (from ir in dbIR.IRTransactions
                      where ir.Id == Convert.ToInt32(hfDeleteId.Value)
                      select ir).FirstOrDefault();
 
-            db.IRTransactions.DeleteOnSubmit(q);
-            db.SubmitChanges();
+            dbIR.IRTransactions.DeleteOnSubmit(q);
+            dbIR.SubmitChanges();
 
             this.gvIR.DataBind();
 
@@ -169,8 +171,8 @@ namespace IR.ir
         {
             string strSearch = txtSearch.Text;
 
-            var q = (from ir in db.IRTransactions
-                     join cc in db.CrisisCodes
+            var q = (from ir in dbIR.IRTransactions
+                     join cc in dbIR.CrisisCodes
                      on ir.CrisisId equals cc.Id
                      where
                      (
@@ -222,13 +224,13 @@ namespace IR.ir
         protected void btnConfirmSolved_Click(object sender, EventArgs e)
         {
             int irId = Convert.ToInt32(hfSolveId.Value);
-            var q = (from ir in db.IRTransactions
+            var q = (from ir in dbIR.IRTransactions
                      where ir.Id == irId
                      select ir).FirstOrDefault();
 
             q.Status = "Solved";
             q.DateSolved = Convert.ToDateTime(txtSolvedDate.Text);
-            db.SubmitChanges();
+            dbIR.SubmitChanges();
 
             this.gvIR.DataBind();
 
@@ -257,13 +259,14 @@ namespace IR.ir
         {
             if (gvIR.Rows.Count > 0)
             {
-                var q = (from ir in db.IRTransactions
-                         join cc in db.CrisisCodes
+                var q = (from ir in dbIR.IRTransactions
+                         join cc in dbIR.CrisisCodes
                          on ir.CrisisId equals cc.Id
                          group ir by ir.CrisisId into irg
                          select new
                          {
-                             IRCode = (from ccc in db.CrisisCodes where ccc.Id == irg.Key
+                             IRCode = (from ccc in dbIR.CrisisCodes
+                                       where ccc.Id == irg.Key
                                       select new {
                                           IR = ccc.Name
                                       }).FirstOrDefault().IR,

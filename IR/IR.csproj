@@ -398,6 +398,11 @@
     <Content Include="Scripts\jquery-2.1.4.min.map" />
     <None Include="Scripts\_references.js" />
     <Content Include="Site.Mobile.Master" />
+    <Content Include="UserAccount.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>UserAccount.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </Content>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -531,6 +536,11 @@
     <Compile Include="user-test.aspx.designer.cs">
       <DependentUpon>user-test.aspx</DependentUpon>
     </Compile>
+    <Compile Include="UserAccount.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>UserAccount.dbml</DependentUpon>
+    </Compile>
     <Compile Include="ViewSwitcher.ascx.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -562,6 +572,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="ir\Report1.rdlc" />
+    <None Include="UserAccount.dbml.layout">
+      <DependentUpon>UserAccount.dbml</DependentUpon>
+    </None>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

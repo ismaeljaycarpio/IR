@@ -17,7 +17,7 @@ namespace IR.DAL
         SqlDataAdapter adp;
         DataTable dt;
         string strSql = String.Empty;
-        private static string STR_CONN = WebConfigurationManager.ConnectionStrings["dbIR"].ConnectionString;
+        private static string STR_CONN = WebConfigurationManager.ConnectionStrings["connMembership"].ConnectionString;
 
         public void DeactivateUser(Guid UserId)
         {

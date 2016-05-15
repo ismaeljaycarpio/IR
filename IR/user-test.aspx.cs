@@ -15,24 +15,24 @@ namespace IR
             if(!Page.IsPostBack)
             {
                 //create
-                if (!Roles.RoleExists("Admin"))
+                if (!Roles.RoleExists("Admin-IR"))
                 {
-                    Roles.CreateRole("Admin");
+                    Roles.CreateRole("Admin-IR");
                 }
 
-                if (!Roles.RoleExists("CanApprove"))
+                if (!Roles.RoleExists("can-approve-ir"))
                 {
-                    Roles.CreateRole("CanApprove");
+                    Roles.CreateRole("can-approve-ir");
                 }
 
-                if (!Roles.RoleExists("CanCreate"))
+                if (!Roles.RoleExists("can-create-ir"))
                 {
-                    Roles.CreateRole("CanCreate");
+                    Roles.CreateRole("can-create-ir");
                 }
 
                 //create admin
                 Membership.CreateUser("admin", "pa$$word");
-                Roles.AddUserToRole("admin", "Admin");
+                Roles.AddUserToRole("admin", "Admin-IR");
             }
         }
     }

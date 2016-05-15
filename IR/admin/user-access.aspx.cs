@@ -12,34 +12,48 @@ namespace IR.admin
     {
         EHRISDataContext dbEHRIS = new EHRISDataContext();
         IRContextDataContext dbIR = new IRContextDataContext();
+        UserAccountDataContext dbUser = new UserAccountDataContext();
         DAL.AccountManagement accnt = new DAL.AccountManagement();
 
         protected void Page_Load(object sender, EventArgs e)
         {
             if(!Page.IsPostBack)
             {
-                if (!Roles.RoleExists("Admin"))
-                {
-                    Roles.CreateRole("Admin");
-                }
+                this.gvUsers.DataBind();
 
-                if (!Roles.RoleExists("CanApprove"))
-                {
-                    Roles.CreateRole("CanApprove");
-                }
+                checkRoles();
 
-                if (!Roles.RoleExists("CanCreate"))
-                {
-                    Roles.CreateRole("CanCreate");
-                }
+                //load roles
+                var roles = (from r in dbUser.Roles
+                             where
+                             r.RoleName == "can-create-ir" ||
+                             r.RoleName == "can-approve-ir" ||
+                             r.RoleName == "Admin-IR"
+                             select r).ToList();
 
-                bindRoles();
+                ddlRoles.DataSource = roles;
+                ddlRoles.DataTextField = "RoleName";
+                ddlRoles.DataValueField = "RoleId";
+                ddlRoles.DataBind();
+
+                ddlRoles.Items.Insert(0, new ListItem("-- Select a Role --", "0"));
+
+
+                ddlCreateRoles.DataSource = roles;
+                ddlCreateRoles.DataTextField = "RoleName";
+                ddlCreateRoles.DataValueField = "RoleId";
+                ddlCreateRoles.DataBind();
+
+                ddlCreateRoles.Items.Insert(0, new ListItem("-- Select a Role --", "0"));
+
+                txtSearch.Focus();
             }
         }
 
         protected void btnSearch_Click(object sender, EventArgs e)
         {
             this.gvUsers.DataBind();
+            txtSearch.Focus();
         }
 
         protected void gvUsers_RowDataBound(object sender, GridViewRowEventArgs e)
@@ -49,6 +63,8 @@ namespace IR.admin
                 LinkButton lnkStatus = (LinkButton)e.Row.FindControl("lblStatus");
                 LinkButton lnkReset = (LinkButton)e.Row.FindControl("lblReset");
                 LinkButton lbtnLockedOut = (LinkButton)e.Row.FindControl("lbtnLockedOut");
+                Button btnDelete = (Button)e.Row.FindControl("btnDelete");
+                string userName = ((LinkButton)e.Row.FindControl("lblUsername") as LinkButton).Text;
 
                 if (lnkStatus.Text == "Active")
                 {
@@ -68,6 +84,12 @@ namespace IR.admin
                 else
                 {
                     lbtnLockedOut.Attributes.Add("onclick", "return confirm('Do you want to Lock this user ? ');");
+                }
+
+                //cant delete your own account
+                if (userName == Page.User.Identity.Name)
+                {
+                    btnDelete.Visible = false;
                 }
             }
             else if (e.Row.RowType == DataControlRowType.Footer)
@@ -89,27 +111,39 @@ namespace IR.admin
 
                 //load user info
                 lblUserId.Text = gvUsers.DataKeys[index].Value.ToString();
-                lblUserName.Text = (gvUsers.Rows[index].FindControl("lblEmpId") as LinkButton).Text;
-
+                lblUserName.Text = (gvUsers.Rows[index].FindControl("lblUsername") as LinkButton).Text;
 
                 //set selected role
-                var ro = (from u in dbIR.Users
-                          join uir in dbIR.UsersInRoles
-                          on u.UserId equals uir.UserId
-                          join r in dbIR.Roles
+                var ro = (from m in dbUser.MembershipLINQs
+                          join u in dbUser.Users
+                          on m.UserId equals u.UserId
+                          join up in dbUser.UserProfiles
+                          on u.UserId equals up.UserId
+                          join p in dbUser.Positions
+                          on up.PositionId equals p.Id
+                          join uir in dbUser.UsersInRoles
+                          on up.UserId equals uir.UserId
+                          join r in dbUser.Roles
                           on uir.RoleId equals r.RoleId
                           where
                           u.UserName == lblUserName.Text
                           select new
                           {
+                              FirstName = up.FirstName,
+                              MiddleName = up.MiddleName,
+                              LastName = up.LastName,
                               RoleId = r.RoleId
                           }).ToList();
 
                 if (ro.Count > 0)
                 {
-                    var userInRole = ro.FirstOrDefault();
+                    var user = ro.FirstOrDefault();
 
-                    ddlRoles.SelectedValue = userInRole.RoleId.ToString();
+                    txtEditFirstName.Text = user.FirstName;
+                    txtEditMiddleName.Text = user.MiddleName;
+                    txtEditLastName.Text = user.LastName;
+                    ddlRoles.SelectedValue = user.RoleId.ToString();
+
                 }
                 else
                 {
@@ -119,6 +153,18 @@ namespace IR.admin
                 System.Text.StringBuilder sb = new System.Text.StringBuilder();
                 sb.Append(@"<script type='text/javascript'>");
                 sb.Append("$('#editRole').modal('show');");
+                sb.Append(@"</script>");
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "DeleteShowModalScript", sb.ToString(), false);
+            }
+            else if (e.CommandName.Equals("deleteUser"))
+            {
+                int index = Convert.ToInt32(e.CommandArgument);
+                lblDeleteUserId.Text = gvUsers.DataKeys[index].Value.ToString();
+                lblDeleteUsername.Text = (gvUsers.Rows[index].FindControl("lblUsername") as LinkButton).Text;
+
+                System.Text.StringBuilder sb = new System.Text.StringBuilder();
+                sb.Append(@"<script type='text/javascript'>");
+                sb.Append("$('#deleteUser').modal('show');");
                 sb.Append(@"</script>");
                 ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "DeleteShowModalScript", sb.ToString(), false);
             }
@@ -138,8 +184,6 @@ namespace IR.admin
             {
                 accnt.ActivateUser(UserId);
             }
-
-            //bindGridview();
             this.gvUsers.DataBind();
         }
 
@@ -179,30 +223,26 @@ namespace IR.admin
 
         protected void btnUpdate_Click(object sender, EventArgs e)
         {
-            //chk if user is registered already
-            if (Membership.GetUser(lblUserName.Text) != null)
-            {
-                if (chkDelete.Checked == true)
-                {
-                    Membership.DeleteUser(lblUserName.Text, true);
-                }
-                else
-                {
-                    //update roles
-                    Roles.RemoveUserFromRoles(lblUserName.Text, Roles.GetRolesForUser(lblUserName.Text));
+            var user = (from us in dbUser.UserProfiles
+                        where us.UserId == Guid.Parse(lblUserId.Text)
+                        select us).FirstOrDefault();
 
-                    Roles.AddUserToRole(lblUserName.Text, ddlRoles.SelectedItem.Text);
-                }
-            }
-            else
-            {
-                //create user with same password
-                Membership.CreateUser(lblUserName.Text, lblUserName.Text);
-                Roles.AddUserToRole(lblUserName.Text, ddlRoles.SelectedItem.Text);
-            }
+            user.FirstName = txtEditFirstName.Text;
+            user.MiddleName = txtEditMiddleName.Text;
+            user.LastName = txtEditLastName.Text;
 
+            //save to db
+            dbUser.SubmitChanges();
+
+            //update roles
+            Roles.RemoveUserFromRoles(lblUserName.Text, Roles.GetRolesForUser(lblUserName.Text));
+
+            Roles.AddUserToRole(lblUserName.Text, ddlRoles.SelectedItem.Text);
+
+            //re-load gridview
             this.gvUsers.DataBind();
 
+            //close modal
             System.Text.StringBuilder sb = new System.Text.StringBuilder();
             sb.Append(@"<script type='text/javascript'>");
             sb.Append("$('#editRole').modal('hide');");
@@ -214,100 +254,152 @@ namespace IR.admin
         {
             string strSearch = txtSearch.Text;
 
-            var emp = (from em in dbEHRIS.EMPLOYEEs
-                       select em).ToList();
-
-            var q = (from empl in emp
-                     join u in dbIR.Users
-                     on empl.Emp_Id equals u.UserName
-                     into a
-                     from b in a.DefaultIfEmpty(new User())
-                     join mem in dbIR.MembershipLINQs
-                     on b.UserId equals mem.UserId
-                     into x
-                     from z in x.DefaultIfEmpty(new MembershipLINQ())
-                     join uir in dbIR.UsersInRoles
-                     on b.UserId equals uir.UserId
-                     into c
-                     from d in c.DefaultIfEmpty(new UsersInRole())
-                     join r in dbIR.Roles
-                     on d.RoleId equals r.RoleId
-                     into f
-                     from g in f.DefaultIfEmpty(new Role())
+            var q = (from m in dbUser.MembershipLINQs
+                     join u in dbUser.Users
+                     on m.UserId equals u.UserId
+                     join up in dbUser.UserProfiles
+                     on u.UserId equals up.UserId
+                     join p in dbUser.Positions
+                     on up.PositionId equals p.Id
+                     join uir in dbUser.UsersInRoles
+                     on up.UserId equals uir.UserId
+                     join r in dbUser.Roles
+                     on uir.RoleId equals r.RoleId
                      where
-                     (
-                     empl.Emp_Id.Contains(strSearch) ||
-                     empl.LastName.Contains(strSearch) ||
-                     empl.FirstName.Contains(strSearch) ||
-                     empl.MiddleName.Contains(strSearch)
-                     )
-                     orderby g.RoleName descending
+                     (r.RoleName == "can-create-ir" ||
+                             r.RoleName == "can-approve-ir" ||
+                             r.RoleName == "Admin-IR") &&
+                     (up.FirstName.Contains(strSearch) ||
+                        up.MiddleName.Contains(strSearch) ||
+                        up.LastName.Contains(strSearch) ||
+                        u.UserName.Contains(strSearch))
                      select new
                      {
-                         UserId = b.UserId,
-                         EmpId = empl.Emp_Id,
-                         FullName = empl.LastName + " , " + empl.FirstName + " " + empl.MiddleName,
-                         RoleName = g.RoleName,
-                         IsApproved = z.IsApproved,
-                         IsLockedOut = z.IsLockedOut
+                         UserId = m.UserId,
+                         Username = u.UserName,
+                         FullName = up.LastName + " , " + up.FirstName + " " + up.MiddleName,
+                         RoleName = r.RoleName,
+                         IsApproved = m.IsApproved,
+                         IsLockedOut = m.IsLockedOut
                      }).ToList();
 
+            q = q.OrderByDescending(o => o.RoleName).ToList();
             e.Result = q;
-            txtSearch.Focus();
         }
 
         private int rowCount()
         {
             string strSearch = txtSearch.Text;
 
-            var emp = (from e in dbEHRIS.EMPLOYEEs
-                       select e).ToList();
-
-            var q = (from e in emp
-                     join u in dbIR.Users
-                     on e.Emp_Id equals u.UserName
-                     into a
-                     from b in a.DefaultIfEmpty(new User())
-                     join uir in dbIR.UsersInRoles
-                     on b.UserId equals uir.UserId
-                     into c
-                     from d in c.DefaultIfEmpty(new UsersInRole())
-                     join r in dbIR.Roles
-                     on d.RoleId equals r.RoleId
-                     into f
-                     from g in f.DefaultIfEmpty(new Role())
+            var q = (from m in dbUser.MembershipLINQs
+                     join u in dbUser.Users
+                     on m.UserId equals u.UserId
+                     join up in dbUser.UserProfiles
+                     on u.UserId equals up.UserId
+                     join p in dbUser.Positions
+                     on up.PositionId equals p.Id
+                     join uir in dbUser.UsersInRoles
+                     on up.UserId equals uir.UserId
+                     join r in dbUser.Roles
+                     on uir.RoleId equals r.RoleId
                      where
-                     (e.Emp_Id.Contains(strSearch) ||
-                     e.LastName.Contains(strSearch) ||
-                     e.FirstName.Contains(strSearch) ||
-                     e.MiddleName.Contains(strSearch))
+                     (r.RoleName == "can-create-ir" ||
+                             r.RoleName == "can-approve-ir" ||
+                             r.RoleName == "Admin-IR") &&
+                     (up.FirstName.Contains(strSearch) ||
+                        up.MiddleName.Contains(strSearch) ||
+                        up.LastName.Contains(strSearch) ||
+                        u.UserName.Contains(strSearch))
                      select new
                      {
-                         UserId = e.UserId,
-                         EmpId = e.Emp_Id,
-                         FullName = e.LastName + " , " + e.FirstName + " " + e.MiddleName,
-                         RoleName = g.RoleName
+                         UserId = m.UserId,
+                         Username = u.UserName,
+                         FullName = up.LastName + " , " + up.FirstName + " " + up.MiddleName,
+                         RoleName = r.RoleName,
+                         IsApproved = m.IsApproved,
+                         IsLockedOut = m.IsLockedOut
                      }).ToList();
 
+            q = q.OrderByDescending(o => o.RoleName).ToList();
             return q.Count;
         }
 
-        protected void bindRoles()
+        protected void checkRoles()
         {
-            
-            var q = (from r in dbIR.Roles
-                     select r).ToList();
+            if (!Roles.RoleExists("can-create-ir"))
+            {
+                Roles.CreateRole("can-create-ir");
+            }
 
-            ddlRoles.DataSource = q;
-            ddlRoles.DataTextField = "RoleName";
-            ddlRoles.DataValueField = "RoleId";
-            ddlRoles.DataBind();
-            ddlRoles.Items.Insert(0, new ListItem("-- Select Role --", "0"));
+            if (!Roles.RoleExists("can-approve-ir"))
+            {
+                Roles.CreateRole("can-approve-ir");
+            }
+
+
+            if (!Roles.RoleExists("Admin-IR"))
+            {
+                Roles.CreateRole("Admin-IR");
+            }
         }
 
-        protected void createAdmin()
+        protected void openCreateAccount_Click(object sender, EventArgs e)
         {
-            
+            System.Text.StringBuilder sb = new System.Text.StringBuilder();
+            sb.Append(@"<script type='text/javascript'>");
+            sb.Append("$('#createUser').modal('show');");
+            sb.Append(@"</script>");
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "DeleteShowModalScript", sb.ToString(), false);
+        }
+
+        protected void btnAddUser_Click(object sender, EventArgs e)
+        {
+            //chk if username already exist
+            if (Membership.GetUser(txtCreateUsername.Text) != null)
+            {
+                lblErrorMsg.Text = "Username already exist.";
+            }
+            else
+            {
+                //register user
+                Membership.CreateUser(txtCreateUsername.Text,
+                    txtCreateUsername.Text.Trim());
+
+                //add to user profile
+                UserProfile user = new UserProfile();
+                user.UserId = Guid.Parse(Membership.GetUser(txtCreateUsername.Text).ProviderUserKey.ToString());
+                user.FirstName = txtCreateFirstName.Text;
+                user.MiddleName = txtCreateMiddleName.Text;
+                user.LastName = txtCreateLastName.Text;
+                dbUser.UserProfiles.InsertOnSubmit(user);
+                dbUser.SubmitChanges();
+
+                //assign role
+                Roles.AddUserToRole(txtCreateUsername.Text, ddlCreateRoles.SelectedItem.Text);
+
+                //re-load users
+                this.gvUsers.DataBind();
+
+                //hide modal
+                System.Text.StringBuilder sb = new System.Text.StringBuilder();
+                sb.Append(@"<script type='text/javascript'>");
+                sb.Append("$('#createUser').modal('hide');");
+                sb.Append(@"</script>");
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "DeleteShowModalScript", sb.ToString(), false);
+            }
+        }
+
+        protected void btnConfirmDelete_Click(object sender, EventArgs e)
+        {
+            Membership.DeleteUser(lblDeleteUsername.Text);
+
+            this.gvUsers.DataBind();
+
+            System.Text.StringBuilder sb = new System.Text.StringBuilder();
+            sb.Append(@"<script type='text/javascript'>");
+            sb.Append("$('#deleteUser').modal('hide');");
+            sb.Append(@"</script>");
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "DeleteShowModalScript", sb.ToString(), false);
         }
     }
 }

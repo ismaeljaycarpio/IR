@@ -13,6 +13,7 @@ namespace IR.ir
     {
         IRContextDataContext dbIR = new IRContextDataContext();
         EHRISDataContext dbEHRIS = new EHRISDataContext();
+        UserAccountDataContext dbUser = new UserAccountDataContext();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -49,20 +50,23 @@ namespace IR.ir
                         txtRecommendation.Text = q.Recommendation;
 
                         //load user info
-                        var user = (from emp in dbEHRIS.EMPLOYEEs
-                                    join p in dbEHRIS.POSITIONs
+                        var user = (from emp in dbUser.UserProfiles
+                                    join p in dbUser.Positions
                                     on emp.PositionId equals p.Id
                                     where
-                                    (emp.Emp_Id == q.PreparedBy)
+                                    (emp.UserId == q.PreparedBy)
                                     select new
                                     {
                                         UserId = emp.UserId,
                                         FullName = emp.LastName + " , " + emp.FirstName + " " + emp.MiddleName,
-                                        Position = p.Position1
+                                        Position = p.Name
                                     }).FirstOrDefault();
 
-                        txtPreparedBy.Text = user.FullName;
-                        txtPosition.Text = user.Position;
+                        if (user != null)
+                        {
+                            txtPreparedBy.Text = user.FullName;
+                            txtPosition.Text = user.Position;
+                        } 
 
                         hlPrintIr.NavigateUrl = "~/ir/report-ir.aspx?Id=" + Request.QueryString["Id"]; 
                     }
@@ -81,11 +85,11 @@ namespace IR.ir
         protected void bindDropdown()
         {
             //dm
-            var dm = (from e in dbEHRIS.EMPLOYEEs
-                      join p in dbEHRIS.POSITIONs
+            var dm = (from e in dbUser.UserProfiles
+                      join p in dbUser.Positions
                      on e.PositionId equals p.Id
                       where
-                      p.Position1 == "Duty Manager"
+                      p.Name == "Duty Manager"
                       select new
                       {
                           UserId = e.UserId,
@@ -96,7 +100,7 @@ namespace IR.ir
             ddlFrom.DataTextField = "FullName";
             ddlFrom.DataValueField = "UserId";
             ddlFrom.DataBind();
-            ddlFrom.Items.Insert(0, new ListItem("Select Duty Manager", "0"));
+            ddlFrom.Items.Insert(0, new ListItem("-- Select Duty Manager --", "0"));
 
             //dept
             var dept = (from d in dbEHRIS.DEPARTMENTs

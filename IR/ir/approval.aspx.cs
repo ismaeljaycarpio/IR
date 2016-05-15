@@ -6,13 +6,15 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Web.Security;
 
 namespace IR.ir
 {
     public partial class approval : System.Web.UI.Page
     {
-        IRContextDataContext db = new IRContextDataContext();
+        IRContextDataContext dbIR = new IRContextDataContext();
         EHRISDataContext dbEHRIS = new EHRISDataContext();
+        UserAccountDataContext dbUser = new UserAccountDataContext();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -30,13 +32,13 @@ namespace IR.ir
             {
                 string strSearch = txtSearch.Text;
 
-                var employee = (from emp in dbEHRIS.EMPLOYEEs
-                                select emp).ToList();
+                var employee = (from up in dbUser.UserProfiles
+                                select up).ToList();
 
                 var q = (from emp in employee
-                         join ir in db.IRTransactions
+                         join ir in dbIR.IRTransactions
                          on emp.UserId equals ir.From
-                         join cc in db.CrisisCodes
+                         join cc in dbIR.CrisisCodes
                          on ir.CrisisId equals cc.Id
                          where
                          (
@@ -150,14 +152,14 @@ namespace IR.ir
 
         protected void btnConfirmApprove_Click(object sender, EventArgs e)
         {
-            var q = (from ir in db.IRTransactions
+            var q = (from ir in dbIR.IRTransactions
                      where ir.Id == Convert.ToInt32(hfIRId.Value)
                      select ir).FirstOrDefault();
 
             q.Approval = "Approved";
-            q.ApprovedBy = User.Identity.Name;
+            q.ApprovedBy = Guid.Parse(Membership.GetUser().ProviderUserKey.ToString());
             q.ApprovedDate = DateTime.Now;
-            db.SubmitChanges();
+            dbIR.SubmitChanges();
 
             this.gvIR.DataBind();
 
@@ -170,14 +172,14 @@ namespace IR.ir
 
         protected void btnConfirmDisapprove_Click(object sender, EventArgs e)
         {
-            var q = (from ir in db.IRTransactions
+            var q = (from ir in dbIR.IRTransactions
                      where ir.Id == Convert.ToInt32(hfIRId.Value)
                      select ir).FirstOrDefault();
 
             q.Approval = "Disapproved";
             q.DisapprovedBy = User.Identity.Name;
             q.DisapprovedDate = DateTime.Now;
-            db.SubmitChanges();
+            dbIR.SubmitChanges();
 
             this.gvIR.DataBind();
 
@@ -192,8 +194,8 @@ namespace IR.ir
         {
             string strSearch = txtSearch.Text;
 
-            var q = (from ir in db.IRTransactions
-                     join cc in db.CrisisCodes
+            var q = (from ir in dbIR.IRTransactions
+                     join cc in dbIR.CrisisCodes
                      on ir.CrisisId equals cc.Id
                      where
                      (
@@ -243,12 +245,12 @@ namespace IR.ir
 
         protected void btnDelete_Click(object sender, EventArgs e)
         {
-            var q = (from ir in db.IRTransactions
+            var q = (from ir in dbIR.IRTransactions
                      where ir.Id == Convert.ToInt32(hfDeleteId.Value)
                      select ir).FirstOrDefault();
 
-            db.IRTransactions.DeleteOnSubmit(q);
-            db.SubmitChanges();
+            dbIR.IRTransactions.DeleteOnSubmit(q);
+            dbIR.SubmitChanges();
 
             this.gvIR.DataBind();
 

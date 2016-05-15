@@ -15,6 +15,7 @@ namespace IR.ir
     {
         IRContextDataContext dbIR = new IRContextDataContext();
         EHRISDataContext dbEHRIS = new EHRISDataContext();
+        UserAccountDataContext dbUser = new UserAccountDataContext();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -23,18 +24,18 @@ namespace IR.ir
                 bindDropdown();
 
                 //load employee info
-                string myUsername = Membership.GetUser().UserName.ToString();
+                Guid myUserId = Guid.Parse(Membership.GetUser().ProviderUserKey.ToString());
 
-                var user = (from emp in dbEHRIS.EMPLOYEEs
-                            join p in dbEHRIS.POSITIONs
-                            on emp.PositionId equals p.Id
+                var user = (from up in dbUser.UserProfiles
+                            join p in dbUser.Positions
+                            on up.PositionId equals p.Id
                             where 
-                            (emp.Emp_Id == myUsername)
+                            (up.UserId == myUserId)
                             select new
                             {
-                                UserId = emp.UserId,
-                                FullName = emp.LastName + " , " + emp.FirstName + " " + emp.MiddleName,
-                                Position = p.Position1
+                                UserId = up.UserId,
+                                FullName = up.LastName + " , " + up.FirstName + " " + up.MiddleName,
+                                Position = p.Name
                             }).FirstOrDefault(); ;
 
                 txtPreparedBy.Text = user.FullName;
@@ -68,7 +69,7 @@ namespace IR.ir
                 ir.Investigation = txtInvestigation.Text;
                 ir.ActionTaken = txtActionTaken.Text;
                 ir.Recommendation = txtRecommendation.Text;
-                ir.PreparedBy = Membership.GetUser().UserName.ToString();
+                ir.PreparedBy = Guid.Parse(Membership.GetUser().ProviderUserKey.ToString());
                 ir.Approval = "Pending";
 
                 dbIR.IRTransactions.InsertOnSubmit(ir);
@@ -111,11 +112,11 @@ namespace IR.ir
         protected void bindDropdown()
         {
             //dm
-            var dm = (from e in dbEHRIS.EMPLOYEEs
-                      join p in dbEHRIS.POSITIONs
+            var dm = (from e in dbUser.UserProfiles
+                      join p in dbUser.Positions
                      on e.PositionId equals p.Id
                      where
-                     p.Position1 == "Duty Manager"
+                     p.Name == "Duty Manager"
                      select new
                      {
                          UserId = e.UserId,
@@ -126,7 +127,7 @@ namespace IR.ir
             ddlFrom.DataTextField = "FullName";
             ddlFrom.DataValueField = "UserId";
             ddlFrom.DataBind();
-            ddlFrom.Items.Insert(0, new ListItem("Select Duty Manager", "0"));
+            ddlFrom.Items.Insert(0, new ListItem("-- Select Duty Manager --", "0"));
 
             //dept
             var dept = (from d in dbEHRIS.DEPARTMENTs
