@@ -69,21 +69,21 @@ namespace IR
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if(!Page.IsPostBack)
-            {
+            //if(!Page.IsPostBack)
+            //{
 
-                //DateTime expDate = new DateTime(2016, 9, 2);
-                DateTime expDate = new DateTime(2016, 5, 12);
+            //    //DateTime expDate = new DateTime(2016, 9, 2);
+            //    DateTime expDate = new DateTime(2016, 5, 12);
 
-                var site = (from s in db.SiteStatus
-                            where s.Id == 1
-                            select s).FirstOrDefault();
+            //    var site = (from s in db.SiteStatus
+            //                where s.Id == 1
+            //                select s).FirstOrDefault();
 
-                if(site.Status == true || DateTime.Today.Equals(expDate))
-                {
-                    Response.Redirect("~/site.html");
-                }
-            }
+            //    if(site.Status == true || DateTime.Today.Equals(expDate))
+            //    {
+            //        Response.Redirect("~/site.html");
+            //    }
+            //}
         }
     }
 }
