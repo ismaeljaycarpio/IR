@@ -221,7 +221,9 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="Images\Azalea-boracay-logo-r1.png" />
     <Content Include="Images\azalea-logo.png" />
+    <Content Include="Images\azalearesidences.png" />
     <Content Include="ir\approval-irform.aspx" />
     <Content Include="ir\approval.aspx" />
     <Content Include="ir\ir.aspx" />
