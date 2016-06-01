@@ -1,11 +1,11 @@
-﻿<%@ Page Title="Crisis Cdoes" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="crisis-codes.aspx.cs" Inherits="IR.file_maintenance.crisis_codes" %>
+﻿<%@ Page Title="Crisis Codes" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="crisis-codes.aspx.cs" Inherits="IR.file_maintenance.crisis_codes" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <div class="row">
         <div class="col-md-12">
-            <div class="panel panel-default">
+            <div class="panel panel-primary">
                 <div class="panel-heading">
                     <h5>Crisis Codes</h5>
                 </div>

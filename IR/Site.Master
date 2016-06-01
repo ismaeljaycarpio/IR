@@ -69,16 +69,12 @@
                         </AnonymousTemplate>
                         <LoggedInTemplate>
                             <ul class="nav navbar-nav">
-                                <li class="dropdown" runat="server"><a runat="server" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">File Maintenance<span class="caret"></span></a>
+                                <li><a runat="server" href="~/ir/ir.aspx">Incident Report</a></li>
+                                <li class="dropdown" runat="server"><a runat="server" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Configuration<span class="caret"></span></a>
                                     <ul class="dropdown-menu">
                                         <li><a runat="server" href="~/file-maintenance/crisis-codes.aspx">Crisis Codes</a></li>
                                     </ul>
                                 </li>
-                                <% if (Page.User.IsInRole("can-approve-ir"))
-                                   { %>
-                                <li><a runat="server" href="~/ir/approval.aspx">Approval</a></li>
-                                <%} %>
-                                <li><a runat="server" href="~/ir/ir.aspx">Incident Report</a></li>
                             </ul>
                             <ul class="nav navbar-nav navbar-right">
                                 <li class="dropdown">
@@ -108,16 +104,11 @@
                             <asp:RoleGroup Roles="Admin-IR">
                                 <ContentTemplate>
                                     <ul class="nav navbar-nav">
-                                        <li class="dropdown" runat="server"><a runat="server" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">File Maintenance<span class="caret"></span></a>
+                                        <li><a runat="server" href="~/ir/ir.aspx">Incident Report</a></li>
+                                        <li class="dropdown" runat="server"><a runat="server" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Configuration<span class="caret"></span></a>
                                             <ul class="dropdown-menu">
                                                 <li><a runat="server" href="~/file-maintenance/crisis-codes.aspx">Crisis Codes</a></li>
-                                            </ul>
-                                        </li>
-                                        <li><a runat="server" href="~/ir/approval.aspx">Approval</a></li>
-                                        <li><a runat="server" href="~/ir/ir.aspx">Incident Report</a></li>
-                                        <li class="dropdown" runat="server"><a runat="server" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">User Access<span class="caret"></span></a>
-                                            <ul class="dropdown-menu">
-                                                <li><a runat="server" href="~/admin/user-access.aspx">User Access</a></li>
+                                                <li><a runat="server" href="~/admin/user-access.aspx">Users</a></li>
                                                 <li><a runat="server" href="~/admin/position.aspx">Position</a></li>
                                             </ul>
                                         </li>

@@ -1,13 +1,13 @@
-﻿<%@ Page Title="User Access" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="user-access.aspx.cs" Inherits="IR.admin.user_access" %>
+﻿<%@ Page Title="Users" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="user-access.aspx.cs" Inherits="IR.admin.user_access" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <asp:Panel ID="Panel1" runat="server" DefaultButton="btnSearch" CssClass="row">
         <div class="col-md-12">
-            <div class="panel panel-danger">
+            <div class="panel panel-primary">
                 <div class="panel-heading">
-                    <h5>User Access</h5>
+                    <h5>Users</h5>
                 </div>
                 <div class="panel-body">
                     <div class="form-horizontal">

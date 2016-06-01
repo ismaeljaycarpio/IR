@@ -13,7 +13,6 @@
                     <h5>Create Incident Report</h5>
                 </div>
                 <div class="panel-body">
-
                     <div class="col-md-4">
                         <label for="txtTicketNo">IR No: </label>
                         <asp:TextBox ID="txtTicketNo"

@@ -20,11 +20,6 @@ namespace IR
                     Roles.CreateRole("Admin-IR");
                 }
 
-                if (!Roles.RoleExists("can-approve-ir"))
-                {
-                    Roles.CreateRole("can-approve-ir");
-                }
-
                 if (!Roles.RoleExists("can-create-ir"))
                 {
                     Roles.CreateRole("can-create-ir");

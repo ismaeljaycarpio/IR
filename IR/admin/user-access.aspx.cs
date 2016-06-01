@@ -27,7 +27,6 @@ namespace IR.admin
                 var roles = (from r in dbUser.Roles
                              where
                              r.RoleName == "can-create-ir" ||
-                             r.RoleName == "can-approve-ir" ||
                              r.RoleName == "Admin-IR"
                              select r).ToList();
 
@@ -285,7 +284,6 @@ namespace IR.admin
                      on uir.RoleId equals r.RoleId
                      where
                      (r.RoleName == "can-create-ir" ||
-                             r.RoleName == "can-approve-ir" ||
                              r.RoleName == "Admin-IR") &&
                      (up.FirstName.Contains(strSearch) ||
                         up.MiddleName.Contains(strSearch) ||
@@ -323,7 +321,6 @@ namespace IR.admin
                      on uir.RoleId equals r.RoleId
                      where
                      (r.RoleName == "can-create-ir" ||
-                             r.RoleName == "can-approve-ir" ||
                              r.RoleName == "Admin-IR") &&
                      (up.FirstName.Contains(strSearch) ||
                         up.MiddleName.Contains(strSearch) ||
@@ -348,11 +345,6 @@ namespace IR.admin
             if (!Roles.RoleExists("can-create-ir"))
             {
                 Roles.CreateRole("can-create-ir");
-            }
-
-            if (!Roles.RoleExists("can-approve-ir"))
-            {
-                Roles.CreateRole("can-approve-ir");
             }
 
 

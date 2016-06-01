@@ -253,8 +253,6 @@
     <Content Include="Images\Azalea-boracay-logo-r1.png" />
     <Content Include="Images\azalea-logo.png" />
     <Content Include="Images\azalearesidences.png" />
-    <Content Include="ir\approval-irform.aspx" />
-    <Content Include="ir\approval.aspx" />
     <Content Include="ir\ir.aspx" />
     <Content Include="ir\irform.aspx" />
     <Content Include="ir\report-ir.aspx" />
@@ -500,20 +498,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>IRContext.dbml</DependentUpon>
-    </Compile>
-    <Compile Include="ir\approval-irform.aspx.cs">
-      <DependentUpon>approval-irform.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="ir\approval-irform.aspx.designer.cs">
-      <DependentUpon>approval-irform.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="ir\approval.aspx.cs">
-      <DependentUpon>approval.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="ir\approval.aspx.designer.cs">
-      <DependentUpon>approval.aspx</DependentUpon>
     </Compile>
     <Compile Include="ir\ir.aspx.cs">
       <DependentUpon>ir.aspx</DependentUpon>
