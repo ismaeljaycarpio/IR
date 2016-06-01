@@ -13,12 +13,12 @@
                 <li>
                     <img src="jquery.bxslider/images/azalea.jpg" />
                 </li>
-                <li>
+                <%--<li>
                     <img src="jquery.bxslider/images/tradisyon.jpg" alt="Alternate Text" />
                 </li>
                 <li>
                     <img src="jquery.bxslider/images/azalea-baguio-tent-event-venue.jpg" alt="Alternate Text" />
-                </li>
+                </li>--%>
             </ul>
         </div>
     </div>
@@ -27,7 +27,7 @@
         $(document).ready(function () {
             $('.bxslider').bxSlider({
                 adaptiveHeight: true,
-                slideWidth: 1100
+                slideWidth: 1000
             });
         });
     </script>
