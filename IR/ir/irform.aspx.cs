@@ -70,7 +70,6 @@ namespace IR.ir
                 ir.ActionTaken = txtActionTaken.Text;
                 ir.Recommendation = txtRecommendation.Text;
                 ir.PreparedBy = Guid.Parse(Membership.GetUser().ProviderUserKey.ToString());
-                ir.Approval = "Pending";
 
                 dbIR.IRTransactions.InsertOnSubmit(ir);
                 dbIR.SubmitChanges();

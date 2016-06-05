@@ -103,6 +103,7 @@
                             <asp:ListItem Value="0" Enabled="true">Select Status</asp:ListItem>
                             <asp:ListItem Value="In-Progress">In-Progress</asp:ListItem>
                             <asp:ListItem Value="Solved">Solved</asp:ListItem>
+                            <asp:ListItem Value="Unresolved">Unresolved</asp:ListItem>
                         </asp:DropDownList>
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator6"
                             runat="server"

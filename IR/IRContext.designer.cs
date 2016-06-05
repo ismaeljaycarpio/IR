@@ -524,16 +524,6 @@ namespace IR
 		
 		private System.Nullable<System.DateTime> _DateSolved;
 		
-		private string _Approval;
-		
-		private System.Nullable<System.Guid> _ApprovedBy;
-		
-		private System.Nullable<System.DateTime> _ApprovedDate;
-		
-		private string _DisapprovedBy;
-		
-		private System.Nullable<System.DateTime> _DisapprovedDate;
-		
 		private EntitySet<EvidencePhoto> _EvidencePhotos;
 		
 		private EntityRef<CrisisCode> _CrisisCode;
@@ -578,16 +568,6 @@ namespace IR
     partial void OnPreparedByChanged();
     partial void OnDateSolvedChanging(System.Nullable<System.DateTime> value);
     partial void OnDateSolvedChanged();
-    partial void OnApprovalChanging(string value);
-    partial void OnApprovalChanged();
-    partial void OnApprovedByChanging(System.Nullable<System.Guid> value);
-    partial void OnApprovedByChanged();
-    partial void OnApprovedDateChanging(System.Nullable<System.DateTime> value);
-    partial void OnApprovedDateChanged();
-    partial void OnDisapprovedByChanging(string value);
-    partial void OnDisapprovedByChanged();
-    partial void OnDisapprovedDateChanging(System.Nullable<System.DateTime> value);
-    partial void OnDisapprovedDateChanged();
     #endregion
 		
 		public IRTransaction()
@@ -957,106 +937,6 @@ namespace IR
 					this._DateSolved = value;
 					this.SendPropertyChanged("DateSolved");
 					this.OnDateSolvedChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Approval", DbType="VarChar(50)")]
-		public string Approval
-		{
-			get
-			{
-				return this._Approval;
-			}
-			set
-			{
-				if ((this._Approval != value))
-				{
-					this.OnApprovalChanging(value);
-					this.SendPropertyChanging();
-					this._Approval = value;
-					this.SendPropertyChanged("Approval");
-					this.OnApprovalChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ApprovedBy", DbType="UniqueIdentifier")]
-		public System.Nullable<System.Guid> ApprovedBy
-		{
-			get
-			{
-				return this._ApprovedBy;
-			}
-			set
-			{
-				if ((this._ApprovedBy != value))
-				{
-					this.OnApprovedByChanging(value);
-					this.SendPropertyChanging();
-					this._ApprovedBy = value;
-					this.SendPropertyChanged("ApprovedBy");
-					this.OnApprovedByChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ApprovedDate", DbType="DateTime")]
-		public System.Nullable<System.DateTime> ApprovedDate
-		{
-			get
-			{
-				return this._ApprovedDate;
-			}
-			set
-			{
-				if ((this._ApprovedDate != value))
-				{
-					this.OnApprovedDateChanging(value);
-					this.SendPropertyChanging();
-					this._ApprovedDate = value;
-					this.SendPropertyChanged("ApprovedDate");
-					this.OnApprovedDateChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DisapprovedBy", DbType="VarChar(MAX)")]
-		public string DisapprovedBy
-		{
-			get
-			{
-				return this._DisapprovedBy;
-			}
-			set
-			{
-				if ((this._DisapprovedBy != value))
-				{
-					this.OnDisapprovedByChanging(value);
-					this.SendPropertyChanging();
-					this._DisapprovedBy = value;
-					this.SendPropertyChanged("DisapprovedBy");
-					this.OnDisapprovedByChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DisapprovedDate", DbType="DateTime")]
-		public System.Nullable<System.DateTime> DisapprovedDate
-		{
-			get
-			{
-				return this._DisapprovedDate;
-			}
-			set
-			{
-				if ((this._DisapprovedDate != value))
-				{
-					this.OnDisapprovedDateChanging(value);
-					this.SendPropertyChanging();
-					this._DisapprovedDate = value;
-					this.SendPropertyChanged("DisapprovedDate");
-					this.OnDisapprovedDateChanged();
 				}
 			}
 		}

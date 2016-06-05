@@ -22,6 +22,7 @@
                                 <asp:ListItem Value="0">-- Select Status --</asp:ListItem>
                                 <asp:ListItem Value="In-Progress">In-Progress</asp:ListItem>
                                 <asp:ListItem Value="Solved">Solved</asp:ListItem>
+                                <asp:ListItem Value="Unresolved">Unresolved</asp:ListItem>
                             </asp:DropDownList>
                             <asp:Button ID="btnSearch"
                                 runat="server"
@@ -52,7 +53,6 @@
                                     ShowHeaderWhenEmpty="True"
                                     DataKeyNames="Id"
                                     OnRowCommand="gvIR_RowCommand"
-                                    OnRowDataBound="gvIR_RowDataBound"
                                     DataSourceID="IRDataSource">
                                     <Columns>
                                         <asp:TemplateField HeaderText="Row Id" Visible="false">
@@ -79,7 +79,7 @@
                                             </ItemTemplate>
                                         </asp:TemplateField>
 
-                                        <asp:TemplateField>
+                                        <%--<asp:TemplateField>
                                             <ItemTemplate>
                                                 <asp:Button ID="btnSolved" 
                                                     runat="server" 
@@ -88,7 +88,7 @@
                                                     CssClass="btn btn-default btn-sm" 
                                                     CommandArgument='<%# ((GridViewRow) Container).RowIndex %>' />
                                             </ItemTemplate>
-                                        </asp:TemplateField>
+                                        </asp:TemplateField>--%>
 
                                         <asp:TemplateField>
                                             <ItemTemplate>

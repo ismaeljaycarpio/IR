@@ -182,8 +182,6 @@ namespace IR.ir
                         ir.Subject.Contains(strSearch) ||
                         ir.Room.Contains(strSearch)
                      )
-                     &&
-                     ir.Approval == "Approved"
                      select new
                      {
                          Id = ir.Id,
@@ -241,19 +239,19 @@ namespace IR.ir
             ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "EditShowModalScript", sb.ToString(), false);
         }
 
-        protected void gvIR_RowDataBound(object sender, GridViewRowEventArgs e)
-        {
-            if(e.Row.RowType == DataControlRowType.DataRow)
-            {
-                Label lblStatus = e.Row.FindControl("lblStatus") as Label;
-                Button btnSolve = e.Row.FindControl("btnSolved") as Button;
+        //protected void gvIR_RowDataBound(object sender, GridViewRowEventArgs e)
+        //{
+        //    if(e.Row.RowType == DataControlRowType.DataRow)
+        //    {
+        //        Label lblStatus = e.Row.FindControl("lblStatus") as Label;
+        //        Button btnSolve = e.Row.FindControl("btnSolved") as Button;
 
-                if(lblStatus.Text == "Solved")
-                {
-                    btnSolve.Visible = false;
-                }
-            }
-        }
+        //        if(lblStatus.Text == "Solved")
+        //        {
+        //            btnSolve.Visible = false;
+        //        }
+        //    }
+        //}
 
         protected void btnExportTotalbyIR_Click(object sender, EventArgs e)
         {
