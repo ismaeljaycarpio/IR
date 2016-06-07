@@ -70,9 +70,10 @@
                         <LoggedInTemplate>
                             <ul class="nav navbar-nav">
                                 <li><a runat="server" href="~/ir/ir.aspx">Incident Report</a></li>
-                                <li class="dropdown" runat="server"><a runat="server" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Configuration<span class="caret"></span></a>
+                                <li class="dropdown" runat="server">
+                                    <a runat="server" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Configuration<span class="caret"></span></a>
                                     <ul class="dropdown-menu">
-                                        <li><a runat="server" href="~/file-maintenance/crisis-codes.aspx">Crisis Codes</a></li>
+                                        <li><a runat="server" href="~/file-maintenance/crisis-codes.aspx"><span class="glyphicon glyphicon-cog"></span> Crisis Codes</a></li>
                                     </ul>
                                 </li>
                             </ul>
@@ -107,9 +108,9 @@
                                         <li><a runat="server" href="~/ir/ir.aspx">Incident Report</a></li>
                                         <li class="dropdown" runat="server"><a runat="server" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Configuration<span class="caret"></span></a>
                                             <ul class="dropdown-menu">
-                                                <li><a runat="server" href="~/file-maintenance/crisis-codes.aspx">Crisis Codes</a></li>
-                                                <li><a runat="server" href="~/admin/user-access.aspx">Users</a></li>
-                                                <li><a runat="server" href="~/admin/position.aspx">Position</a></li>
+                                                <li><a runat="server" href="~/file-maintenance/crisis-codes.aspx"><span class="glyphicon glyphicon-cog"></span> Crisis Codes</a></li>
+                                                <li><a runat="server" href="~/admin/user-access.aspx"><span class="glyphicon glyphicon-user"></span> Users</a></li>
+                                                <li><a runat="server" href="~/admin/position.aspx"><span class="glyphicon glyphicon-hand-up"></span> Position</a></li>
                                             </ul>
                                         </li>
 

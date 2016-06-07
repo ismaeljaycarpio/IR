@@ -9,7 +9,7 @@
 
     <div class="row">
         <div class="col-md-12">
-            <asp:Panel ID="pnlForm" runat="server" CssClass="panel panel-default">
+            <div class="panel panel-default">
                 <div class="panel-heading">
                     <h5>View Incident Report
                     <asp:HyperLink ID="hlPrintIr" runat="server">
@@ -18,6 +18,11 @@
                     </h5>
                 </div>
                 <div class="panel-body">
+
+                    <asp:Panel ID="pnlAlertInfo" runat="server" CssClass="alert alert-info" Visible="false">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <strong><span class="glyphicon glyphicon-info-sign"></span> Information</strong> |  You can only view the Incident Report of others but cannot make changes.
+                    </asp:Panel>
 
                     <div class="col-md-4">
                         <label for="txtTicketNo">IR No: </label>
@@ -285,6 +290,7 @@
                 <div class="panel-body">
                     <div class="col-md-12">
                         <label for="txtInvestigation">Investigation</label>
+                        <asp:Label ID="lblInvestigation" runat="server" Visible="false"></asp:Label>
                         <asp:TextBox ID="txtInvestigation"
                             runat="server"
                             CssClass="form-control"
@@ -304,6 +310,7 @@
                 <div class="panel-body">
                     <div class="col-md-12">
                         <label for="txtActionTaken">Actions Taken</label>
+                        <asp:Label ID="lblActionTaken" runat="server" Visible="false"></asp:Label>
                         <asp:TextBox ID="txtActionTaken"
                             runat="server"
                             CssClass="form-control"
@@ -323,6 +330,7 @@
                 <div class="panel-body">
                     <div class="col-md-12">
                         <label for="txtRecommendation">Recommendation</label>
+                        <asp:Label ID="lblRecommendation" runat="server" Visible="false"></asp:Label>
                         <asp:TextBox ID="txtRecommendation"
                             runat="server"
                             CssClass="form-control"
@@ -376,7 +384,7 @@
                         CssClass="btn btn-default"
                         PostBackUrl="~/ir/ir.aspx">Cancel</asp:LinkButton>
                 </div>
-            </asp:Panel>
+            </div>
         </div>
     </div>
 
@@ -431,11 +439,13 @@
 
     <asp:LinqDataSource ID="ImageDataSource"
         OnSelecting="ImageDataSource_Selecting"
-        runat="server"></asp:LinqDataSource>
+        runat="server">
+    </asp:LinqDataSource>
 
     <asp:LinqDataSource ID="ImageSlideShowDataSource"
-        OnSelecting="ImageSlideShowDataSource_Selecting" 
-        runat="server"></asp:LinqDataSource>
+        OnSelecting="ImageSlideShowDataSource_Selecting"
+        runat="server">
+    </asp:LinqDataSource>
 
     <script type="text/javascript">
         $(function () {

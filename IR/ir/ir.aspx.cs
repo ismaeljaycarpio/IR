@@ -199,7 +199,7 @@ namespace IR.ir
                          IncidentDate = ir.WhenIncidentHappen,
                          Status = ir.Status,
                          DateSolved = ir.DateSolved,
-                         PreparedBy = ir.PreparedBy
+                         PreparedBy = ir.PreparedBy,
                      }).ToList();
 
             if(txtFromDate.Text != String.Empty && txtToDate.Text == String.Empty)

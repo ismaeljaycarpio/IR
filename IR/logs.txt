@@ -1,6 +1,22 @@
 ﻿
+
 ==================================================
-================ June 01 2016 =====================
+================ June 7 2016 ====================
+==================================================
+- removed approval
+-merge file maintenance to Configuration
+				- Crisis Codes
+				- Users
+				- Positions
+
+- admin can view all IR but cant edit others
+- users can only view/edit their own IR
+> add column Author - DELAYED
+
+
+
+==================================================
+================ June 01 2016 ====================
 ==================================================
 - from presentation
 - copy for ARBo site and set another git repo

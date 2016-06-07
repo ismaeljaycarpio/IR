@@ -370,6 +370,7 @@
     <Content Include="jquery.bxslider\bower.json" />
     <Content Include="jquery.bxslider\images\Thumbs.db" />
     <Content Include="jquery.bxslider\readme.md" />
+    <Content Include="file-maintenance\Web.config" />
     <None Include="Properties\PublishProfiles\eIR.pubxml" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="photo-evidence\1_Penguins.jpg" />
@@ -467,6 +468,7 @@
       <DependentUpon>user-access.aspx</DependentUpon>
     </Compile>
     <Compile Include="App_Start\AuthConfig.cs" />
+    <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="DAL\AccountManagement.cs" />
     <Compile Include="Default.aspx.cs">

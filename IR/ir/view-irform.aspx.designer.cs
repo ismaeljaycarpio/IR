@@ -13,15 +13,6 @@ namespace IR.ir {
     public partial class view_irform {
         
         /// <summary>
-        /// pnlForm control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlForm;
-        
-        /// <summary>
         /// hlPrintIr control.
         /// </summary>
         /// <remarks>
@@ -29,6 +20,15 @@ namespace IR.ir {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HyperLink hlPrintIr;
+        
+        /// <summary>
+        /// pnlAlertInfo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlAlertInfo;
         
         /// <summary>
         /// txtTicketNo control.
@@ -301,6 +301,15 @@ namespace IR.ir {
         protected global::System.Web.UI.WebControls.GridView gvImages;
         
         /// <summary>
+        /// lblInvestigation control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblInvestigation;
+        
+        /// <summary>
         /// txtInvestigation control.
         /// </summary>
         /// <remarks>
@@ -319,6 +328,15 @@ namespace IR.ir {
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator12;
         
         /// <summary>
+        /// lblActionTaken control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblActionTaken;
+        
+        /// <summary>
         /// txtActionTaken control.
         /// </summary>
         /// <remarks>
@@ -335,6 +353,15 @@ namespace IR.ir {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator13;
+        
+        /// <summary>
+        /// lblRecommendation control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblRecommendation;
         
         /// <summary>
         /// txtRecommendation control.

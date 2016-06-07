@@ -74,14 +74,9 @@ namespace IR.ir
                             //admin cant edit IR of others
                             if(q.PreparedBy != Guid.Parse(Membership.GetUser().ProviderUserKey.ToString()))
                             {
-                                pnlForm.Enabled = false;
-                                btnUpdate.Enabled = false;
-                                lbtnCancel.Text = "Close";
-                                FileUpload1.Enabled = false;
-                                HtmlEditorExtender1.Enabled = false;
-                                //HtmlEditorExtender2.Enabled = false;
-                                //HtmlEditorExtender3.Enabled = false;
-                                txtInvestigation.Text = HttpUtility.HtmlDecode(q.Investigation);
+                                //disable editing
+                                disableEditing(q);
+                                pnlAlertInfo.Visible = true;
                             }
                         }
 
@@ -273,6 +268,44 @@ namespace IR.ir
                      select ep).ToList();
 
             e.Result = q;
+        }
+
+        private void disableEditing(IRTransaction q)
+        {
+            ddlCrisis.Enabled = false;
+            ddlFrom.Enabled = false;
+            txtSubject.Enabled = false;
+            txtRoom.Enabled = false;
+            txtDate.Enabled = false;
+            ddlStatus.Enabled = false;
+            ddlDepartment.Enabled = false;
+            txtWhenIncident.Enabled = false;
+            rblWhenAware.Enabled = false;
+            txtWhosInvolved.Enabled = false;
+            txtWhatHappened.Enabled = false;
+
+            gvImages.Enabled = false;
+
+            btnUpdate.Enabled = false;
+            lbtnCancel.Text = "Close";
+            FileUpload1.Enabled = false;
+
+            txtInvestigation.Visible = false;
+            txtActionTaken.Visible = false;
+            txtRecommendation.Visible = false;
+
+            HtmlEditorExtender1.Enabled = false;
+            HtmlEditorExtender2.Enabled = false;
+            HtmlEditorExtender3.Enabled = false;
+
+            lblInvestigation.Text = Server.HtmlDecode(q.Investigation);
+            lblInvestigation.Visible = true;
+
+            lblActionTaken.Text = Server.HtmlDecode(q.ActionTaken);
+            lblActionTaken.Visible = true;
+
+            lblRecommendation.Text = Server.HtmlDecode(q.Recommendation);
+            lblRecommendation.Visible = true;
         }
     }
 }

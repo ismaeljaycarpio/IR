@@ -68,6 +68,7 @@
                                         </asp:TemplateField>
 
                                         <asp:BoundField DataField="CrisisName" HeaderText="Crisis" SortExpression="CrisisName" />
+                                        <%--<asp:BoundField DataField="Author" HeaderText="Author" SortExpression="Author" />--%>
                                         <asp:BoundField DataField="Subject" HeaderText="Subject" SortExpression="Subject" />
                                         <asp:BoundField DataField="Room" HeaderText="Location" SortExpression="Room" />
                                         <asp:BoundField DataField="IncidentDate" HeaderText="Incident Date" SortExpression="IncidentDate" />

@@ -5,9 +5,9 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <asp:Panel ID="Panel1" runat="server" DefaultButton="btnSearch" CssClass="row">
         <div class="col-md-12">
-            <div class="panel panel-primary">
+            <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h5>Users</h5>
+                    <h5><span class="glyphicon glyphicon-user"></span> Users</h5>
                 </div>
                 <div class="panel-body">
                     <div class="form-horizontal">

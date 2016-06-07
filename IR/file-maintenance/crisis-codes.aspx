@@ -5,9 +5,9 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <div class="row">
         <div class="col-md-12">
-            <div class="panel panel-primary">
+            <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h5>Crisis Codes</h5>
+                    <h5><span class="glyphicon glyphicon-cog"></span> Crisis Codes</h5>
                 </div>
 
                 <div class="panel-body">

@@ -4,9 +4,9 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
         <div class="row">
         <div class="col-md-12">
-            <div class="panel panel-primary">
+            <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h5>Positions</h5>
+                    <h5><span class="glyphicon glyphicon-hand-up"></span> Positions</h5>
                 </div>
 
                 <div class="panel-body">
