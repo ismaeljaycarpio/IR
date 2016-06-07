@@ -43,6 +43,8 @@ namespace IR.ir
 
                 txtTicketNo.Text = (2600 + dbIR.IRTransactions.DefaultIfEmpty().Max(x => x == null ? 0 : x.Id) + 1).ToString();
 
+                txtDate.Text = DateTime.Now.ToString("MM/dd/yyyy");
+
                 var ajaxActionTaken = HtmlEditorExtender2.AjaxFileUpload;
                 ajaxActionTaken.AllowedFileTypes = "jpg,jpeg,png,bmp";
             }
