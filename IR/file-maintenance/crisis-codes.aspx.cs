@@ -18,6 +18,12 @@ namespace IR.file_maintenance
             if(!Page.IsPostBack)
             {
                 this.gvCrisisCodes.DataBind();
+
+                if(User.IsInRole("can-create-ir"))
+                {
+                    gvCrisisCodes.Columns[3].Visible = false;
+                    btnOpenModal.Visible = false;
+                }
                 txtSearch.Focus();
             }
         }

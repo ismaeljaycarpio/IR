@@ -44,7 +44,7 @@
                                     AllowSorting="True"
                                     DataKeyNames="Id"
                                     EmptyDataText="No Record(s) found"
-                                    OnRowCommand="gvCrisisCodes_RowCommand" 
+                                    OnRowCommand="gvCrisisCodes_RowCommand"
                                     DataSourceID="CrisisCodesDataSource">
                                     <Columns>
                                         <asp:TemplateField HeaderText="Row Id" Visible="false">
@@ -65,9 +65,13 @@
                                             </ItemTemplate>
                                         </asp:TemplateField>
 
-                                        <asp:ButtonField HeaderText="" ButtonType="Link" Text="Edit" CommandName="editRecord" />
-                                        <asp:ButtonField HeaderText="" ButtonType="Link" Text="Delete" CommandName="deleteRecord" />
-
+                                        <asp:TemplateField HeaderText="Action">
+                                            <ItemTemplate>
+                                                <asp:LinkButton ID="lbtnEdit" runat="server" Text="Edit" CommandName="editRecord" CommandArgument='<%# ((GridViewRow)Container).RowIndex %>'></asp:LinkButton>
+                                                |
+                                                <asp:LinkButton ID="lbtnDelete" runat="server" Text="Delete" CommandName="deleteRecord" CommandArgument='<%# ((GridViewRow)Container).RowIndex %>'></asp:LinkButton>
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
                                     </Columns>
                                     <PagerStyle CssClass="pagination-ys" />
                                 </asp:GridView>

@@ -9,7 +9,7 @@
 
     <div class="row">
         <div class="col-md-12">
-            <div class="panel panel-default">
+            <asp:Panel ID="pnlForm" runat="server" CssClass="panel panel-default">
                 <div class="panel-heading">
                     <h5>View Incident Report
                     <asp:HyperLink ID="hlPrintIr" runat="server">
@@ -106,6 +106,7 @@
                             <asp:ListItem Value="0">Select Status</asp:ListItem>
                             <asp:ListItem Value="In-Progress">In-Progress</asp:ListItem>
                             <asp:ListItem Value="Solved">Solved</asp:ListItem>
+                            <asp:ListItem Value="Unresolved">Unresolved</asp:ListItem>
                         </asp:DropDownList>
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator6"
                             runat="server"
@@ -212,7 +213,7 @@
                             runat="server"
                             ControlToValidate="FileUpload1"
                             Display="Dynamic"
-                            ValidationExpression="([a-zA-Z0-9\s_\\.\-:])+(.png|.jpg|.gif)$"
+                            ValidationExpression="([a-zA-Z0-9\s_\\.\-:])+(.png|.jpg|.gif|.PNG)$"
                             ValidationGroup="vgAdd"
                             CssClass="label label-danger"
                             ErrorMessage="Invalid image file"></asp:RegularExpressionValidator>
@@ -375,7 +376,7 @@
                         CssClass="btn btn-default"
                         PostBackUrl="~/ir/ir.aspx">Cancel</asp:LinkButton>
                 </div>
-            </div>
+            </asp:Panel>
         </div>
     </div>
 
@@ -435,6 +436,7 @@
     <asp:LinqDataSource ID="ImageSlideShowDataSource"
         OnSelecting="ImageSlideShowDataSource_Selecting" 
         runat="server"></asp:LinqDataSource>
+
     <script type="text/javascript">
         $(function () {
             $('#<%= txtWhenIncident.ClientID%>').datetimepicker();

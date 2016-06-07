@@ -13,6 +13,15 @@ namespace IR.ir {
     public partial class view_irform {
         
         /// <summary>
+        /// pnlForm control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlForm;
+        
+        /// <summary>
         /// hlPrintIr control.
         /// </summary>
         /// <remarks>

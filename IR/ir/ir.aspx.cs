@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Web.Security;
 
 namespace IR.ir
 {
@@ -56,7 +57,8 @@ namespace IR.ir
                              IncidentDate = ir.WhenIncidentHappen,
                              Status = ir.Status,
                              DateSolved = ir.DateSolved,
-                             From = emp.LastName + " , " + emp.FirstName + " " + emp.MiddleName
+                             From = emp.LastName + " , " + emp.FirstName + " " + emp.MiddleName,
+                             PreparedBy = ir.PreparedBy
                          }).ToList();
 
 
@@ -79,6 +81,11 @@ namespace IR.ir
                 if (ddlStatus.SelectedValue != "0")
                 {
                     q = q.Where(x => x.Status == ddlStatus.SelectedValue).ToList();
+                }
+
+                if (User.IsInRole("can-create-ir"))
+                {
+                    q = q.Where(x => x.PreparedBy == Guid.Parse(Membership.GetUser().ProviderUserKey.ToString())).ToList();
                 }
 
                 GridView1.DataSource = q;
@@ -191,7 +198,8 @@ namespace IR.ir
                          Room = ir.Room,
                          IncidentDate = ir.WhenIncidentHappen,
                          Status = ir.Status,
-                         DateSolved = ir.DateSolved
+                         DateSolved = ir.DateSolved,
+                         PreparedBy = ir.PreparedBy
                      }).ToList();
 
             if(txtFromDate.Text != String.Empty && txtToDate.Text == String.Empty)
@@ -213,6 +221,11 @@ namespace IR.ir
             if(ddlStatus.SelectedValue != "0")
             {
                 q = q.Where(x => x.Status == ddlStatus.SelectedValue).ToList();
+            }
+
+            if(User.IsInRole("can-create-ir"))
+            {
+                q = q.Where(x => x.PreparedBy == Guid.Parse(Membership.GetUser().ProviderUserKey.ToString())).ToList();
             }
 
             e.Result = q;

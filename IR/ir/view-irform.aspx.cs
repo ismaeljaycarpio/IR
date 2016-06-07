@@ -66,7 +66,24 @@ namespace IR.ir
                         {
                             txtPreparedBy.Text = user.FullName;
                             txtPosition.Text = user.Position;
-                        } 
+                        }
+
+                        //chk if user belongs to admin
+                        if(User.IsInRole("Admin-IR"))
+                        {
+                            //admin cant edit IR of others
+                            if(q.PreparedBy != Guid.Parse(Membership.GetUser().ProviderUserKey.ToString()))
+                            {
+                                pnlForm.Enabled = false;
+                                btnUpdate.Enabled = false;
+                                lbtnCancel.Text = "Close";
+                                FileUpload1.Enabled = false;
+                                HtmlEditorExtender1.Enabled = false;
+                                //HtmlEditorExtender2.Enabled = false;
+                                //HtmlEditorExtender3.Enabled = false;
+                                txtInvestigation.Text = HttpUtility.HtmlDecode(q.Investigation);
+                            }
+                        }
 
                         hlPrintIr.NavigateUrl = "~/ir/report-ir.aspx?Id=" + Request.QueryString["Id"]; 
                     }
@@ -155,6 +172,13 @@ namespace IR.ir
                 q.Investigation = txtInvestigation.Text;
                 q.ActionTaken = txtActionTaken.Text;
                 q.Recommendation = txtRecommendation.Text;
+                q.PreparedBy = Guid.Parse(Membership.GetUser().ProviderUserKey.ToString());
+
+                //chk if solved
+                if(ddlStatus.SelectedValue == "Solved")
+                {
+                    q.DateSolved = DateTime.Now;
+                }
 
                 dbIR.SubmitChanges();
 
