@@ -63,7 +63,7 @@ namespace IR.ir
                 ir.Room = txtRoom.Text;
                 ir.Date = Convert.ToDateTime(txtDate.Text);
                 ir.Status = ddlStatus.SelectedValue;
-                ir.DepartmentId = Convert.ToInt32(ddlDepartment.SelectedValue);
+                //ir.DepartmentId = Convert.ToInt32(ddlDepartment.SelectedValue);
                 ir.WhenIncidentHappen = Convert.ToDateTime(txtWhenIncident.Text);
                 ir.WhenAware = rblWhenAware.SelectedValue;
                 ir.WhoInvolved = txtWhosInvolved.Text;
@@ -101,6 +101,19 @@ namespace IR.ir
                     }
                 }
 
+                //insert departments involved
+                foreach(ListItem item in lstDepartments.Items)
+                {
+                    if(item.Selected)
+                    {
+                        DepartmentsInvolved dept = new DepartmentsInvolved();
+                        dept.IRId = tranId;
+                        dept.DepartmentId = Convert.ToInt32(item.Value);
+                        dbIR.DepartmentsInvolveds.InsertOnSubmit(dept);
+                    }
+                }
+
+                dbIR.SubmitChanges();
                 Response.Redirect("~/ir/ir.aspx");
             }
         }
@@ -138,11 +151,17 @@ namespace IR.ir
                             Department = d.Department1
                         }).ToList();
 
-            ddlDepartment.DataSource = dept;
-            ddlDepartment.DataTextField = "Department";
-            ddlDepartment.DataValueField = "Id";
-            ddlDepartment.DataBind();
-            ddlDepartment.Items.Insert(0, new ListItem("Select Department", "0"));
+            //ddlDepartment.DataSource = dept;
+            //ddlDepartment.DataTextField = "Department";
+            //ddlDepartment.DataValueField = "Id";
+            //ddlDepartment.DataBind();
+            //ddlDepartment.Items.Insert(0, new ListItem("Select Department", "0"));
+
+            lstDepartments.DataSource = dept;
+            lstDepartments.DataTextField = "Department";
+            lstDepartments.DataValueField = "Id";
+            lstDepartments.DataBind();
+            //lstDepartments.Items.Insert(0, new ListItem("-- Select Department --", "0"));
 
             //crisis
             var crisis = (from cc in dbIR.CrisisCodes

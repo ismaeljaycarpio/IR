@@ -6,6 +6,18 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+
+    <link href="http://cdn.rawgit.com/davidstutz/bootstrap-multiselect/master/dist/css/bootstrap-multiselect.css" rel="stylesheet" type="text/css" />
+    <script src="http://cdn.rawgit.com/davidstutz/bootstrap-multiselect/master/dist/js/bootstrap-multiselect.js" type="text/javascript"></script>
+
+    <script type="text/javascript">
+        $(function () {
+            $('[id*=lstDepartments]').multiselect({
+                includeSelectAllOption: true
+            });
+        });
+    </script>
+
     <div class="row">
         <div class="col-md-12">
             <div class="panel panel-default">
@@ -40,10 +52,7 @@
                             ValidationGroup="vgAdd"
                             ErrorMessage="Crisis Code is required"></asp:RequiredFieldValidator>
                     </div>
-                </div>
 
-
-                <div class="panel-body">
                     <div class="col-md-4">
                         <label for="ddlFrom">From: </label>
                         <asp:DropDownList ID="ddlFrom" runat="server" CssClass="form-control"></asp:DropDownList>
@@ -56,7 +65,10 @@
                             ValidationGroup="vgAdd"
                             ErrorMessage="Duty Manager is required"></asp:RequiredFieldValidator>
                     </div>
+                </div>
 
+
+                <div class="panel-body">
                     <div class="col-md-4">
                         <label for="txtSubject">Subject: </label>
                         <asp:TextBox ID="txtSubject" runat="server" CssClass="form-control" placeholder="Subject"></asp:TextBox>
@@ -80,9 +92,7 @@
                             CssClass="label label-danger"
                             ErrorMessage="Room is required"></asp:RequiredFieldValidator>
                     </div>
-                </div>
 
-                <div class="panel-body">
                     <div class="col-md-4">
                         <label for="txtDate">Date: </label>
                         <asp:TextBox ID="txtDate" runat="server" CssClass="form-control" placeholder="Date" data-provide="datepicker"></asp:TextBox>
@@ -94,7 +104,9 @@
                             CssClass="label label-danger"
                             ErrorMessage="Date is required"></asp:RequiredFieldValidator>
                     </div>
+                </div>
 
+                <div class="panel-body">
                     <div class="col-md-4">
                         <label for="ddlStatus">Status: </label>
                         <asp:DropDownList ID="ddlStatus"
@@ -116,21 +128,6 @@
                     </div>
 
                     <div class="col-md-4">
-                        <label for="ddlDepartment">Department Involved: </label>
-                        <asp:DropDownList ID="ddlDepartment" runat="server" CssClass="form-control"></asp:DropDownList>
-                        <asp:RequiredFieldValidator ID="RequiredFieldValidator7"
-                            runat="server"
-                            Display="Dynamic"
-                            ControlToValidate="ddlDepartment"
-                            CssClass="label label-danger"
-                            InitialValue="0"
-                            ValidationGroup="vgAdd"
-                            ErrorMessage="Department Field is required"></asp:RequiredFieldValidator>
-                    </div>
-                </div>
-
-                <div class="panel-body">
-                    <div class="col-md-4">
                         <label for="txtWhenIncident">When did the incident happen? </label>
                         <asp:TextBox ID="txtWhenIncident"
                             runat="server"
@@ -150,10 +147,9 @@
                             runat="server"
                             CssClass="btn-group"
                             RepeatLayout="Flow"
-                            data-toggle="buttons"
                             RepeatDirection="Horizontal">
-                            <asp:ListItem Value="0" class="btn btn-default">No</asp:ListItem>
-                            <asp:ListItem Value="1" class="btn btn-default">Yes</asp:ListItem>
+                            <asp:ListItem Value="0">  No</asp:ListItem>
+                            <asp:ListItem Value="1">  Yes</asp:ListItem>
                         </asp:RadioButtonList>
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator9"
                             runat="server"
@@ -162,6 +158,13 @@
                             CssClass="label label-danger"
                             ValidationGroup="vgAdd"
                             ErrorMessage="This field is required"></asp:RequiredFieldValidator>
+                    </div>
+                </div>
+
+                <div class="panel-body">
+                    <div class="col-md-10">
+                        <label for="lstDepartments">Department Involved: </label>
+                        <asp:ListBox ID="lstDepartments" runat="server" SelectionMode="Multiple" CssClass="form-control"></asp:ListBox>
                     </div>
                 </div>
 
@@ -341,4 +344,7 @@
             $('#<%= txtWhenIncident.ClientID%>').datetimepicker();
         });
     </script>
+
+
+
 </asp:Content>

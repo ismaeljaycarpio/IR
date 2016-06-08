@@ -46,7 +46,7 @@ namespace IR.ir
                          CrisisName = cc.Name,
                          From = ir.From,
                          Date = ir.Date,
-                         Department = ir.DepartmentId,
+                         //Department = ir.DepartmentId,
                          Status = ir.Status,
                          Subject = ir.Subject,
                          Location = ir.Room,
@@ -83,20 +83,20 @@ namespace IR.ir
                 date = tran.Date.Value.ToShortDateString();
             }
 
-            if(tran.Department != null)
-            {
-                var dept = (from d in dbEHRIS.DEPARTMENTs
-                            where d.Id == tran.Department
-                            select new
-                            {
-                                Department = d.Department1
-                            }).FirstOrDefault();
+            //if(tran.Department != null)
+            //{
+            //    var dept = (from d in dbEHRIS.DEPARTMENTs
+            //                where d.Id == tran.Department
+            //                select new
+            //                {
+            //                    Department = d.Department1
+            //                }).FirstOrDefault();
 
-                if(dept != null)
-                {
-                    department = dept.Department;
-                }
-            }
+            //    if(dept != null)
+            //    {
+            //        department = dept.Department;
+            //    }
+            //}
 
             ReportParameter[] param = new ReportParameter[14];
             param[0] = new ReportParameter("TicketNo", tran.TicketNo);

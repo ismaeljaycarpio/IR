@@ -40,7 +40,7 @@ namespace IR.ir
                         txtRoom.Text = q.Room;
                         txtDate.Text = String.Format("{0: MM/dd/yyyy}", q.Date); 
                         ddlStatus.SelectedValue = q.Status;
-                        ddlDepartment.SelectedValue = q.DepartmentId.ToString();
+                        //ddlDepartment.SelectedValue = q.DepartmentId.ToString();
                         txtWhenIncident.Text = q.WhenIncidentHappen.ToString();
                         rblWhenAware.SelectedValue = q.WhenAware;
                         txtWhosInvolved.Text = q.WhoInvolved;
@@ -66,6 +66,19 @@ namespace IR.ir
                         {
                             txtPreparedBy.Text = user.FullName;
                             txtPosition.Text = user.Position;
+                        }
+
+                        //load selected depts
+                        var depts = (from d in dbIR.DepartmentsInvolveds
+                                     where d.IRId == Convert.ToInt32(q.Id)
+                                     select d).ToList();
+
+                        foreach(var de in depts)
+                        {
+                            if(lstDepartments.Items.FindByValue(de.DepartmentId.Value.ToString()) != null)
+                            {
+                                lstDepartments.Items.FindByValue(de.DepartmentId.Value.ToString()).Selected = true;
+                            }
                         }
 
                         //chk if user belongs to admin
@@ -122,11 +135,17 @@ namespace IR.ir
                             Department = d.Department1
                         }).ToList();
 
-            ddlDepartment.DataSource = dept;
-            ddlDepartment.DataTextField = "Department";
-            ddlDepartment.DataValueField = "Id";
-            ddlDepartment.DataBind();
-            ddlDepartment.Items.Insert(0, new ListItem("Select Department", "0"));
+            //ddlDepartment.DataSource = dept;
+            //ddlDepartment.DataTextField = "Department";
+            //ddlDepartment.DataValueField = "Id";
+            //ddlDepartment.DataBind();
+            //ddlDepartment.Items.Insert(0, new ListItem("Select Department", "0"));
+
+
+            lstDepartments.DataSource = dept;
+            lstDepartments.DataTextField = "Department";
+            lstDepartments.DataValueField = "Id";
+            lstDepartments.DataBind();
 
             //crisis
             var crisis = (from cc in dbIR.CrisisCodes
@@ -159,7 +178,7 @@ namespace IR.ir
                 q.Room = txtRoom.Text;
                 q.Date = Convert.ToDateTime(txtDate.Text);
                 q.Status = ddlStatus.SelectedValue;
-                q.DepartmentId = Convert.ToInt32(ddlDepartment.SelectedValue);
+                //q.DepartmentId = Convert.ToInt32(ddlDepartment.SelectedValue);
                 q.WhenIncidentHappen = Convert.ToDateTime(txtWhenIncident.Text);
                 q.WhenAware = rblWhenAware.SelectedValue;
                 q.WhoInvolved = txtWhosInvolved.Text;
@@ -278,7 +297,8 @@ namespace IR.ir
             txtRoom.Enabled = false;
             txtDate.Enabled = false;
             ddlStatus.Enabled = false;
-            ddlDepartment.Enabled = false;
+            //ddlDepartment.Enabled = false;
+            lstDepartments.Enabled = false;
             txtWhenIncident.Enabled = false;
             rblWhenAware.Enabled = false;
             txtWhosInvolved.Enabled = false;
