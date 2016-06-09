@@ -32,12 +32,7 @@ namespace IR.ir
             {
                 string strSearch = txtSearch.Text;
 
-                var employee = (from emp in dbUser.UserProfiles
-                                select emp).ToList();
-
-                var q = (from emp in employee
-                         join ir in dbIR.IRTransactions
-                         on emp.UserId equals ir.From
+                var q = (from ir in dbIR.IRTransactions
                          join cc in dbIR.CrisisCodes
                          on ir.CrisisId equals cc.Id
                          where
@@ -57,7 +52,7 @@ namespace IR.ir
                              IncidentDate = ir.WhenIncidentHappen,
                              Status = ir.Status,
                              DateSolved = ir.DateSolved,
-                             From = emp.LastName + " , " + emp.FirstName + " " + emp.MiddleName,
+                             From = ir.From,
                              PreparedBy = ir.PreparedBy
                          }).ToList();
 

@@ -35,7 +35,8 @@ namespace IR.ir
                     {
                         txtTicketNo.Text = q.TicketNo;
                         ddlCrisis.SelectedValue = q.CrisisId.ToString();
-                        ddlFrom.SelectedValue = q.From.ToString();
+                        txtFrom.Text = q.From;
+                        //ddlFrom.SelectedValue = q.From.ToString();
                         txtSubject.Text = q.Subject;
                         txtRoom.Text = q.Room;
                         txtDate.Text = String.Format("{0: MM/dd/yyyy}", q.Date); 
@@ -110,22 +111,22 @@ namespace IR.ir
         protected void bindDropdown()
         {
             //dm
-            var dm = (from e in dbUser.UserProfiles
-                      join p in dbUser.Positions
-                     on e.PositionId equals p.Id
-                      where
-                      p.Name == "Duty Manager"
-                      select new
-                      {
-                          UserId = e.UserId,
-                          FullName = e.LastName + " , " + e.FirstName + " " + e.MiddleName
-                      }).ToList(); ;
+            //var dm = (from e in dbUser.UserProfiles
+            //          join p in dbUser.Positions
+            //         on e.PositionId equals p.Id
+            //          where
+            //          p.Name == "Duty Manager"
+            //          select new
+            //          {
+            //              UserId = e.UserId,
+            //              FullName = e.LastName + " , " + e.FirstName + " " + e.MiddleName
+            //          }).ToList(); ;
 
-            ddlFrom.DataSource = dm;
-            ddlFrom.DataTextField = "FullName";
-            ddlFrom.DataValueField = "UserId";
-            ddlFrom.DataBind();
-            ddlFrom.Items.Insert(0, new ListItem("-- Select Duty Manager --", "0"));
+            //ddlFrom.DataSource = dm;
+            //ddlFrom.DataTextField = "FullName";
+            //ddlFrom.DataValueField = "UserId";
+            //ddlFrom.DataBind();
+            //ddlFrom.Items.Insert(0, new ListItem("-- Select Duty Manager --", "0"));
 
             //dept
             var dept = (from d in dbEHRIS.DEPARTMENTs
@@ -173,7 +174,7 @@ namespace IR.ir
 
                 q.TicketNo = txtTicketNo.Text;
                 q.CrisisId = Convert.ToInt32(ddlCrisis.SelectedValue);
-                q.From = Guid.Parse(ddlFrom.SelectedValue);
+                q.From = txtFrom.Text;
                 q.Subject = txtSubject.Text;
                 q.Room = txtRoom.Text;
                 q.Date = Convert.ToDateTime(txtDate.Text);
@@ -194,7 +195,7 @@ namespace IR.ir
                     q.DateSolved = DateTime.Now;
                 }
 
-                dbIR.SubmitChanges();
+                //dbIR.SubmitChanges();
 
                 int tranId = q.Id;
 
@@ -216,10 +217,31 @@ namespace IR.ir
                         ep.IrId = tranId;
                         ep.ImagePath = fileName;
 
-                        dbIR.EvidencePhotos.InsertOnSubmit(ep);
-                        dbIR.SubmitChanges();
+                        dbIR.EvidencePhotos.InsertOnSubmit(ep);                       
                     }
+                    //dbIR.SubmitChanges();
                 }
+
+                //delete associated depts
+                var deleteDepts = (from d in dbIR.DepartmentsInvolveds
+                                   where d.IRId == Convert.ToInt32(Request.QueryString["Id"])
+                                   select d).ToList();
+
+                dbIR.DepartmentsInvolveds.DeleteAllOnSubmit(deleteDepts);
+                
+                //re-add selected
+                foreach(ListItem item in lstDepartments.Items)
+                {
+                    if(item.Selected)
+                    {
+                        DepartmentsInvolved di = new DepartmentsInvolved();
+                        di.IRId = Convert.ToInt32(Request.QueryString["Id"]);
+                        di.DepartmentId = Convert.ToInt32(item.Value);
+                        dbIR.DepartmentsInvolveds.InsertOnSubmit(di);
+                    }  
+                }
+
+                dbIR.SubmitChanges();
 
                 Response.Redirect("~/ir/ir.aspx");
             }
@@ -292,7 +314,8 @@ namespace IR.ir
         private void disableEditing(IRTransaction q)
         {
             ddlCrisis.Enabled = false;
-            ddlFrom.Enabled = false;
+            txtFrom.Enabled = false;
+            //ddlFrom.Enabled = false;
             txtSubject.Enabled = false;
             txtRoom.Enabled = false;
             txtDate.Enabled = false;

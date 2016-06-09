@@ -60,13 +60,13 @@ namespace IR.ir
 
             string from = String.Empty;
             string date = String.Empty;
-            string department = String.Empty;
+            string departments = String.Empty;
             string preparedBy = String.Empty;
 
-            if(tran.From != null)
+            if(tran.PreparedBy != null)
             {
                 var fromUser = (from up in dbUser.UserProfiles
-                           where up.UserId == tran.From
+                           where up.UserId == tran.PreparedBy
                            select new
                            {
                                FullName = up.FirstName + " " + up.MiddleName + " " + up.LastName
@@ -74,7 +74,7 @@ namespace IR.ir
 
                 if(fromUser != null)
                 {
-                    from = fromUser.FullName;
+                    preparedBy = fromUser.FullName;
                 }    
             }
 
@@ -98,12 +98,34 @@ namespace IR.ir
             //    }
             //}
 
+            var baseDept = (from bDept in dbEHRIS.DEPARTMENTs
+                            select bDept).ToList();
+
+            var depts = (from bd in baseDept
+                         join d in db.DepartmentsInvolveds
+                         on bd.Id equals d.DepartmentId
+                         where d.IRId == tran.Id
+                         select new
+                         {
+                             Id = d.Id,
+                             DepartmentName = bd.Department1
+                         }).ToList();
+
+            if(depts != null)
+            {
+                foreach(var dep in depts)
+                {
+                    departments += dep.DepartmentName + " \n";
+                }
+            }
+
+
             ReportParameter[] param = new ReportParameter[14];
             param[0] = new ReportParameter("TicketNo", tran.TicketNo);
             param[1] = new ReportParameter("CrisisName", tran.CrisisName);
-            param[2] = new ReportParameter("From", from);
+            param[2] = new ReportParameter("From", tran.From);
             param[3] = new ReportParameter("Date", date);
-            param[4] = new ReportParameter("Department", department);
+            param[4] = new ReportParameter("Department", departments);
             param[5] = new ReportParameter("Status", tran.Status);
             param[6] = new ReportParameter("Subject", tran.Subject);
             param[7] = new ReportParameter("Location", tran.Location);
@@ -112,7 +134,7 @@ namespace IR.ir
             param[10] = new ReportParameter("Investigation", tran.Investigation);
             param[11] = new ReportParameter("ActionTaken", tran.ActionTaken);
             param[12] = new ReportParameter("Recommendation", tran.Recommendation);
-            param[13] = new ReportParameter("PreparedBy", from);
+            param[13] = new ReportParameter("PreparedBy", preparedBy);
 
             ReportViewer1.LocalReport.SetParameters(param);
             ReportViewer1.LocalReport.Refresh();

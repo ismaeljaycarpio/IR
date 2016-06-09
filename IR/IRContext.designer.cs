@@ -656,7 +656,7 @@ namespace IR
 		
 		private System.Nullable<int> _CrisisId;
 		
-		private System.Nullable<System.Guid> _From;
+		private string _From;
 		
 		private string _Subject;
 		
@@ -700,7 +700,7 @@ namespace IR
     partial void OnTicketNoChanged();
     partial void OnCrisisIdChanging(System.Nullable<int> value);
     partial void OnCrisisIdChanged();
-    partial void OnFromChanging(System.Nullable<System.Guid> value);
+    partial void OnFromChanging(string value);
     partial void OnFromChanged();
     partial void OnSubjectChanging(string value);
     partial void OnSubjectChanged();
@@ -802,8 +802,8 @@ namespace IR
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[From]", Storage="_From", DbType="UniqueIdentifier")]
-		public System.Nullable<System.Guid> From
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[From]", Storage="_From", DbType="VarChar(MAX)")]
+		public string From
 		{
 			get
 			{

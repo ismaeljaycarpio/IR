@@ -35,7 +35,7 @@
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="TicketNo" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="CrisisId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="[From]" Member="From" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="[From]" Member="From" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
       <Column Name="Subject" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
       <Column Name="Room" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
       <Column Name="Date" Type="System.DateTime" DbType="Date" CanBeNull="true" />

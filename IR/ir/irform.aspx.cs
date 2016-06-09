@@ -58,12 +58,12 @@ namespace IR.ir
                 IRTransaction ir = new IRTransaction();
                 ir.TicketNo = txtTicketNo.Text;
                 ir.CrisisId = Convert.ToInt32(ddlCrisis.SelectedValue);
-                ir.From = Guid.Parse(ddlFrom.SelectedValue);
+                ir.From = txtFrom.Text;
+                //ir.From = Guid.Parse(ddlFrom.SelectedValue);
                 ir.Subject = txtSubject.Text;
                 ir.Room = txtRoom.Text;
                 ir.Date = Convert.ToDateTime(txtDate.Text);
                 ir.Status = ddlStatus.SelectedValue;
-                //ir.DepartmentId = Convert.ToInt32(ddlDepartment.SelectedValue);
                 ir.WhenIncidentHappen = Convert.ToDateTime(txtWhenIncident.Text);
                 ir.WhenAware = rblWhenAware.SelectedValue;
                 ir.WhoInvolved = txtWhosInvolved.Text;
@@ -97,8 +97,8 @@ namespace IR.ir
                         ep.ImagePath = fileName;
 
                         dbIR.EvidencePhotos.InsertOnSubmit(ep);
-                        dbIR.SubmitChanges();
                     }
+                    dbIR.SubmitChanges();
                 }
 
                 //insert departments involved
@@ -126,22 +126,22 @@ namespace IR.ir
         protected void bindDropdown()
         {
             //dm
-            var dm = (from e in dbUser.UserProfiles
-                      join p in dbUser.Positions
-                     on e.PositionId equals p.Id
-                     where
-                     p.Name == "Duty Manager"
-                     select new
-                     {
-                         UserId = e.UserId,
-                         FullName = e.LastName + " , " + e.FirstName + " " + e.MiddleName
-                     }).ToList(); ;
+            //var dm = (from e in dbUser.UserProfiles
+            //          join p in dbUser.Positions
+            //         on e.PositionId equals p.Id
+            //         where
+            //         p.Name == "Duty Manager"
+            //         select new
+            //         {
+            //             UserId = e.UserId,
+            //             FullName = e.LastName + " , " + e.FirstName + " " + e.MiddleName
+            //         }).ToList(); ;
 
-            ddlFrom.DataSource = dm;
-            ddlFrom.DataTextField = "FullName";
-            ddlFrom.DataValueField = "UserId";
-            ddlFrom.DataBind();
-            ddlFrom.Items.Insert(0, new ListItem("-- Select Duty Manager --", "0"));
+            //ddlFrom.DataSource = dm;
+            //ddlFrom.DataTextField = "FullName";
+            //ddlFrom.DataValueField = "UserId";
+            //ddlFrom.DataBind();
+            //ddlFrom.Items.Insert(0, new ListItem("-- Select Duty Manager --", "0"));
 
             //dept
             var dept = (from d in dbEHRIS.DEPARTMENTs

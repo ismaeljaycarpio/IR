@@ -54,16 +54,15 @@
                     </div>
 
                     <div class="col-md-4">
-                        <label for="ddlFrom">From: </label>
-                        <asp:DropDownList ID="ddlFrom" runat="server" CssClass="form-control"></asp:DropDownList>
+                        <label for="txtFrom">From: </label>
+                        <asp:TextBox ID="txtFrom" runat="server" CssClass="form-control" placeholder="From"></asp:TextBox>
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator10"
                             runat="server"
                             Display="Dynamic"
-                            ControlToValidate="ddlFrom"
+                            ControlToValidate="txtFrom"
                             CssClass="label label-danger"
-                            InitialValue="0"
                             ValidationGroup="vgAdd"
-                            ErrorMessage="Duty Manager is required"></asp:RequiredFieldValidator>
+                            ErrorMessage="From is required"></asp:RequiredFieldValidator>
                     </div>
                 </div>
 
@@ -163,7 +162,7 @@
 
                 <div class="panel-body">
                     <div class="col-md-10">
-                        <label for="lstDepartments">Department Involved: </label>
+                        <label for="lstDepartments">Departments Involved: </label>
                         <asp:ListBox ID="lstDepartments" runat="server" SelectionMode="Multiple" CssClass="form-control"></asp:ListBox>
                     </div>
                 </div>
