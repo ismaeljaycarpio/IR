@@ -136,7 +136,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>Department:</Value>
+                <Value>Department/s:</Value>
                 <Style>
                   <FontWeight>Bold</FontWeight>
                 </Style>
