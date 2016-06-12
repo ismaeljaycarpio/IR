@@ -27,7 +27,7 @@
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="IRId" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="DepartmentId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Association Name="IRTransaction_DepartmentsInvolved" Member="IRTransaction" ThisKey="IRId" OtherKey="Id" Type="IRTransaction" IsForeignKey="true" DeleteRule="CASCADE" />
+      <Association Name="IRTransaction_DepartmentsInvolved" Member="IRTransaction" ThisKey="IRId" OtherKey="Id" Type="IRTransaction" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.IRTransaction" Member="IRTransactions">
@@ -40,6 +40,7 @@
       <Column Name="Room" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
       <Column Name="Date" Type="System.DateTime" DbType="Date" CanBeNull="true" />
       <Column Name="Status" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="DepartmentId" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="WhenIncidentHappen" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="WhenAware" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="WhoInvolved" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
@@ -49,6 +50,7 @@
       <Column Name="Recommendation" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
       <Column Name="PreparedBy" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
       <Column Name="DateSolved" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="StartDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Association Name="IRTransaction_EvidencePhoto" Member="EvidencePhotos" ThisKey="Id" OtherKey="IrId" Type="EvidencePhoto" />
       <Association Name="IRTransaction_DepartmentsInvolved" Member="DepartmentsInvolveds" ThisKey="Id" OtherKey="IRId" Type="DepartmentsInvolved" />
       <Association Name="CrisisCode_IRTransaction" Member="CrisisCode" ThisKey="CrisisId" OtherKey="Id" Type="CrisisCode" IsForeignKey="true" DeleteRule="CASCADE" />

@@ -72,6 +72,7 @@ namespace IR.ir
                 ir.ActionTaken = txtActionTaken.Text;
                 ir.Recommendation = txtRecommendation.Text;
                 ir.PreparedBy = Guid.Parse(Membership.GetUser().ProviderUserKey.ToString());
+                ir.StartDate = DateTime.Now;
 
                 dbIR.IRTransactions.InsertOnSubmit(ir);
                 dbIR.SubmitChanges();

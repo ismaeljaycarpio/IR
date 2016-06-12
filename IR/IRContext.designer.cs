@@ -589,7 +589,7 @@ namespace IR
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="IRTransaction_DepartmentsInvolved", Storage="_IRTransaction", ThisKey="IRId", OtherKey="Id", IsForeignKey=true, DeleteRule="CASCADE")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="IRTransaction_DepartmentsInvolved", Storage="_IRTransaction", ThisKey="IRId", OtherKey="Id", IsForeignKey=true)]
 		public IRTransaction IRTransaction
 		{
 			get
@@ -666,6 +666,8 @@ namespace IR
 		
 		private string _Status;
 		
+		private System.Nullable<int> _DepartmentId;
+		
 		private System.Nullable<System.DateTime> _WhenIncidentHappen;
 		
 		private string _WhenAware;
@@ -683,6 +685,8 @@ namespace IR
 		private System.Nullable<System.Guid> _PreparedBy;
 		
 		private System.Nullable<System.DateTime> _DateSolved;
+		
+		private System.Nullable<System.DateTime> _StartDate;
 		
 		private EntitySet<EvidencePhoto> _EvidencePhotos;
 		
@@ -710,6 +714,8 @@ namespace IR
     partial void OnDateChanged();
     partial void OnStatusChanging(string value);
     partial void OnStatusChanged();
+    partial void OnDepartmentIdChanging(System.Nullable<int> value);
+    partial void OnDepartmentIdChanged();
     partial void OnWhenIncidentHappenChanging(System.Nullable<System.DateTime> value);
     partial void OnWhenIncidentHappenChanged();
     partial void OnWhenAwareChanging(string value);
@@ -728,6 +734,8 @@ namespace IR
     partial void OnPreparedByChanged();
     partial void OnDateSolvedChanging(System.Nullable<System.DateTime> value);
     partial void OnDateSolvedChanged();
+    partial void OnStartDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnStartDateChanged();
     #endregion
 		
 		public IRTransaction()
@@ -898,6 +906,26 @@ namespace IR
 					this._Status = value;
 					this.SendPropertyChanged("Status");
 					this.OnStatusChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DepartmentId", DbType="Int")]
+		public System.Nullable<int> DepartmentId
+		{
+			get
+			{
+				return this._DepartmentId;
+			}
+			set
+			{
+				if ((this._DepartmentId != value))
+				{
+					this.OnDepartmentIdChanging(value);
+					this.SendPropertyChanging();
+					this._DepartmentId = value;
+					this.SendPropertyChanged("DepartmentId");
+					this.OnDepartmentIdChanged();
 				}
 			}
 		}
@@ -1078,6 +1106,26 @@ namespace IR
 					this._DateSolved = value;
 					this.SendPropertyChanged("DateSolved");
 					this.OnDateSolvedChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StartDate", DbType="DateTime")]
+		public System.Nullable<System.DateTime> StartDate
+		{
+			get
+			{
+				return this._StartDate;
+			}
+			set
+			{
+				if ((this._StartDate != value))
+				{
+					this.OnStartDateChanging(value);
+					this.SendPropertyChanging();
+					this._StartDate = value;
+					this.SendPropertyChanged("StartDate");
+					this.OnStartDateChanged();
 				}
 			}
 		}

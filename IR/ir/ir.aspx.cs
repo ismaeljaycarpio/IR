@@ -195,6 +195,7 @@ namespace IR.ir
                          Status = ir.Status,
                          DateSolved = ir.DateSolved,
                          PreparedBy = ir.PreparedBy,
+                         RenderedTime = String.Format("{0} hours, {1} min", DateTime.Now.Subtract(ir.StartDate.Value).Hours, DateTime.Now.Subtract(ir.StartDate.Value).Minutes)
                      }).ToList();
 
             if(txtFromDate.Text != String.Empty && txtToDate.Text == String.Empty)

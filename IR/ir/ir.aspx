@@ -71,7 +71,13 @@
                                         <%--<asp:BoundField DataField="Author" HeaderText="Author" SortExpression="Author" />--%>
                                         <asp:BoundField DataField="Subject" HeaderText="Subject" SortExpression="Subject" />
                                         <asp:BoundField DataField="Room" HeaderText="Location" SortExpression="Room" />
-                                        <asp:BoundField DataField="IncidentDate" HeaderText="Incident Date" SortExpression="IncidentDate" />
+                                        <asp:BoundField DataField="IncidentDate" HeaderText="Incident Date" SortExpression="IncidentDate" />                                        
+                                        <asp:TemplateField HeaderText="Time" SortExpression="RenderedTime">
+                                            <ItemTemplate>
+                                                <asp:Label ID="lblRenderedTime" runat="server" Text='<%# Eval("RenderedTime") %>'></asp:Label>
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+
                                         <asp:BoundField DataField="DateSolved" HeaderText="Solved Date" SortExpression="DateSolved" DataFormatString="{0:d}" />
 
                                         <asp:TemplateField HeaderText="Status" SortExpression="Status">
