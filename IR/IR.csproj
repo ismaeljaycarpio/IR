@@ -530,6 +530,7 @@
     <Compile Include="ir\view-irform.aspx.designer.cs">
       <DependentUpon>view-irform.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Javascript.cs" />
     <Compile Include="Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

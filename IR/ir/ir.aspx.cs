@@ -143,11 +143,13 @@ namespace IR.ir
 
                 hfDeleteId.Value = irId.ToString();
 
-                System.Text.StringBuilder sb = new System.Text.StringBuilder();
-                sb.Append(@"<script type='text/javascript'>");
-                sb.Append("$('#deleteModal').modal('show');");
-                sb.Append(@"</script>");
-                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "EditShowModalScript", sb.ToString(), false);
+                Javascript.ShowModal(this, this, "deleteModal");
+
+                //System.Text.StringBuilder sb = new System.Text.StringBuilder();
+                //sb.Append(@"<script type='text/javascript'>");
+                //sb.Append("$('#deleteModal').modal('show');");
+                //sb.Append(@"</script>");
+                //ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "EditShowModalScript", sb.ToString(), false);
             }
         }
 
@@ -162,70 +164,13 @@ namespace IR.ir
 
             this.gvIR.DataBind();
 
-            System.Text.StringBuilder sb = new System.Text.StringBuilder();
-            sb.Append(@"<script type='text/javascript'>");
-            sb.Append("$('#deleteModal').modal('hide');");
-            sb.Append(@"</script>");
-            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "EditShowModalScript", sb.ToString(), false);
-        }
+            Javascript.HideModal(this, this, "deleteModal");
 
-        protected void IRDataSource_Selecting(object sender, LinqDataSourceSelectEventArgs e)
-        {
-            string strSearch = txtSearch.Text;
-
-            var q = (from ir in dbIR.IRTransactions
-                     join cc in dbIR.CrisisCodes
-                     on ir.CrisisId equals cc.Id
-                     where
-                     (
-                        ir.TicketNo.Contains(strSearch) ||
-                        cc.Code.Contains(strSearch) ||
-                        cc.Name.Contains(strSearch) ||
-                        ir.Subject.Contains(strSearch) ||
-                        ir.Room.Contains(strSearch)
-                     )
-                     select new
-                     {
-                         Id = ir.Id,
-                         TicketNo = ir.TicketNo,
-                         CrisisName = cc.Name,
-                         Subject = ir.Subject,
-                         Room = ir.Room,
-                         IncidentDate = ir.WhenIncidentHappen,
-                         Status = ir.Status,
-                         DateSolved = ir.DateSolved,
-                         PreparedBy = ir.PreparedBy,
-                         RenderedTime = String.Format("{0} hours, {1} min", DateTime.Now.Subtract(ir.StartDate.Value).Hours, DateTime.Now.Subtract(ir.StartDate.Value).Minutes)
-                     }).ToList();
-
-            if(txtFromDate.Text != String.Empty && txtToDate.Text == String.Empty)
-            {
-                q = q.Where(x => x.IncidentDate.Value.Date >= Convert.ToDateTime(txtFromDate.Text).Date).ToList();
-            }
-            
-            if(txtToDate.Text != String.Empty && txtFromDate.Text == String.Empty)
-            {
-                q = q.Where(x => x.IncidentDate.Value.Date <= Convert.ToDateTime(txtToDate.Text).Date).ToList();
-            }
-
-            if(txtFromDate.Text != String.Empty && txtToDate.Text != String.Empty)
-            {
-                q = q.Where(x => (x.IncidentDate.Value.Date >= Convert.ToDateTime(txtFromDate.Text).Date && 
-                    x.IncidentDate.Value.Date <= Convert.ToDateTime(txtToDate.Text).Date)).ToList();
-            }
-
-            if(ddlStatus.SelectedValue != "0")
-            {
-                q = q.Where(x => x.Status == ddlStatus.SelectedValue).ToList();
-            }
-
-            if(User.IsInRole("can-create-ir"))
-            {
-                q = q.Where(x => x.PreparedBy == Guid.Parse(Membership.GetUser().ProviderUserKey.ToString())).ToList();
-            }
-
-            e.Result = q;
-            txtSearch.Focus();
+            //System.Text.StringBuilder sb = new System.Text.StringBuilder();
+            //sb.Append(@"<script type='text/javascript'>");
+            //sb.Append("$('#deleteModal').modal('hide');");
+            //sb.Append(@"</script>");
+            //ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "EditShowModalScript", sb.ToString(), false);
         }
 
         protected void btnConfirmSolved_Click(object sender, EventArgs e)
@@ -248,19 +193,36 @@ namespace IR.ir
             ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "EditShowModalScript", sb.ToString(), false);
         }
 
-        //protected void gvIR_RowDataBound(object sender, GridViewRowEventArgs e)
-        //{
-        //    if(e.Row.RowType == DataControlRowType.DataRow)
-        //    {
-        //        Label lblStatus = e.Row.FindControl("lblStatus") as Label;
-        //        Button btnSolve = e.Row.FindControl("btnSolved") as Button;
+        protected void gvIR_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                Label lblStatus = e.Row.FindControl("lblStatus") as Label;
+                Label lblElapsedHours = e.Row.FindControl("lblElapsedHours") as Label;
+                Label lblHours = e.Row.FindControl("lblHours") as Label;
+                Label lblElapsedMinutes = e.Row.FindControl("lblElapsedMinutes") as Label;
+                Label lblMinutes = e.Row.FindControl("lblMinutes") as Label;
 
-        //        if(lblStatus.Text == "Solved")
-        //        {
-        //            btnSolve.Visible = false;
-        //        }
-        //    }
-        //}
+                if (lblStatus.Text == "Solved" || lblStatus.Text == "Unresolved")
+                {
+                    lblElapsedHours.Text = null;
+                    lblHours.Text = null;
+                    lblElapsedMinutes.Text = null;
+                    lblMinutes.Text = null;
+                }
+                else if(lblStatus.Text == "In-Progress")
+                {
+                    int hrs = Convert.ToInt32(lblElapsedHours.Text);
+                    int min = Convert.ToInt32(lblElapsedMinutes.Text);
+
+                    if(hrs > 2 && min >= 1)
+                    {
+                        lblElapsedHours.CssClass = "label label-danger";
+                        lblElapsedMinutes.CssClass = "label label-danger";
+                    }
+                }
+            }
+        }
 
         protected void btnExportTotalbyIR_Click(object sender, EventArgs e)
         {
@@ -310,6 +272,67 @@ namespace IR.ir
                     Response.End();
                 }
             }
+        }
+
+        protected void IRDataSource_Selecting(object sender, LinqDataSourceSelectEventArgs e)
+        {
+            string strSearch = txtSearch.Text;
+
+            var q = (from ir in dbIR.IRTransactions
+                     join cc in dbIR.CrisisCodes
+                     on ir.CrisisId equals cc.Id
+                     where
+                     (
+                        ir.TicketNo.Contains(strSearch) ||
+                        cc.Code.Contains(strSearch) ||
+                        cc.Name.Contains(strSearch) ||
+                        ir.Subject.Contains(strSearch) ||
+                        ir.Room.Contains(strSearch)
+                     )
+                     select new
+                     {
+                         Id = ir.Id,
+                         TicketNo = ir.TicketNo,
+                         CrisisName = cc.Name,
+                         Subject = ir.Subject,
+                         Room = ir.Room,
+                         IncidentDate = ir.WhenIncidentHappen,
+                         Status = ir.Status,
+                         DateSolved = ir.DateSolved,
+                         PreparedBy = ir.PreparedBy,
+                         ElapsedHours = DateTime.Now.Subtract(ir.StartDate.Value).Hours,
+                         ElapsedMinutes = DateTime.Now.Subtract(ir.StartDate.Value).Minutes,
+                         ResolvedTime = ir.ResolvedTime
+                     }).ToList();
+
+            if (txtFromDate.Text != String.Empty && txtToDate.Text == String.Empty)
+            {
+                q = q.Where(x => x.IncidentDate.Value.Date >= Convert.ToDateTime(txtFromDate.Text).Date).ToList();
+            }
+
+            if (txtToDate.Text != String.Empty && txtFromDate.Text == String.Empty)
+            {
+                q = q.Where(x => x.IncidentDate.Value.Date <= Convert.ToDateTime(txtToDate.Text).Date).ToList();
+            }
+
+            if (txtFromDate.Text != String.Empty && txtToDate.Text != String.Empty)
+            {
+                q = q.Where(x => (x.IncidentDate.Value.Date >= Convert.ToDateTime(txtFromDate.Text).Date &&
+                    x.IncidentDate.Value.Date <= Convert.ToDateTime(txtToDate.Text).Date)).ToList();
+            }
+
+            if (ddlStatus.SelectedValue != "0")
+            {
+                q = q.Where(x => x.Status == ddlStatus.SelectedValue).ToList();
+            }
+
+            if (User.IsInRole("can-create-ir"))
+            {
+                q = q.Where(x => x.PreparedBy == Guid.Parse(Membership.GetUser().ProviderUserKey.ToString())).ToList();
+            }
+
+            e.Result = q;
+            txtSearch.Focus();
         }
     }
 }

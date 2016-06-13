@@ -36,12 +36,10 @@ namespace IR.ir
                         txtTicketNo.Text = q.TicketNo;
                         ddlCrisis.SelectedValue = q.CrisisId.ToString();
                         txtFrom.Text = q.From;
-                        //ddlFrom.SelectedValue = q.From.ToString();
                         txtSubject.Text = q.Subject;
                         txtRoom.Text = q.Room;
                         txtDate.Text = String.Format("{0: MM/dd/yyyy}", q.Date); 
                         ddlStatus.SelectedValue = q.Status;
-                        //ddlDepartment.SelectedValue = q.DepartmentId.ToString();
                         txtWhenIncident.Text = q.WhenIncidentHappen.ToString();
                         rblWhenAware.SelectedValue = q.WhenAware;
                         txtWhosInvolved.Text = q.WhoInvolved;
@@ -110,24 +108,6 @@ namespace IR.ir
 
         protected void bindDropdown()
         {
-            //dm
-            //var dm = (from e in dbUser.UserProfiles
-            //          join p in dbUser.Positions
-            //         on e.PositionId equals p.Id
-            //          where
-            //          p.Name == "Duty Manager"
-            //          select new
-            //          {
-            //              UserId = e.UserId,
-            //              FullName = e.LastName + " , " + e.FirstName + " " + e.MiddleName
-            //          }).ToList(); ;
-
-            //ddlFrom.DataSource = dm;
-            //ddlFrom.DataTextField = "FullName";
-            //ddlFrom.DataValueField = "UserId";
-            //ddlFrom.DataBind();
-            //ddlFrom.Items.Insert(0, new ListItem("-- Select Duty Manager --", "0"));
-
             //dept
             var dept = (from d in dbEHRIS.DEPARTMENTs
                         select new
@@ -135,13 +115,6 @@ namespace IR.ir
                             Id = d.Id,
                             Department = d.Department1
                         }).ToList();
-
-            //ddlDepartment.DataSource = dept;
-            //ddlDepartment.DataTextField = "Department";
-            //ddlDepartment.DataValueField = "Id";
-            //ddlDepartment.DataBind();
-            //ddlDepartment.Items.Insert(0, new ListItem("Select Department", "0"));
-
 
             lstDepartments.DataSource = dept;
             lstDepartments.DataTextField = "Department";
@@ -160,7 +133,7 @@ namespace IR.ir
             ddlCrisis.DataTextField = "Name";
             ddlCrisis.DataValueField = "Id";
             ddlCrisis.DataBind();
-            ddlCrisis.Items.Insert(0, new ListItem("Select Crisis Code", "0"));
+            ddlCrisis.Items.Insert(0, new ListItem("-- Select Crisis Code --", "0"));
         }
 
         protected void btnUpdate_Click(object sender, EventArgs e)
@@ -179,7 +152,6 @@ namespace IR.ir
                 q.Room = txtRoom.Text;
                 q.Date = Convert.ToDateTime(txtDate.Text);
                 q.Status = ddlStatus.SelectedValue;
-                //q.DepartmentId = Convert.ToInt32(ddlDepartment.SelectedValue);
                 q.WhenIncidentHappen = Convert.ToDateTime(txtWhenIncident.Text);
                 q.WhenAware = rblWhenAware.SelectedValue;
                 q.WhoInvolved = txtWhosInvolved.Text;
@@ -193,6 +165,9 @@ namespace IR.ir
                 if(ddlStatus.SelectedValue == "Solved")
                 {
                     q.DateSolved = DateTime.Now;
+                    q.ResolvedTime = String.Format("{0} hours, {1} minutes",
+                        DateTime.Now.Subtract(q.StartDate.Value).Hours,
+                        DateTime.Now.Subtract(q.StartDate.Value).Minutes);
                 }
 
                 //dbIR.SubmitChanges();

@@ -53,6 +53,7 @@
                                     ShowHeaderWhenEmpty="True"
                                     DataKeyNames="Id"
                                     OnRowCommand="gvIR_RowCommand"
+                                    OnRowDataBound="gvIR_RowDataBound"
                                     DataSourceID="IRDataSource">
                                     <Columns>
                                         <asp:TemplateField HeaderText="Row Id" Visible="false">
@@ -68,13 +69,22 @@
                                         </asp:TemplateField>
 
                                         <asp:BoundField DataField="CrisisName" HeaderText="Crisis" SortExpression="CrisisName" />
-                                        <%--<asp:BoundField DataField="Author" HeaderText="Author" SortExpression="Author" />--%>
                                         <asp:BoundField DataField="Subject" HeaderText="Subject" SortExpression="Subject" />
                                         <asp:BoundField DataField="Room" HeaderText="Location" SortExpression="Room" />
                                         <asp:BoundField DataField="IncidentDate" HeaderText="Incident Date" SortExpression="IncidentDate" />                                        
-                                        <asp:TemplateField HeaderText="Time" SortExpression="RenderedTime">
+                                        
+                                        <asp:TemplateField HeaderText="Elapsed Time" SortExpression="ElapsedHours,ElapsedMinutes">
                                             <ItemTemplate>
-                                                <asp:Label ID="lblRenderedTime" runat="server" Text='<%# Eval("RenderedTime") %>'></asp:Label>
+                                                <asp:Label ID="lblElapsedHours" runat="server" Text='<%# Eval("ElapsedHours") %>'></asp:Label>
+                                                <asp:Label ID="lblHours" runat="server" Text=" hours"></asp:Label>
+                                                <asp:Label ID="lblElapsedMinutes" runat="server" Text='<%# Eval("ElapsedMinutes") %>'></asp:Label>
+                                                <asp:Label ID="lblMinutes" runat="server" Text=" minutes"></asp:Label>
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+
+                                        <asp:TemplateField HeaderText="Resolved Time" SortExpression="ResolvedTime">
+                                            <ItemTemplate>
+                                                <asp:Label ID="lblResolvedTime" runat="server" Text='<%# Eval("ResolvedTime") %>'></asp:Label>
                                             </ItemTemplate>
                                         </asp:TemplateField>
 

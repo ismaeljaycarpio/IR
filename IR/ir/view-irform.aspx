@@ -31,7 +31,6 @@
                 <div class="panel-body">
 
                     <asp:Panel ID="pnlAlertInfo" runat="server" CssClass="alert alert-info" Visible="false">
-                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                         <strong><span class="glyphicon glyphicon-info-sign"></span>Information</strong> |  You can only view the Incident Report of others but cannot make changes.
                     </asp:Panel>
 

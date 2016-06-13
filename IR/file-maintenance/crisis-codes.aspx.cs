@@ -36,11 +36,7 @@ namespace IR.file_maintenance
 
         protected void btnOpenModal_Click(object sender, EventArgs e)
         {
-            System.Text.StringBuilder sb = new System.Text.StringBuilder();
-            sb.Append(@"<script type='text/javascript'>");
-            sb.Append("$('#addModal').modal('show');");
-            sb.Append(@"</script>");
-            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "DeleteShowModalScript", sb.ToString(), false);
+            Javascript.ShowModal(this, this, "addModal");
         }
 
         protected void gvCrisisCodes_RowCommand(object sender, GridViewCommandEventArgs e)

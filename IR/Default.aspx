@@ -12,7 +12,7 @@
             <ul class="bxslider">
                 <li>
                     <%--<img src="jquery.bxslider/images/azalea.jpg" />--%>
-                    <img src="jquery.bxslider/images/azalea-boracay-logo.jpg" alt="Azalea Boracay" />
+                    <%--<img src="jquery.bxslider/images/azalea-boracay-logo.jpg" alt="Azalea Boracay" />--%>
                 </li>
             </ul>
         </div>

@@ -59,7 +59,6 @@ namespace IR.ir
                 ir.TicketNo = txtTicketNo.Text;
                 ir.CrisisId = Convert.ToInt32(ddlCrisis.SelectedValue);
                 ir.From = txtFrom.Text;
-                //ir.From = Guid.Parse(ddlFrom.SelectedValue);
                 ir.Subject = txtSubject.Text;
                 ir.Room = txtRoom.Text;
                 ir.Date = Convert.ToDateTime(txtDate.Text);
@@ -126,24 +125,6 @@ namespace IR.ir
 
         protected void bindDropdown()
         {
-            //dm
-            //var dm = (from e in dbUser.UserProfiles
-            //          join p in dbUser.Positions
-            //         on e.PositionId equals p.Id
-            //         where
-            //         p.Name == "Duty Manager"
-            //         select new
-            //         {
-            //             UserId = e.UserId,
-            //             FullName = e.LastName + " , " + e.FirstName + " " + e.MiddleName
-            //         }).ToList(); ;
-
-            //ddlFrom.DataSource = dm;
-            //ddlFrom.DataTextField = "FullName";
-            //ddlFrom.DataValueField = "UserId";
-            //ddlFrom.DataBind();
-            //ddlFrom.Items.Insert(0, new ListItem("-- Select Duty Manager --", "0"));
-
             //dept
             var dept = (from d in dbEHRIS.DEPARTMENTs
                         select new
@@ -152,17 +133,10 @@ namespace IR.ir
                             Department = d.Department1
                         }).ToList();
 
-            //ddlDepartment.DataSource = dept;
-            //ddlDepartment.DataTextField = "Department";
-            //ddlDepartment.DataValueField = "Id";
-            //ddlDepartment.DataBind();
-            //ddlDepartment.Items.Insert(0, new ListItem("Select Department", "0"));
-
             lstDepartments.DataSource = dept;
             lstDepartments.DataTextField = "Department";
             lstDepartments.DataValueField = "Id";
             lstDepartments.DataBind();
-            //lstDepartments.Items.Insert(0, new ListItem("-- Select Department --", "0"));
 
             //crisis
             var crisis = (from cc in dbIR.CrisisCodes
