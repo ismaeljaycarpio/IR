@@ -33,6 +33,7 @@ namespace IR.ir
             ReportViewer1.ProcessingMode = ProcessingMode.Local;
             ReportViewer1.LocalReport.ReportPath = Server.MapPath("~/ir/Report1.rdlc");
             ReportViewer1.SizeToReportContent = true;
+            ReportViewer1.LocalReport.DisplayName = "IR_Report";
 
             //load ir
             var tran = (from ir in db.IRTransactions

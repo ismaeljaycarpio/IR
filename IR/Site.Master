@@ -56,7 +56,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" runat="server" href="~/">eIR (Test Site) </a>
+                    <a class="navbar-brand" runat="server" href="~/">eIR</a>
                 </div>
                 <div class="navbar-collapse collapse">
                     <asp:LoginView ID="LoginView1"
