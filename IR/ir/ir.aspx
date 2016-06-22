@@ -75,10 +75,12 @@
                                         
                                         <asp:TemplateField HeaderText="Elapsed Time" SortExpression="ElapsedHours,ElapsedMinutes">
                                             <ItemTemplate>
+                                                <asp:Label ID="lblElapsedDays" runat="server" Text='<%# Eval("ElapsedDays") %>'></asp:Label>
+                                                <asp:Label ID="lblDays" runat="server" Text=" day(s),"></asp:Label>
                                                 <asp:Label ID="lblElapsedHours" runat="server" Text='<%# Eval("ElapsedHours") %>'></asp:Label>
-                                                <asp:Label ID="lblHours" runat="server" Text=" hours"></asp:Label>
+                                                <asp:Label ID="lblHours" runat="server" Text=" hour(s),"></asp:Label>
                                                 <asp:Label ID="lblElapsedMinutes" runat="server" Text='<%# Eval("ElapsedMinutes") %>'></asp:Label>
-                                                <asp:Label ID="lblMinutes" runat="server" Text=" minutes"></asp:Label>
+                                                <asp:Label ID="lblMinutes" runat="server" Text=" minute(s)"></asp:Label>
                                             </ItemTemplate>
                                         </asp:TemplateField>
 

@@ -198,6 +198,8 @@ namespace IR.ir
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
                 Label lblStatus = e.Row.FindControl("lblStatus") as Label;
+                Label lblElapsedDays = e.Row.FindControl("lblElapsedDays") as Label;
+                Label lblDays = e.Row.FindControl("lblDays") as Label;
                 Label lblElapsedHours = e.Row.FindControl("lblElapsedHours") as Label;
                 Label lblHours = e.Row.FindControl("lblHours") as Label;
                 Label lblElapsedMinutes = e.Row.FindControl("lblElapsedMinutes") as Label;
@@ -205,6 +207,8 @@ namespace IR.ir
 
                 if (lblStatus.Text == "Solved" || lblStatus.Text == "Unresolved")
                 {
+                    lblElapsedDays.Text = null;
+                    lblDays.Text = null;
                     lblElapsedHours.Text = null;
                     lblHours.Text = null;
                     lblElapsedMinutes.Text = null;
@@ -212,11 +216,19 @@ namespace IR.ir
                 }
                 else if(lblStatus.Text == "In-Progress")
                 {
+                    int days = Convert.ToInt32(lblElapsedDays.Text);
                     int hrs = Convert.ToInt32(lblElapsedHours.Text);
                     int min = Convert.ToInt32(lblElapsedMinutes.Text);
 
-                    if(hrs > 2 && min >= 1)
+                    if(days > 0)
                     {
+                        lblElapsedDays.CssClass = "label label-danger";
+                        lblElapsedHours.CssClass = "label label-danger";
+                        lblElapsedMinutes.CssClass = "label label-danger";
+                    }
+                    else if(hrs > 2 && min >= 1)
+                    {
+                        lblElapsedDays.CssClass = "label label-danger";
                         lblElapsedHours.CssClass = "label label-danger";
                         lblElapsedMinutes.CssClass = "label label-danger";
                     }
@@ -300,6 +312,7 @@ namespace IR.ir
                          Status = ir.Status,
                          DateSolved = ir.DateSolved,
                          PreparedBy = ir.PreparedBy,
+                         ElapsedDays = DateTime.Now.Subtract(ir.StartDate.Value).Days,
                          ElapsedHours = DateTime.Now.Subtract(ir.StartDate.Value).Hours,
                          ElapsedMinutes = DateTime.Now.Subtract(ir.StartDate.Value).Minutes,
                          ResolvedTime = ir.ResolvedTime
