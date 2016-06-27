@@ -1,6 +1,18 @@
-﻿
+﻿==================================================
+================ June 27 2016 ====================
 ==================================================
-================ June 10 2016 =====================
+1. DM (duty manager)
+	Role: nakikita nya lahat ng IR pero hindi nya ma edit ung IR ng IBA. tanging mga 
+	IR lng na nakapangalan sa kanya ung pwede nyang i-edit
+
+2. Managers/supervisor
+    Role: pwede nilang maview ung Incident report na na asign lng sa dept nila.
+    sample:
+        IR sa FO.. tanging FO department lng na managers or supervisor ang makakakita
+
+Users 
+==================================================
+================ June 10 2016 ====================
 ==================================================
 - report design
 - publish to dev
