@@ -111,6 +111,7 @@
                                                 <li><a runat="server" href="~/file-maintenance/crisis-codes.aspx"><span class="glyphicon glyphicon-cog"></span> Crisis Codes</a></li>
                                                 <li><a runat="server" href="~/admin/user-access.aspx"><span class="glyphicon glyphicon-user"></span> Users</a></li>
                                                 <li><a runat="server" href="~/admin/position.aspx"><span class="glyphicon glyphicon-hand-up"></span> Position</a></li>
+                                                <li><a runat="server" href="~/admin/audit-trail.aspx"><span class="glyphicon glyphicon-record"></span> Audit Trail</a></li>
                                             </ul>
                                         </li>
 

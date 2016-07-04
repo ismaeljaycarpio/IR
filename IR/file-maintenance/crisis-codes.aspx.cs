@@ -82,15 +82,15 @@ namespace IR.file_maintenance
             cc.Code = txtAddCrisisCode.Text;
             cc.Name = txtAddCrisisName.Text;
             db.CrisisCodes.InsertOnSubmit(cc);
-            db.SubmitChanges();
 
+            db.SubmitChanges();
             this.gvCrisisCodes.DataBind();
 
-            System.Text.StringBuilder sb = new System.Text.StringBuilder();
-            sb.Append(@"<script type='text/javascript'>");
-            sb.Append("$('#addModal').modal('hide');");
-            sb.Append(@"</script>");
-            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "HideShowModalScript", sb.ToString(), false);
+            //audit trail
+            DBLogger.Log("Create", "Created Crisis Code", cc.Name);
+
+            //hide modal
+            Javascript.HideModal(this, this, "addModal");
         }
 
         protected void btnUpdate_Click(object sender, EventArgs e)
@@ -102,15 +102,15 @@ namespace IR.file_maintenance
 
             q.Code = txtEditCrisisCode.Text;
             q.Name = txtEditCrisisName.Text;
-            db.SubmitChanges();
 
+            db.SubmitChanges();
             this.gvCrisisCodes.DataBind();
 
-            System.Text.StringBuilder sb = new System.Text.StringBuilder();
-            sb.Append(@"<script type='text/javascript'>");
-            sb.Append("$('#updateModal').modal('hide');");
-            sb.Append(@"</script>");
-            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "EditHideModalScript", sb.ToString(), false);
+            //audit trail
+            DBLogger.Log("Update", "Updated Crisis Code", q.Name);
+
+            //hide modal
+            Javascript.HideModal(this, this, "updateModal");
         }
 
         protected void btnDelete_Click(object sender, EventArgs e)
@@ -121,15 +121,15 @@ namespace IR.file_maintenance
                      select cc).FirstOrDefault();
 
             db.CrisisCodes.DeleteOnSubmit(q);
-            db.SubmitChanges();
 
+            db.SubmitChanges();
             this.gvCrisisCodes.DataBind();
 
-            System.Text.StringBuilder sb = new System.Text.StringBuilder();
-            sb.Append(@"<script type='text/javascript'>");
-            sb.Append("$('#deleteModal').modal('hide');");
-            sb.Append(@"</script>");
-            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "HideShowModalScript", sb.ToString(), false);
+            //audit trail
+            DBLogger.Log("Delete", "Deleted Crisis Code", q.Name);
+
+            //hide modal
+            Javascript.HideModal(this, this, "deleteModal");
         }
 
         protected void CrisisCodesDataSource_Selecting(object sender, LinqDataSourceSelectEventArgs e)

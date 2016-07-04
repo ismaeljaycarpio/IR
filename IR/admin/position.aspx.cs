@@ -118,15 +118,15 @@ namespace IR.admin
             Position pos = new Position();
             pos.Name = txtAddPosition.Text;
             dbUser.Positions.InsertOnSubmit(pos);
-            dbUser.SubmitChanges();
 
+            dbUser.SubmitChanges();
             this.gvPositions.DataBind();
 
-            System.Text.StringBuilder sb = new System.Text.StringBuilder();
-            sb.Append(@"<script type='text/javascript'>");
-            sb.Append("$('#addModal').modal('hide');");
-            sb.Append(@"</script>");
-            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "HideShowModalScript", sb.ToString(), false);
+            //audit trail
+            DBLogger.Log("Create", "Created Position ", pos.Name);
+
+            //hide modal
+            Javascript.HideModal(this, this, "addModal");
         }
 
         protected void btnUpdate_Click(object sender, EventArgs e)
@@ -134,15 +134,15 @@ namespace IR.admin
             int Id = Convert.ToInt32(hfEditId.Value);
             var pos = (from p in dbUser.Positions where p.Id == Id select p).FirstOrDefault();
             pos.Name = txtEditPosition.Text;
-            dbUser.SubmitChanges();
 
+            dbUser.SubmitChanges();
             this.gvPositions.DataBind();
 
-            System.Text.StringBuilder sb = new System.Text.StringBuilder();
-            sb.Append(@"<script type='text/javascript'>");
-            sb.Append("$('#updateModal').modal('hide');");
-            sb.Append(@"</script>");
-            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "HideShowModalScript", sb.ToString(), false);
+            //audit trail
+            DBLogger.Log("Update", "Updated Position ", pos.Name);
+
+            //hide modal
+            Javascript.HideModal(this, this, "updateModal");
         }
 
         protected void btnDelete_Click(object sender, EventArgs e)
@@ -151,15 +151,15 @@ namespace IR.admin
             var pos = (from p in dbUser.Positions where p.Id == Id select p).FirstOrDefault();
 
             dbUser.Positions.DeleteOnSubmit(pos);
-            dbUser.SubmitChanges();
 
+            dbUser.SubmitChanges();
             this.gvPositions.DataBind();
 
-            System.Text.StringBuilder sb = new System.Text.StringBuilder();
-            sb.Append(@"<script type='text/javascript'>");
-            sb.Append("$('#deleteModal').modal('hide');");
-            sb.Append(@"</script>");
-            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "HideShowModalScript", sb.ToString(), false);
+            //audit trail
+            DBLogger.Log("Delete", "Deleted Position ", pos.Name);
+
+            //hide modal
+            Javascript.HideModal(this, this, "deleteModal");
         }
 
         protected void PositionsDataSource_Selecting(object sender, LinqDataSourceSelectEventArgs e)

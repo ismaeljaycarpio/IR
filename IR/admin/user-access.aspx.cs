@@ -195,10 +195,16 @@ namespace IR.admin
             if (lnkStatus.Text == "Active")
             {
                 accnt.DeactivateUser(UserId);
+
+                //audit trail
+                DBLogger.Log("Update", "Deactivate User ", Membership.GetUser(UserId).UserName);
             }
             else
             {
                 accnt.ActivateUser(UserId);
+
+                //audit trail
+                DBLogger.Log("Update", "Activate User ", Membership.GetUser(UserId).UserName);
             }
             this.gvUsers.DataBind();
         }
@@ -215,11 +221,17 @@ namespace IR.admin
             {
                 //unlock
                 getUser.UnlockUser();
+
+                //audit trail
+                DBLogger.Log("Update", "Unlock User", Membership.GetUser(UserId).UserName);
             }
             else
             {
                 //lock
                 accnt.LockUser(UserId);
+
+                //audit trail
+                DBLogger.Log("Update", "Lock User", Membership.GetUser(UserId).UserName);
             }
 
             this.gvUsers.DataBind();
@@ -233,8 +245,10 @@ namespace IR.admin
 
             //pswd resets to own username
             accnt.ResetPassword(UserId);
-
             this.gvUsers.DataBind();
+
+            //audit trail
+            DBLogger.Log("Reset Password", "Reset Password", Membership.GetUser(UserId).UserName);
         }
 
         protected void btnUpdate_Click(object sender, EventArgs e)
@@ -259,12 +273,11 @@ namespace IR.admin
             //re-load gridview
             this.gvUsers.DataBind();
 
+            //audit trail
+            DBLogger.Log("Update", "Updated User Details", user.User.UserName);
+
             //close modal
-            System.Text.StringBuilder sb = new System.Text.StringBuilder();
-            sb.Append(@"<script type='text/javascript'>");
-            sb.Append("$('#editRole').modal('hide');");
-            sb.Append(@"</script>");
-            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "DeleteShowModalScript", sb.ToString(), false);
+            Javascript.HideModal(this, this, "editRole");
         }
 
         protected void UserDataSource_Selecting(object sender, LinqDataSourceSelectEventArgs e)
@@ -392,26 +405,24 @@ namespace IR.admin
                 //re-load users
                 this.gvUsers.DataBind();
 
+                //audit trail
+                DBLogger.Log("Create", "Add User", user.User.UserName);
+
                 //hide modal
-                System.Text.StringBuilder sb = new System.Text.StringBuilder();
-                sb.Append(@"<script type='text/javascript'>");
-                sb.Append("$('#createUser').modal('hide');");
-                sb.Append(@"</script>");
-                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "DeleteShowModalScript", sb.ToString(), false);
+                Javascript.HideModal(this, this, "createUser");
             }
         }
 
         protected void btnConfirmDelete_Click(object sender, EventArgs e)
         {
             Membership.DeleteUser(lblDeleteUsername.Text);
-
             this.gvUsers.DataBind();
 
-            System.Text.StringBuilder sb = new System.Text.StringBuilder();
-            sb.Append(@"<script type='text/javascript'>");
-            sb.Append("$('#deleteUser').modal('hide');");
-            sb.Append(@"</script>");
-            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "DeleteShowModalScript", sb.ToString(), false);
+            //audit trail
+            DBLogger.Log("Delete", "Delete User", lblDeleteUsername.Text);
+
+            //hide modal
+            Javascript.HideModal(this, this, "deleteUser");
         }
     }
 }

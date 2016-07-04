@@ -161,16 +161,13 @@ namespace IR.ir
 
             dbIR.IRTransactions.DeleteOnSubmit(q);
             dbIR.SubmitChanges();
-
             this.gvIR.DataBind();
 
-            Javascript.HideModal(this, this, "deleteModal");
+            //audit trail
+            DBLogger.Log("Delete", "Deleted IR", q.TicketNo);
 
-            //System.Text.StringBuilder sb = new System.Text.StringBuilder();
-            //sb.Append(@"<script type='text/javascript'>");
-            //sb.Append("$('#deleteModal').modal('hide');");
-            //sb.Append(@"</script>");
-            //ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "EditShowModalScript", sb.ToString(), false);
+            //hide modal
+            Javascript.HideModal(this, this, "deleteModal");
         }
 
         protected void btnConfirmSolved_Click(object sender, EventArgs e)

@@ -15,6 +15,7 @@
         <siteMapNode url="~/admin/position.aspx" title="Positions"  description="" />
         <siteMapNode url="~/file-maintenance/crisis-codes.aspx" title="Crisis Codes"  description="" />
         <siteMapNode url="~/Account/ChangePass.aspx" title="Change Password"  description="" />
+        <siteMapNode url="~/admin/audit-trail.aspx" title="Audit Trail"></siteMapNode>
       </siteMapNode>
 
     </siteMapNode>

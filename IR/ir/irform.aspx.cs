@@ -76,6 +76,10 @@ namespace IR.ir
                 dbIR.IRTransactions.InsertOnSubmit(ir);
                 dbIR.SubmitChanges();
 
+                //audit trail
+                DBLogger.Log("Create", "Created IR with initial status of: " + ir.Status, 
+                    ir.TicketNo);
+
                 int tranId = ir.Id;
 
                 //chk for uploaded photos

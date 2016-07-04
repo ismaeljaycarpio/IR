@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="IRContext">
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 10.125" name="IRContext">
   <DataContextMoniker Name="/IRContextDataContext" />
   <nestedChildShapes>
     <classShape Id="c60a6ebd-27a1-44bc-aefd-532a90cabd0e" absoluteBounds="0.5, 0.5, 2, 1.3862939453125">
@@ -32,14 +32,14 @@
         <elementListCompartment Id="d433c577-8103-4329-b41b-03d069b8e67e" absoluteBounds="1.0150000000000001, 3.085, 1.9700000000000002, 3.903116861979167" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(3 : 6.4223046875); (3.96875 : 6.4223046875); (3.96875 : 1.8862939453125)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(3 : 6.4223046875); (3.96875 : 6.4223046875); (3.96875 : 1.8862939453125)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/IRContextDataContext/IRTransaction/IRTransaction_EvidencePhoto" />
       <nodes>
         <classShapeMoniker Id="1f6c4014-0d99-4ea8-aa99-80c333cac530" />
         <classShapeMoniker Id="ceed3553-6a02-4f51-af82-2460d16debad" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(3 : 3.25564697265625); (3.88541666666667 : 3.25564697265625 : JumpStart); (4.05208333333333 : 3.25564697265625 : JumpEnd); (4.5 : 3.25564697265625)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(3 : 3.25564697265625); (4.5 : 3.25564697265625)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/IRContextDataContext/IRTransaction/IRTransaction_DepartmentsInvolved" />
       <nodes>
         <classShapeMoniker Id="1f6c4014-0d99-4ea8-aa99-80c333cac530" />
@@ -53,5 +53,11 @@
         <classShapeMoniker Id="1f6c4014-0d99-4ea8-aa99-80c333cac530" />
       </nodes>
     </associationConnector>
+    <classShape Id="edd4970e-b8a6-4606-aa55-da85630fe3c6" absoluteBounds="1.375, 7.875, 2, 1.9631982421875">
+      <DataClassMoniker Name="/IRContextDataContext/AuditTrail" />
+      <nestedChildShapes>
+        <elementListCompartment Id="091b4f89-ee5d-444d-a18d-44eab6484e7a" absoluteBounds="1.3900000000000001, 8.335, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
   </nestedChildShapes>
 </ordesignerObjectsDiagram>

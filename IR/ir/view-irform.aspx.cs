@@ -218,6 +218,10 @@ namespace IR.ir
 
                 dbIR.SubmitChanges();
 
+                //audit trail
+                DBLogger.Log("Update", "Updated IR with status of: " + q.Status,
+                    q.TicketNo);
+
                 Response.Redirect("~/ir/ir.aspx");
             }
         } 

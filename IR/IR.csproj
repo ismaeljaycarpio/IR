@@ -161,6 +161,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Account\ChangePass.aspx" />
+    <Content Include="admin\audit-trail.aspx" />
     <Content Include="admin\position.aspx" />
     <Content Include="admin\user-access.aspx" />
     <Content Include="App_Readme\Elmah.txt" />
@@ -454,6 +455,13 @@
     <Compile Include="Account\ChangePass.aspx.designer.cs">
       <DependentUpon>ChangePass.aspx</DependentUpon>
     </Compile>
+    <Compile Include="admin\audit-trail.aspx.cs">
+      <DependentUpon>audit-trail.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\audit-trail.aspx.designer.cs">
+      <DependentUpon>audit-trail.aspx</DependentUpon>
+    </Compile>
     <Compile Include="admin\position.aspx.cs">
       <DependentUpon>position.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -472,6 +480,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="DAL\AccountManagement.cs" />
+    <Compile Include="DAL\DBLogger.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
