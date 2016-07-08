@@ -4,10 +4,10 @@
 </asp:Content>
 <asp:content id="Content2" contentplaceholderid="MainContent" runat="server">
 
-    <script src="jquery.bxslider/jquery.bxslider.js" type="text/javascript"></script>
+    <script src="jquery.bxslider/jquery.bxslider.min.js" type="text/javascript"></script>
     <link href="jquery.bxslider/jquery.bxslider.css" type="text/css" rel="stylesheet" />
 
-    <div class="row">
+    <%--<div class="row">
         <div class="col-md-12">
             <ul class="bxslider">
                 <li>
@@ -18,7 +18,7 @@
                 </li>
             </ul>
         </div>
-    </div>
+    </div>--%>
 
     <script>
         $(document).ready(function () {

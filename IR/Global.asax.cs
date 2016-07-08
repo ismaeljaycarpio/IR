@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Routing;
 using System.Web.Security;
+using System.Web.Optimization;
 using IR;
 
 namespace IR
@@ -14,6 +15,7 @@ namespace IR
         {
             // Code that runs on application startup
             AuthConfig.RegisterOpenAuth();
+            BundleConfig.RegisterBundles(BundleTable.Bundles);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             SqlServerTypes.Utilities.LoadNativeAssemblies(Server.MapPath("~/bin"));
         }
