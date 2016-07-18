@@ -136,6 +136,8 @@
                             </ContentTemplate>
                             <Triggers>
                                 <asp:PostBackTrigger ControlID="btnExportTotalbyIR" />
+                                <asp:AsyncPostBackTrigger ControlID="gvIR" EventName="RowCommand" />
+                                <asp:AsyncPostBackTrigger ControlID="gvIR" EventName="RowDataBound" />
                             </Triggers>
                         </asp:UpdatePanel>
                     </div>

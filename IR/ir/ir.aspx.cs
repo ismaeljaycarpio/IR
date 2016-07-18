@@ -16,7 +16,6 @@ namespace IR.ir
         EHRISDataContext dbEHRIS = new EHRISDataContext();
         UserAccountDataContext dbUser = new UserAccountDataContext();
 
-
         protected void Page_Load(object sender, EventArgs e)
         {
         }
