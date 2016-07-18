@@ -213,7 +213,7 @@
                             runat="server"
                             ControlToValidate="FileUpload1"
                             Display="Dynamic"
-                            ValidationExpression="([a-zA-Z0-9\s_\\.\-:])+(.png|.jpg|.gif)$"
+                            ValidationExpression="([a-zA-Z0-9\s_\\.\-:])+(.png|.jpg|.gif|.JPG|.PNG|.GIF|.bmp|.BMP)$"
                             ValidationGroup="vgAdd"
                             CssClass="label label-danger"
                             ErrorMessage="Invalid image file"></asp:RegularExpressionValidator>

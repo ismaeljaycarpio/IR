@@ -169,7 +169,7 @@
                 <div class="panel-body">
                     <div class="col-md-10">
                         <label for="lstDepartments">Departments Involved: </label>
-                        <asp:ListBox ID="lstDepartments" runat="server" SelectionMode="Multiple" CssClass="form-control" ></asp:ListBox>
+                        <asp:ListBox ID="lstDepartments" runat="server" SelectionMode="Multiple" CssClass="form-control"></asp:ListBox>
                     </div>
                 </div>
 
@@ -219,7 +219,7 @@
                             runat="server"
                             ControlToValidate="FileUpload1"
                             Display="Dynamic"
-                            ValidationExpression="([a-zA-Z0-9\s_\\.\-:])+(.png|.jpg|.gif|.PNG)$"
+                            ValidationExpression="([a-zA-Z0-9\s_\\.\-:])+(.png|.jpg|.gif|.bmp|.BMP|.PNG|.JPG|.GIF)$"
                             ValidationGroup="vgAdd"
                             CssClass="label label-danger"
                             ErrorMessage="Invalid image file"></asp:RegularExpressionValidator>
